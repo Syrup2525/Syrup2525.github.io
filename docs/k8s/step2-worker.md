@@ -1,5 +1,6 @@
 # Woker 구성
 ## 사전 작업
+### 메모리 swap off
 메모리 swap off
 ```bash
 swapoff -a
@@ -28,6 +29,7 @@ Swap:            0B          0B          0B
 ```
 
 ## RKE2 를 이용해 쿠버네티스 설치
+### RKE2 agent 설치
 명령어 실행 전 root 계정 전환 필요
 ```bash
 su root
@@ -67,10 +69,10 @@ node-name: woker1 # agent 이름
 ```
 
 ::: tip
-token 값은 [Woker 노드 등록에 필요한 token 확인](#woker-노드-등록에-필요한-token-확인) 에서 확인
+token 값은 [Woker 노드 등록에 필요한 token 확인](/k8s/step1-master.html#woker-노드-등록에-필요한-token-확인) 에서 확인
 :::
 
-RKE2 서비스 등록
+### 서비스 시작 및 등록
 ```bash
 systemctl enable rke2-agent
 ```
@@ -96,7 +98,7 @@ journalctl -u rke2-agent -f
 ```
 :::
 
-노드 확인 (Master)
+노드 확인 (Master 에서 확인)
 ```bash
 kubectl get nodes
 ```

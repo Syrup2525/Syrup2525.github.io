@@ -11,16 +11,22 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
+## cert-manager 설치 (선택 사항)
 ::: tip
-### cert-manager 설치 (선택 사항)
-공용 또는 개인 CA 서명 인증서를 사용하는 경우 **3-2 생략**
+공식 문서는 [cert-manager docs](https://cert-manager.io/docs/installation/helm/) 참고
+:::
 
-`Rancher 생성 TLS 인증서` 또는 `Let's Encrypt 인증서` 사용시 **3-2 진행 필요**
+인증서 종류에 따른 필수 설치 유무
+
+| 인증서 종류                 | 필수 |
+| ------------------------ | ----: |
+| Rancher 생성 TLS 인증서     | O    |
+| Let's Encrypt 인증서       | O    |
+| 공용 또는 개인 CA 서명 인증서  | X    |
 
 자세한 설명은 [여기](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster#3-choose-your-ssl-configuration) 참고
 
-설치 공식 문서는 [cert-manager docs](https://cert-manager.io/docs/installation/helm/) 참고
-:::
+::: details cert-manager 설치 방법
 
 저장소 추가
 ```bash
@@ -71,23 +77,41 @@ documentation:
 
 https://cert-manager.io/docs/usage/ingress/
 ```
+:::
 
 ## Rancher 설치
 ::: tip
-설치 공식 문서는 [Install/Upgrade Rancher on a Kubernetes Cluster](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster) 참고
+공식 문서는 [Install/Upgrade Rancher on a Kubernetes Cluster](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster) 참고
 :::
 
-저장소 추가 (stable)
+### 저장소 추가 (stable)
 ```bash
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 ```
 
-namespace 생성
+::: details 저장소 종류
+- Latest : 최신 기능을 사용해 볼 수 있는 권장 사항
+```bash
+helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
+```
+
+- Stable : 운영 환경에 적합한 제품
+```bash
+helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
+```
+
+- Alpha : 출시 예정작의 실험적 미리보기
+```bash
+helm repo add rancher-alpha https://releases.rancher.com/server-charts/alpha
+```
+:::
+
+### namespace 생성
 ```bash
 kubectl create namespace cattle-system
 ```
 
-(아래는 letsEncrypt 예시)
+`Let's Encrypt 인증서` 예시
 ```bash
 helm install rancher rancher-stable/rancher \
   --namespace cattle-system \
@@ -99,10 +123,10 @@ helm install rancher rancher-stable/rancher \
 ```
 
 ::: tip
-`letsEncrypt 인증서` 외 `Rancher 생성 TLS 인증서` 또는 `공용 또는 개인 CA 서명 인증서` 를 사용하는 경우 [여기](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster#5-install-rancher-with-helm-and-your-chosen-certificate-option) 참고
+`Rancher 생성 TLS 인증서` 또는 `공용 또는 개인 CA 서명 인증서` 를 사용하는 경우 [여기](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster#5-install-rancher-with-helm-and-your-chosen-certificate-option) 참고
 :::
 
-실행결과
+### 실행결과
 ```bash
 NAME: rancher
 LAST DEPLOYED: Mon May 20 15:40:15 2024

@@ -1,11 +1,12 @@
 # Master 구성
 ## 사전 작업
-메모리 swap off
+### 메모리 swap off
+메모리 swapp off
 ```bash
 swapoff -a
 ```
 
-메모리 swapp off (재부팅 후 설정 초기화 방지)
+재부팅 후 설정 초기화 방지
 ```bash
 vi /etc/fstab
 ```
@@ -27,16 +28,17 @@ Mem:           15Gi       255Mi        13Gi       773Mi       1.4Gi        13Gi
 Swap:            0B          0B          0B
 ```
 
-
 ## RKE2 를 이용해 쿠버네티스 설치
+
+::: tip
+공식 문서는 [RKE2 Quick Start](https://docs.rke2.io/install/quickstart) 참고
+:::
+
+### RKE2 Server 설치
 명령어 실행 전 root 계정 전환 필요
 ```bash
 su root
 ```
-
-::: tip
-설치 공식 문서는 [RKE2 Quick Start](https://docs.rke2.io/install/quickstart) 참고
-:::
 
 curl 명령어 실행
 ```bash
@@ -58,7 +60,7 @@ Installed:
 Complete!
 ```
 
-## RKE2 서비스 시작 및 등록
+### 서비스 시작 및 등록
 ::: tip
 ::: details config.yaml 설정 (선택사항)
 ```bash
@@ -66,6 +68,7 @@ mkdir -p /etc/rancher/rke2/
 vi /etc/rancher/rke2/config.yaml
 ```
 
+node-name 변경
 ```yaml title="config.yaml"
 node-name: master1 # agent 이름
 ```

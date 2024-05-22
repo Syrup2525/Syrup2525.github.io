@@ -2,10 +2,10 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Syrup2525",
-  description: "A VitePress Site",
+  title: "Syrup",
+  description: "개발 여정에서 겪은 고민과 해결의 순간들, 그리고 환경 구성 방법을 기록하는 공간",
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
+    logo: "/images/logo_circle.png",
     nav: [
       // { text: 'Home', link: '/' },
       // { text: 'Examples', link: '/markdown-examples' }
@@ -27,6 +27,8 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/syrup2525' }
-    ]
+    ],
+
+    outline: [2, 3],
   }
 })
