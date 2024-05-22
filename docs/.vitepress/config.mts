@@ -11,17 +11,19 @@ export default defineConfig({
       // { text: 'Examples', link: '/markdown-examples' }
     ],
 
-    sidebar: [
-      {
-        text: '쿠버네티스 환경 구성',
-        items: [
-          { text: 'Master 구성', link: '/k8s/step1-master.md' },
-          { text: 'Worker 구성', link: '/k8s/step2-worker.md' },
-          { text: 'Rancher 설치', link: '/k8s/step3-rancher.md' },
-          { text: '설치 제거', link: '/k8s/step4-uninstall.md' },
-        ]
-      }
-    ],
+    sidebar: {
+      '/k8s/': [
+        {
+          text: '쿠버네티스 환경 구성',
+          items: [
+            { text: 'Master 구성', link: '/k8s/step1-master.md' },
+            { text: 'Worker 구성', link: '/k8s/step2-worker.md' },
+            { text: 'Rancher 설치', link: '/k8s/step3-rancher.md' },
+            { text: '설치 제거', link: '/k8s/step4-uninstall.md' },
+          ]
+        },
+      ],
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/syrup2525' }
