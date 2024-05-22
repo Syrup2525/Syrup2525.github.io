@@ -1,4 +1,8 @@
-# Rancher 설치 (Master)
+# Rancher 설치
+
+::: danger 주의
+아래에서 실행하는 명령어는 Master Node 에서 실행해야 됩니다.
+:::
 
 ## Helm 설치
 ```bash
