@@ -1,18 +1,17 @@
 {
-  "name": "my-vuepress-site",
-  "version": "0.0.1",
-  "description": "A VuePress project",
-  "license": "MIT",
-  "type": "module",
+  "name": "example",
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "docs:build": "vuepress build docs",
-    "docs:clean-dev": "vuepress dev docs --clean-cache",
-    "docs:dev": "vuepress dev docs",
-    "docs:update-package": "npx vp-update"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "devDependencies": {
-    "@vuepress/bundler-vite": "^2.0.0-rc.11",
-    "@vuepress/theme-default": "^2.0.0-rc.11",
-    "vuepress": "^2.0.0-rc.11"
+    "vitepress": "^1.2.2"
   }
 }
