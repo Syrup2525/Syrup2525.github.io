@@ -69,7 +69,7 @@ node-name: woker1 # agent 이름
 ```
 
 ::: tip
-token 값은 [Woker 노드 등록에 필요한 token 확인](/k8s/step1-master.html#woker-노드-등록에-필요한-token-확인) 에서 확인
+token 값은 [Woker 노드 등록에 필요한 token 확인](/k8s/install/step1-master.html#woker-노드-등록에-필요한-token-확인) 에서 확인
 :::
 
 ### 서비스 시작 및 등록

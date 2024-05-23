@@ -14,6 +14,10 @@ vi /etc/fstab
 ```bash
 # 이 줄을 주석처리 해준다.
 # /dev/mapper/centos-swap swap swap defaults 0 0
+
+UUID=1234-ABCD          /boot/efi               vfat    umask=0077,shortname=winnt 0 2
+/dev/mapper/cs-home     /home                   xfs     defaults        0 0
+# /dev/mapper/cs-swap     none                    swap    defaults        0 0
 ```
 
 swap 영역 확인
@@ -69,7 +73,8 @@ vi /etc/rancher/rke2/config.yaml
 ```
 
 node-name 변경
-```yaml title="config.yaml"
+::: code-group
+```yaml [config.yaml]
 node-name: master1 # agent 이름
 ```
 :::

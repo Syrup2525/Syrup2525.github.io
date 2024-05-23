@@ -1,5 +1,5 @@
-## 기타 명령어
-### RKE2 삭제
+# 기타 명령어
+## RKE2 삭제
 ```bash
 /usr/bin/rke2-uninstall.sh
 ```
@@ -8,7 +8,7 @@
 RKE2 Uninstall [공식 문서](https://docs.rke2.io/install/uninstall)
 :::
 
-### helm 삭제
+## helm 삭제
 ```bash
 rm -rf $HOME/.cache/helm
 rm -rf $HOME/.config/helm
@@ -20,7 +20,7 @@ rm -rf /usr/local/bin/helm
 helm uninstalling [공식 문서](https://helm.sh/docs/faq/uninstalling/)
 :::
 
-### kubectl 환경변수 삭제
+## kubectl 환경변수 삭제
 ```bash
 rm -rf ~/.kube/
 ```
