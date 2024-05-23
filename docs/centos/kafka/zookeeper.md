@@ -1,73 +1,81 @@
-# 1. JAVA 설치 (필요한 경우)
-* 1-1 JAVA 설치
-    ```
+# Kafka 환경 구성 (Kraft)
+
+## JAVA 설치 (필요한 경우)
+* JAVA 설치
+    ```bash
     yum install java-1.8.0-openjdk
     ```
 
-* 1-2 JAVA 설치 확인
-    ```
+* JAVA 설치 확인
+    ```bash
     java -version
     ```
 
-# 2. Kafka 설치
-* 2-1 wget 설치 (필요한 경우) 
-    ```
+## Kafka 설치
+* wget 설치 (필요한 경우) 
+    ```bash
     yum install wget
     ```
 
-* 2-2 kafka 다운
-    ```
+* kafka 다운
+    ```bash
     wget https://downloads.apache.org/kafka/3.5.1/kafka_2.13-3.5.1.tgz
     ```
 
-* 2-3 압축 해제
-    ```
+* 압축 해제
+    ```bash
     tar xvf kafka_2.13-3.5.1.tgz
     ```
 
-* 2-4 심볼릭 링크 생성
-    ```
+* 심볼릭 링크 생성
+    ```bash
     ln -s kafka_2.13-3.5.1 kafka
     ```
 
-# 3. kafka config 파일 수정
-* 3-1 IP 확인 (사설 IP 등으로 설정을 원하는 경우, localhost 일때는 필요없음)
-    ```
+## kafka config 파일 수정
+* IP 확인 (사설 IP 등으로 설정을 원하는 경우, localhost 일때는 필요없음)
+    ```bash
     ifconfig
     ```
 
-* 3-2 ifconfig Command not found 시 net-tools 설치
-    ```
+* ifconfig Command not found 시 net-tools 설치
+    ```bash
     yum install net-tools
     ```
 
-* 3-3 server.properties 수정
-    ```
+* server.properties 수정
+    ```bash
     vi kafka/config/server.properties
     ```
-    ```
+
+    ::: code-group
+    ```bash [server.properties]
     broker.id=1
     listeners=PLAINTEXT://<IP>:9092
     advertised.listeners=PLAINTEXT://<IP>:9092
     ```
+    :::
 
-# 4. 테스트
-* 4-1 zookeeper 실행
-    ```
+## 테스트
+* zookeeper 실행
+    ```bash
     kafka/bin/zookeeper-server-start.sh kafka/config/zookeeper.properties
     ```
 
-* 4-2 kafka (별도 터미널에서) 실행
-    ```
+* kafka (별도 터미널에서) 실행
+    ```bash
     kafka/bin/kafka-server-start.sh kafka/config/server.properties
     ```
 
-# 5. 서비스 등록
-* 5-1 zookeeper 스크립트 작성
-    ```
+## 서비스 등록
+### zookeeper
+* zookeeper 스크립트 작성
+    ```bash
     vi /usr/lib/systemd/system/zookeeper.service
     ```
-    ```
+
+    ::: code-group
+    ```bash [zookeeper.service]
     [Unit]
     Description=zookeeper
     After=network.target
@@ -86,23 +94,27 @@
     [Install]
     WantedBy=multi-user.target
     ```
+    :::
 
-* 5-2 zookeeper 서비스 등록 및 시작
-    ```
+* zookeeper 서비스 등록 및 시작
+    ```bash
     systemctl start zookeeper
     ```
-    ```
+    ```bash
     systemctl status zookeeper
     ```
-    ```
+    ```bash
     systemctl enable zookeeper
     ```
 
-* 5.3 kafka 스크립트 작성
-    ```
+### kafka
+* kafka 스크립트 작성
+    ```bash
     vi /usr/lib/systemd/system/kafka.service
     ```
-    ```
+
+    ::: code-group
+    ```bash [kafka.service]
     [Unit]
     Description=kafka
     After=network.target
@@ -122,13 +134,13 @@
     WantedBy=multi-user.target
     ```
 
-* 5-4 kafka 서비스 등록 및 시작
-    ```
+* kafka 서비스 등록 및 시작
+    ```bash
     systemctl start kafka
     ```
-    ```
+    ```bash
     systemctl status kafka
     ```
-    ```
+    ```bash
     systemctl enable kafka
     ```

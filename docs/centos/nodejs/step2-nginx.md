@@ -33,10 +33,10 @@
 
 * IP 직접접근 차단 (필요한 경우)
 
-    ```
+    ```bash
     vi /etc/nginx/nginx.conf
     ```
-    ```
+    ```bash
     ...
     server {
         listen       80 default_server;
@@ -48,7 +48,7 @@
 
 * 변경사항 적용
 
-    ```
+    ```bash
     systemctl restart nginx
     ```
 
@@ -56,25 +56,25 @@
     
 * semanage 명령어 사용을 위한 패키지 설치 (필요한 경우)
 
-    ```
+    ```bash
     yum install policycoreutils-python
     ```
 
 * 현재 허용되어있는 포트 확인
 
-    ```
+    ```bash
     semanage port --list | grep http_port_t
     ```
 
     * http_port_t 항목 확인
 
-        ```
+        ```bash
         http_port_t    tcp    80, 81, 443, 488, 8008, 8009, 8443, 9000
         ```
 
 * 3000 번 포트 허용
 
-    ```
+    ```bash
     semanage port --add --type http_port_t --proto tcp 3000
     ```
 

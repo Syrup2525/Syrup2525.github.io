@@ -7,8 +7,21 @@ export default defineConfig({
     logo: "https://github.com/Syrup2525/Syrup2525.github.io/blob/main/docs/images/logo_circle.png?raw=true",
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'k8s', link: '/k8s/install/step1-master.md' },
-      { text: 'CentOS', link: '/centos/nginx/install.html' },
+      {
+        text: 'k8s',
+        items: [
+          { text: '쿠버네티스환경 구성', link: '/k8s/install/step1-master.md' },
+        ],
+      },
+      {
+        text: 'CentOS',
+        items: [
+          { text: 'kafka',  link: '/centos/kafka/kraft.html'},
+          { text: 'Nginx', link: '/centos/nginx/install.html' },
+          { text: 'Node.js', link: '/centos/nodejs/step1-nodejs' },
+          { text: 'php (7.4)', link: '/centos/php/step1-phpfpm' },
+        ],
+      },
     ],
 
     sidebar: {
@@ -28,6 +41,13 @@ export default defineConfig({
           text: 'CentOS',
           items: [
             {
+              text: 'Kafka',
+              items: [
+                { text: "kraft 사용", link: '/centos/kafka/kraft'},
+                { text: "zookeeper 사용", link: '/centos/kafka/zookeeper'},
+              ],
+            },
+            {
               text: 'Nginx',
               items: [
                 { text: "설치", link: '/centos/nginx/install' },
@@ -37,6 +57,7 @@ export default defineConfig({
                     { text: 'Lets encrypt 인증서 발급 (certbot 활용)', link: '/centos/nginx/ssl/certbot' },
                     { text: '공용 또는 개인 CA 서명 인증서 적용', link: '/centos/nginx/ssl/ssl' },
                   ],
+                  collapsed: true,
                 }
               ]
             },
@@ -48,7 +69,7 @@ export default defineConfig({
               ]
             },
             {
-              text: 'php (7.4)',
+              text: 'PHP (7.4)',
               items: [
                 { text: "php-fpm 설치", link: '/centos/php/step1-phpfpm' },
                 { text: "Nginx 연동", link: '/centos/php/step2-nginx' },

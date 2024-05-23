@@ -12,7 +12,7 @@ vi /etc/fstab
 ```
 
 해당 라인을 주석(삭제)처리 해준다.
-```vi
+```txt
 UUID=1234-ABCD          /boot/efi               vfat    umask=0077,shortname=winnt 0 2
 /dev/mapper/cs-home     /home                   xfs     defaults        0 0
 /dev/mapper/cs-swap     none                    swap    defaults        0 0 // [!code --]

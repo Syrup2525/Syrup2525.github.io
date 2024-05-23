@@ -1,19 +1,23 @@
+# certbot 을 활용해 Lets encrypt 인증서 발급 및 SSL 적용
+
 ## 설치
 
-* 1-1 패키지 설치
-    ```
+* 패키지 설치
+    ```bash
     yum install certbot
     yum install python-certbot-nginx
     ```
 
 ## conf 파일 수정
 
-* 2-1 example.com.conf 파일 생성 및 작성
+* example.com.conf 파일 생성 및 작성
 
-    ```
+    ```bash
     vi /etc/nginx/conf.d/example.com.conf
     ```
-    ```
+
+    ::: code-group
+    ```bash [example.com.conf]
     server {
         listen 80;
         server_name test.blossom.bumblebeecrew.com;
@@ -64,25 +68,24 @@
             }
         }
     }
+    :::
     ```
 
-# 3. 인증서 발급 및 nginx 자동 구성
+## 인증서 발급 및 nginx 자동 구성
 
-* 3-1 인증서 발급
+* 인증서 발급
 
-    ```
+    ```bash
     certbot --nginx -d example.com
     ```
 
     본인 이메일 입력
-
-    ```
+    ```bash
     Enter email address (used for urgent renewal and security notices)
     ```
 
     이용 약관 동의
-
-    ```
+    ```bash
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     Please read the Terms of Service at
     https://letsencrypt.org/documents/LE-SA-v1.3-September-21-2022.pdf. You must
@@ -92,7 +95,7 @@
     ```
 
     뉴스 및 기타 알림 수신 동의
-    ```
+    ```bash
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     Would you be willing, once your first certificate is successfully issued, to
     share your email address with the Electronic Frontier Foundation, a founding
@@ -103,9 +106,9 @@
     (Y)es/(N)o:
     ```
 
-* 3-2 인증서 발급 및 적용 완료
+* 인증서 발급 및 적용 완료
 
-    ```
+    ```bash
     Account registered.
     Requesting a certificate for example.com
     Performing the following challenges:
@@ -135,21 +138,22 @@
     Donating to EFF:                    https://eff.org/donate-le
     ```
 
-* 3-3 인증서 적용 확인
+* 인증서 적용 확인
 
-    ```
+    ```bash
     cat /etc/nginx/conf.d/example.com.conf
     ```
     인증서 파일 경로 및 80번 리다이렉트 적용 확인이 가능하다.
 
-# 4. 인증서 갱신 테스트
+## 인증서 갱신 테스트
 
-* 4-1 인증서 갱신 (테스트)
+* 인증서 갱신 (테스트)
 
-    ```
+    ```bash
     certbot renew --dry-run
     ```
-    ```
+
+    ```bash
     Saving debug log to /var/log/letsencrypt/letsencrypt.log
 
     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -4,7 +4,7 @@
 
 * node 설치
 
-    ```
+    ```bash
     yum install nodejs
     ```
     ```
@@ -13,10 +13,10 @@
 
 * npm 설치
 
-    ```
+    ```bash
     yum install npm
     ```
-    ```
+    ```bash
     npm --version
     ```
 
@@ -24,13 +24,13 @@
 
 * pm2 설치 (node 프로세스 매니저)
 
-    ```
+    ```bash
     npm install -g pm2
     ```
 
 * n 설치 (node 버전 관리)
 
-    ```
+    ```bash
     npm install -g n
     ```
 
@@ -40,25 +40,25 @@
 
     * 특정 버전 설치
 
-        ```
+        ```bash
         n 16.19.1
         ```
 
     * lts 설치 
 
-        ```
+        ```bash
         n lts
         ```
 
     * latest 설치
 
-        ```
+        ```bash
         n latest
         ```
 
 * node 버전 확인
 
-    ```
+    ```bash
     node --version
     ```
 
@@ -66,25 +66,25 @@
 
 * 폴더 생성
 
-    ```
+    ```bash
     mkdir express
     ```
-    ```
+    ```bash
     cd express
     ```
 
 * express 모듈 설치
 
-    ```
+    ```bash
     npm i express
     ```
 
 * 예제 코드 작성
 
-    ```
+    ```bash
     vi index.js
     ```
-    ``` javascript
+    ```js
     const express = require('express')
     const app = express()
     const port = 3000
@@ -100,18 +100,18 @@
 
 * express example 실행 확인
 
-    ```
+    ```bash
     node index.js
     ```
 
 * pm2 서비스 등록
 
-    ```
+    ```bash
     pm2 start index.js
     ```
 
 * 코드 실행 확인
 
-    ```
+    ```bash
     curl -X GET localhost:3000
     ```
