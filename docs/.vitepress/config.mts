@@ -1,14 +1,14 @@
 import { defineConfig } from 'vitepress'
 
-// https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Syrup",
   description: "개발 여정에서 겪은 고민과 해결의 순간들, 그리고 환경 구성 방법을 기록하는 공간",
   themeConfig: {
     logo: "https://github.com/Syrup2525/Syrup2525.github.io/blob/main/docs/images/logo_circle.png?raw=true",
     nav: [
-      // { text: 'Home', link: '/' },
-      // { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Home', link: '/' },
+      { text: 'k8s', link: '/k8s/install/step1-master.md' },
+      { text: 'CentOS', link: '/centos/nginx/install.html' },
     ],
 
     sidebar: {

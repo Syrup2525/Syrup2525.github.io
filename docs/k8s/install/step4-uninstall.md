@@ -27,7 +27,8 @@ rm -rf ~/.kube/
 
 ::: tip
 ~/.bashrc 파일 변경 필요
-```bashrc title=".bashrc"
+::: code-group
+```basht [.bashrc]
 #export PATH=/usr/local/bin:/var/lib/rancher/rke2/bin:$PATH # 구문 삭제
 ```
 :::

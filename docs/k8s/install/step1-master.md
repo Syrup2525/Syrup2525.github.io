@@ -11,13 +11,11 @@ swapoff -a
 vi /etc/fstab
 ```
 
-```bash
-# 이 줄을 주석처리 해준다.
-# /dev/mapper/centos-swap swap swap defaults 0 0
-
+해당 라인을 주석(삭제)처리 해준다.
+```vi
 UUID=1234-ABCD          /boot/efi               vfat    umask=0077,shortname=winnt 0 2
 /dev/mapper/cs-home     /home                   xfs     defaults        0 0
-# /dev/mapper/cs-swap     none                    swap    defaults        0 0
+/dev/mapper/cs-swap     none                    swap    defaults        0 0 // [!code --]
 ```
 
 swap 영역 확인
