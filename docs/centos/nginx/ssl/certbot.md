@@ -27,49 +27,16 @@
         # root
         location / {
             root /home/user/public-html/example/;
-            index index.html index.htm index.php;
-
-            # php 
-            location ~ \.php$ {
-                fastcgi_pass   127.0.0.1:9000;
-                fastcgi_index  index.php;
-                fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                include        fastcgi_params;
-            }
-        }
-
-        # /example (node listen 3000)
-        location /example {
-            proxy_pass http://127.0.0.1:3000;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
-
-        # /socket (node listen 3001 webSocket)
-        location /socket {
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header Host $host;
-
-            proxy_pass http://127.0.0.1:3001;
-
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            roxy_set_header Connection "upgrade";
-        }
-
-        # /example/php
-        location ^~ /example/php {
-            alias /home/user/php/example/;
-            index index.html index.htm index.php;
-
-            location ~ \.php$ {
-                fastcgi_pass   127.0.0.1:9000;
-                include        fastcgi_params;
-                fastcgi_param  SCRIPT_FILENAME $request_filename;
-            }
+            index index.html index.htm;
         }
     }
-    :::
     ```
+    :::
+
+    ::: tip
+    더 다양한 설정 방법은 [nginx conf 파일 구성 예시](/centos/nginx/install.html#nginx-conf-파일-구성-예시) 참고
+    :::
+
 
 ## 인증서 발급 및 nginx 자동 구성
 

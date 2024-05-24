@@ -78,7 +78,7 @@
     semanage port --add --type http_port_t --proto tcp 3000
     ```
 
-## 8. 브라우저에서 접속 확인
+## 브라우저에서 접속 확인
 
 ```
 http://test.example.com

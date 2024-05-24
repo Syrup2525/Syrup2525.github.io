@@ -13,15 +13,11 @@
     vi crt
     ```
 
-    해당 부분을
-    ```bash
-    -----END CERTIFICATE----------BEGIN CERTIFICATE-----
-    ```
-
-    아래처럼 줄바꿈 처리한다.
-    ```bash
-    -----END CERTIFICATE-----
-    -----BEGIN CERTIFICATE-----
+    CERTIFICATE 부분 줄바꿈 처리
+    ```txt
+    -----END CERTIFICATE----------BEGIN CERTIFICATE----- // [!code --]
+    -----END CERTIFICATE----- // [!code ++]
+    -----BEGIN CERTIFICATE----- // [!code ++]
     ```
 
 * 인증서 파일 경로 수정 (필요한 경우)
@@ -45,8 +41,12 @@
 ## conf 파일 수정
 
 * conf 파일에 다음과 같이 ssl 적용 (예시)
-
     ```bash
+    vi /etc/nginx/conf.d/example.com.conf
+    ```
+
+    ::: code-group
+    ```bash [example.com.conf]
     server {
         listen 80;
         server_name example.com;
@@ -70,48 +70,15 @@
         # root
         location / {
             root /home/user/public-html/example/;
-            index index.html index.htm index.php;
-
-            # php 
-            location ~ \.php$ {
-                fastcgi_pass   127.0.0.1:9000;
-                fastcgi_index  index.php;
-                fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                include        fastcgi_params;
-            }
-        }
-
-        # /example (node listen 3000)
-        location /example {
-            proxy_pass http://127.0.0.1:3000;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
-
-        # /socket (node listen 3001 webSocket)
-        location /socket {
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header Host $host;
-
-            proxy_pass http://127.0.0.1:3001;
-
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            roxy_set_header Connection "upgrade";
-        }
-
-        # /example/php
-        location ^~ /example/php {
-            alias /home/user/php/example/;
-            index index.html index.htm index.php;
-
-            location ~ \.php$ {
-                fastcgi_pass   127.0.0.1:9000;
-                include        fastcgi_params;
-                fastcgi_param  SCRIPT_FILENAME $request_filename;
-            }
+            index index.html index.htm;
         }
     }
     ```
+    :::
+
+    ::: tip
+    더 다양한 설정 방법은 [nginx conf 파일 구성 예시](/centos/nginx/install.html#nginx-conf-파일-구성-예시) 참고
+    :::
 
 ## nginx 데몬 재시작 및 SSL 확인
 

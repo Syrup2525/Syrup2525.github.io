@@ -16,10 +16,16 @@ export default defineConfig({
       {
         text: 'CentOS',
         items: [
-          { text: 'kafka',  link: '/centos/kafka/kraft.html'},
+          { text: 'Kafka',  link: '/centos/kafka/kraft.html'},
           { text: 'Nginx', link: '/centos/nginx/install.html' },
           { text: 'Node.js', link: '/centos/nodejs/step1-nodejs' },
           { text: 'php (7.4)', link: '/centos/php/step1-phpfpm' },
+        ],
+      },
+      {
+        text: "Xcode",
+        items: [
+          { text: "pod 라이브러리 재설치", link: "/xcode/pod-reinstall" },
         ],
       },
     ],
@@ -78,6 +84,14 @@ export default defineConfig({
           ]
         }
       ],
+      "/xcode/": [
+        {
+          text: "Xcode",
+          items: [
+            { text: "pod 라이브러리 재설치", link: "/xcode/pod-reinstall" },
+          ]
+        }
+      ]
     },
 
     socialLinks: [
