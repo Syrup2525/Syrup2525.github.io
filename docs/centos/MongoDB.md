@@ -1,6 +1,8 @@
-# 1. MongoDB 설치
+# MongoDB 설치
 
-* 1-1 저장소 추가
+## MongoDB 설치
+
+* 저장소 추가
 
     ```
     vi /etc/yum.repos.d/mongodb.repo
@@ -14,21 +16,21 @@
     gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
     ```
 
-* 1-2 MongoDB 설치
+* MongoDB 설치
 
     ```
     yum install -y mongodb-org
     ```
 
-* 1-3 서비스 시작 및 부팅 등록
+* 서비스 시작 및 부팅 등록
     ```
     systemctl start mongod
     systemctl enable mongod
     ```
 
-# 2. 보안 설정
+## 보안 설정
 
-* 2-1 설정 파일 수정
+* 설정 파일 수정
 
     ```
     vi /etc/mongod.conf
@@ -43,7 +45,7 @@
     systemctl restart mongod
     ```
 
-* 2-2 계정 설정
+* 계정 설정
 
     ```
     mongo
@@ -74,8 +76,8 @@
     systemctl restart mongod
     ```
 
-# 3. 추가 설정 사항 (옵션)
-* 3-1 다른 경로에 데이터를 저장하는 경우 or 데이터 폴더를 지우고 새로 만든 경우
+## 추가 설정 사항 (옵션)
+* 다른 경로에 데이터를 저장하는 경우 or 데이터 폴더를 지우고 새로 만든 경우
     ```
     chown -R mongod:mongod /var/lib/mongo
     ```
