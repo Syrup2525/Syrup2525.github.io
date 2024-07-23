@@ -109,3 +109,20 @@ dbeaver 로 연결하는 경우
 * `allowPublicKeyRetrieval` true
 * `useSSL` false
 :::
+
+## dump & restore
+
+::: tip
+*  procedure, function 같이 dump & restore 시 `--routines` 옵션 추가
+*  trigger 같이 dump & restore 사용시 `--trigger` 옵션 추가
+:::
+
+* dump
+``` bash
+docker exec {container} /usr/bin/mysqldump -u {username} --password={password} {database} > {filename}.sql
+```
+
+* restore
+``` bash
+cat filename.sql | docker exec -i {container} /usr/bin/mysql -u {username} --password={password} {database_name} --verbose
+```
