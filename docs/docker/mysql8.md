@@ -16,7 +16,7 @@ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
 * 컨테이너 이름 `mysql` 초기 root 비밀번호 `!test1234` mysql `8.0.38` 버전 으로 설치시 예시
 
 ``` bash
-docker run --name mysql -e MYSQL_ROOT_PASSWORD=!test1234 -d mysql:8.0.38
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=!test1234 -d -p 3306:3306 mysql:8.0.38
 ```
 
 ## 초기 세팅
@@ -103,3 +103,9 @@ GRANT ALL PRIVILEGES ON testuser.* TO 'testuser'@'%';
 ``` sql
 FLUSH PRIVILEGES;
 ```
+
+::: tip
+dbeaver 로 연결하는 경우
+* `allowPublicKeyRetrieval` true
+* `useSSL` false
+:::

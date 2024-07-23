@@ -9,7 +9,7 @@
 아래는 `3.7.1` 버전 예시
 
 ``` bash
-docker run --name kafka -d apache/kafka:3.7.1
+docker run --name kafka -d -p 9092:9092 apache/kafka:3.7.1
 ```
 
 ## 기본 명령어
