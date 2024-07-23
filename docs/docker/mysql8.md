@@ -97,5 +97,9 @@ CREATE DATABASE testuser;
 
 * 권한 부여
 ``` sql
-GRANT aLL PRIVILEGES ON testuser.* TO 'testuser'@'%';
+GRANT ALL PRIVILEGES ON testuser.* TO 'testuser'@'%';
+```
+
+``` sql
+FLUSH PRIVILEGES;
 ```
