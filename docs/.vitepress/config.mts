@@ -20,12 +20,21 @@ export default defineConfig({
           { text: 'Nginx', link: '/centos/nginx/install.html' },
           { text: 'Node.js', link: '/centos/nodejs/step1-nodejs' },
           { text: 'php (7.4)', link: '/centos/php/step1-phpfpm' },
+          { text: "MongoDB 설치", link: "/centos/mongodb" },
+          { text: "mysql 설치", link: "/centos/mysql8" },
         ],
       },
       {
         text: "Xcode",
         items: [
           { text: "pod 라이브러리 재설치", link: "/xcode/pod-reinstall" },
+        ],
+      },
+      {
+        text: "Docker",
+        items: [
+          { text: "kafka", link: "/docker/kafka" },
+          { text: "MySQL 8", link: "/docker/mysql8" },
         ],
       },
     ],
@@ -81,7 +90,7 @@ export default defineConfig({
                 { text: "Nginx 연동", link: '/centos/php/step2-nginx' },
               ]
             },
-            { text: "MongoDB 설치", link: "/centos/MongoDB" },
+            { text: "MongoDB 설치", link: "/centos/mongodb" },
             { text: "mysql 설치", link: "/centos/mysql" },
           ]
         }
@@ -93,7 +102,16 @@ export default defineConfig({
             { text: "pod 라이브러리 재설치", link: "/xcode/pod-reinstall" },
           ]
         }
-      ]
+      ],
+      "/docker/": [
+        {
+          text: "Docker",
+          items: [
+            { text: "kafka", link: "/docker/kafka" },
+            { text: "MySQL 8", link: "/docker/mysql8" },
+          ]
+        }
+      ],
     },
 
     socialLinks: [
