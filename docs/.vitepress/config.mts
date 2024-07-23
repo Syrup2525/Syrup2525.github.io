@@ -81,6 +81,12 @@ export default defineConfig({
                 { text: "Nginx 연동", link: '/centos/php/step2-nginx' },
               ]
             },
+            {
+              text: "MongoDB",
+              items: [
+                { text: "MongoDB 설치", link: "/centos/MongoDb" },
+              ],
+            },
           ]
         }
       ],
