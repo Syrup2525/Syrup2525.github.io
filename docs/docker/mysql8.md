@@ -92,7 +92,7 @@ CREATE USER 'testuser'@'%' IDENTIFIED BY '!testuser1234';
 
 * DB 생성
 ``` sql
-CREATE DATABASE 'testuser';
+CREATE DATABASE testuser;
 ```
 
 * 권한 부여
