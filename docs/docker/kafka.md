@@ -23,12 +23,12 @@ docker exec -it kafka /bin/bash
 ### topics
 * 토픽 목록 조회
 ``` bash
-/opt/kafka/binkafka-topics.sh --list --bootstrap-server localhost:9092
+/opt/kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 ```
 
 * 토픽 생성
 ``` bash
-/opt/kafka/binkafka-topics.sh --bootstrap-server localhost:9092 --create --topic <topic_name> --partitions <number_of_partitions> --replication-factor <number_of_replication_factor>
+/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic <topic_name> --partitions <number_of_partitions> --replication-factor <number_of_replication_factor>
 ```
 > * `topic_name` 토픽 이름
 > * `number_of_partitions` 토픽의 파티션 수
@@ -36,19 +36,19 @@ docker exec -it kafka /bin/bash
 
 * 토픽 삭제
 ``` bash
-/opt/kafka/binkafka-topics.sh --bootstrap-server localhost:9092 --delete --topic <topic_name>
+/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic <topic_name>
 ```
 
 ### consumer
 * 메시지 소비 (consume)
 ``` bash
-/opt/kafka/binkafka-console-consumer.sh --bootstrap-server localhost:9092 --topic <topic_name>
+/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic <topic_name>
 ```
 
 * 컨슈머 그룹 현재 상태 조회
 
 ``` bash
-/opt/kafka/binkafka-consumer-groups.sh --bootstrap-server localhost:9092 --group <consumer_group_id> --describe 
+/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group <consumer_group_id> --describe 
 ```
 > * `GROUP` consumer 그룹의 ID
 > * `TOPIC` 해당 consumer 그룹이 구독중인 토픽의 이름 
@@ -63,5 +63,5 @@ docker exec -it kafka /bin/bash
 ### producer
 * 메시지 생성 (producer)
 ``` bash
-/opt/kafka/binkafka-console-producer.sh --broker-list localhost:9092 --topic <topic_name>
+/opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic <topic_name>
 ```
