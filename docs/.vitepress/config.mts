@@ -34,6 +34,7 @@ export default defineConfig({
         text: "Docker",
         items: [
           { text: "kafka", link: "/docker/kafka" },
+          { text: "MongoDB", link: "/docker/mongo" },
           { text: "MySQL 8", link: "/docker/mysql8" },
           { text: "redis", link: "/docker/redis" },
         ],
@@ -109,6 +110,7 @@ export default defineConfig({
           text: "Docker",
           items: [
             { text: "kafka", link: "/docker/kafka" },
+            { text: "MongoDB", link: "/docker/mongo" },
             { text: "MySQL 8", link: "/docker/mysql8" },
             { text: "redis", link: "/docker/redis" },
           ]
