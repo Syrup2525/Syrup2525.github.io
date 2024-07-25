@@ -21,7 +21,7 @@ docker run --name mysql -e MYSQL_ROOT_PASSWORD=!test1234 -d -p 3306:3306 mysql:8
 
 ## 초기 세팅
 
-### character-set 변경
+### character-set 및 time zone 변경
 
 * bash 접속
 
@@ -49,6 +49,7 @@ default-character-set = utf8mb4
 [mysqld]
 character-set-server = utf8mb4
 collation-server = utf8mb4_unicode_ci
+default-time-zone = "+09:00"
 
 [client]
 default-character-set = utf8mb4
