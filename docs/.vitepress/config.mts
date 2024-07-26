@@ -20,8 +20,9 @@ export default defineConfig({
           { text: 'Nginx', link: '/centos/nginx/install.html' },
           { text: 'Node.js', link: '/centos/nodejs/step1-nodejs' },
           { text: 'php (7.4)', link: '/centos/php/step1-phpfpm' },
-          { text: "MongoDB 설치", link: "/centos/mongodb" },
-          { text: "mysql 설치", link: "/centos/mysql8" },
+          { text: 'Docker', link: '/centos/docker' },
+          { text: "MongoDB", link: "/centos/mongodb" },
+          { text: "mysql", link: "/centos/mysql8" },
         ],
       },
       {
@@ -36,7 +37,7 @@ export default defineConfig({
           { text: "kafka", link: "/docker/kafka" },
           { text: "MongoDB", link: "/docker/mongo" },
           { text: "MySQL 8", link: "/docker/mysql8" },
-          { text: "portainer", link: "/docker/portainer" },
+          { text: "Portainer", link: "/docker/portainer" },
           { text: "redis", link: "/docker/redis" },
         ],
       },
@@ -93,8 +94,9 @@ export default defineConfig({
                 { text: "Nginx 연동", link: '/centos/php/step2-nginx' },
               ]
             },
-            { text: "MongoDB 설치", link: "/centos/mongodb" },
-            { text: "mysql 설치", link: "/centos/mysql" },
+            { text: 'Docker', link: '/centos/docker' },
+            { text: "MongoDB", link: "/centos/mongodb" },
+            { text: "mysql", link: "/centos/mysql" },
           ]
         }
       ],
@@ -113,7 +115,7 @@ export default defineConfig({
             { text: "kafka", link: "/docker/kafka" },
             { text: "MongoDB", link: "/docker/mongo" },
             { text: "MySQL 8", link: "/docker/mysql8" },
-            { text: "portainer", link: "/docker/portainer" },
+            { text: "Portainer", link: "/docker/portainer" },
             { text: "redis", link: "/docker/redis" },
           ]
         }

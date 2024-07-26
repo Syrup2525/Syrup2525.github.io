@@ -1,4 +1,4 @@
-# Docker 설치
+# Docker
 
 ## Docker 설치
 
@@ -16,6 +16,13 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 ``` bash
 sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
+
+::: tip
+::: details 특정 버전을 지정하여 설치 
+```bash
+sudo yum install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> containerd.io docker-buildx-plugin docker-compose-plugin
+```
+:::
 
 ::: tip
 `Fingerprint` 키값이 `060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35` 값과 일치하는지 확인 후 계속 진행
@@ -41,4 +48,14 @@ sudo docker run hello-world
 도커 데몬 enable
 ``` bash
 sudo systemctl enable docker
+```
+
+## Docker 삭제
+``` bash
+sudo yum remove docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+```
+
+``` bash
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd
 ```
