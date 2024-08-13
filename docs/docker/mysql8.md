@@ -123,6 +123,17 @@ dbeaver 로 연결하는 경우
 docker exec {container} /usr/bin/mysqldump -u {username} --password={password} {database} > {filename}.sql
 ```
 
+::: tip
+::: details mysqldump 옵션
+```bash
+docker exec {container} /usr/bin/mysqldump --no-data --routines -u {usernmae} --password={password} {database} | sed 's/AUTO_INCREMENT=[0-9]*//' > {filename}.sql
+```
+
+* `--no-data` 데이터 없이 스키마만
+* `--routines` procedure, function 포함
+* `sed 's/AUTO_INCREMENT=[0-9]*//'` AUTO_INCREMENT 0 부터 시작하도록 구문 제거
+:::
+
 * restore
 ``` bash
 cat filename.sql | docker exec -i {container} /usr/bin/mysql -u {username} --password={password} {database_name} --verbose
