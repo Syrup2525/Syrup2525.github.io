@@ -60,6 +60,12 @@
     yum install policycoreutils-python
     ```
 
+    ::: tip
+    CoentOS 8 버전 이상 사용시
+    ```bash
+    yum install policycoreutils-python-utils
+    ```
+
 * 현재 허용되어있는 포트 확인
 
     ```bash
