@@ -41,6 +41,14 @@ export default defineConfig({
           { text: "redis", link: "/docker/redis" },
         ],
       },
+      {
+        text: "Docker Swarm",
+        items: [
+          { text: "Nginx", link: "/dockerswarm/nginx" },
+          { text: "Portainer", link: "/dockerswarm/portainer" },
+          { text: "Monitoring", link: "/dockerswarm/monitoring" },
+        ],
+      },
     ],
 
     sidebar: {
@@ -117,6 +125,16 @@ export default defineConfig({
             { text: "MySQL 8", link: "/docker/mysql8" },
             { text: "Portainer", link: "/docker/portainer" },
             { text: "redis", link: "/docker/redis" },
+          ]
+        }
+      ],
+      "/dockerswarm/": [
+        {
+          text: "Docker Swarm",
+          items: [
+            { text: "Nginx", link: "/dockerswarm/nginx" },
+            { text: "Portainer", link: "/dockerswarm/portainer" },
+            { text: "Monitoring", link: "/dockerswarm/monitoring" },
           ]
         }
       ],
