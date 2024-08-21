@@ -23,6 +23,11 @@ features:
     details: RKE2를 활용한 k8s, Helm, Rancher 통합 설치 방법을 설명합니다.
     link: /k8s/install/step1-master
   - icon:
+      src: https://github.com/Syrup2525/Syrup2525.github.io/blob/main/docs/images/dockerswarm_logo.png?raw=true
+    title: Docker Swarm 환경 구성
+    details: Docker Swarm 환경을 구축하고 모니터링, 관리툴을 적용하는 방법을 설명합니다.
+    link: /dockerswarm/portainer
+  - icon:
       src: https://github.com/Syrup2525/Syrup2525.github.io/blob/main/docs/images/centos_logo.png?raw=true
     title: CentOS 환경 구성
     details: CentOS 환경에서 Nginx, Node.js, PHP 환경 구성 및 Nginx SSL 적용 방법을 설명합니다.
