@@ -184,3 +184,10 @@ server {
 :::
 
 설정 완료 후 nignx service 를 재시작 합니다.
+
+## Web UI 확인
+gitlab 이 실행되는데 시간이 소요됩니다. `docker command` 혹은 [Portainer](./portainer.md) 와 같은 도구를 이용하여 서비스가 `running` 상태인지 확인 후 웹 브라우저에서 접속하여 확인합니다.
+
+``` txt
+https://gitlab.mydomain.com
+```
