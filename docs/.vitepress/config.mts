@@ -44,9 +44,11 @@ export default defineConfig({
       {
         text: "Docker Swarm",
         items: [
+          { text: "Gitlab", link: "/dockerswarm/gitlab" },
           { text: "Nginx", link: "/dockerswarm/nginx" },
           { text: "Portainer", link: "/dockerswarm/portainer" },
           { text: "Monitoring", link: "/dockerswarm/monitoring" },
+          { text: "Registry", link: "/dockerswarm/registry" },
         ],
       },
     ],
@@ -132,9 +134,11 @@ export default defineConfig({
         {
           text: "Docker Swarm",
           items: [
+            { text: "Gitlab", link: "/dockerswarm/gitlab" },
             { text: "Nginx", link: "/dockerswarm/nginx" },
             { text: "Portainer", link: "/dockerswarm/portainer" },
             { text: "Monitoring", link: "/dockerswarm/monitoring" },
+            { text: "Registry", link: "/dockerswarm/registry" },
           ]
         }
       ],
