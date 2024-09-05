@@ -66,6 +66,62 @@ server {
 :::
 
 ::: tip
+::: details url path 기반으로 라우팅 하기
+서브도메인을 사용하는것이 아닌 path 기반으로 conf 파일을 작성하는 방법입니다.
+
+::: code-group
+``` conf [portainer.mydomain.com.conf]
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+}
+
+upstream portainer {
+    server portainer:9000;
+}
+
+server {
+    server_name mydomain.com/portainer;
+
+    charset utf-8;
+
+    location /portainer/ {
+        rewrite ^/portainer/(.*)$ /$1 break;
+
+        proxy_set_header Host $host;
+        proxy_pass http://portainer;
+    }
+
+    location /portainer/api/websocket/exec {
+        rewrite ^/portainer/(.*)$ /$1 break;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $host;
+        proxy_pass http://portainer;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate     /etc/letsencrypt/live/mydomain.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/mydomain.com/privkey.pem; # managed by Certbot
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+}
+
+server {
+    if ($host = mydomain.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    listen 80;
+    server_name mydomain.com;
+    return 404; # managed by Certbot
+}
+```
+:::
+
+::: tip
 적용을 위해 nginx 재시작이 필요합니다.
 :::
 
@@ -105,6 +161,8 @@ services:
   portainer:
     image: portainer/portainer-ce:2.19.5
     command: -H tcp://tasks.agent:9001 --tlsskipverify
+    # path 기반 라우팅시 아래 라인 사용
+    # command: --base-url /portainer -H tcp://tasks.agent:9001 --tlsskipverify
     ports:
       - "9443:9443"
       - "9000:9000"
