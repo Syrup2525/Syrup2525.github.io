@@ -81,7 +81,7 @@ upstream portainer {
 }
 
 server {
-    server_name mydomain.com/portainer;
+    server_name mydomain.com;
 
     charset utf-8;
 

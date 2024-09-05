@@ -30,7 +30,7 @@ services:
     image: portainer/template-swarm-monitoring:grafana-9.5.2
     ports:
       - target: 3000
-        published: 3100 // [!code warning]
+        published: 3100 # 필요시 변경 // [!code warning]
         protocol: tcp
         mode: ingress
     deploy:
@@ -49,6 +49,7 @@ services:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
       - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=${GRAFANA_ROOT_URL} # path 기반 routing 시 설정 ex) https://mydomain.com/grafana // [!code warning]
     networks:
       - net    
       - nginx_network // [!code ++]
@@ -209,6 +210,63 @@ server {
 
     listen 80;
     server_name grafana.mydomain.com;
+    return 404; # managed by Certbot
+}
+```
+:::
+
+
+::: tip
+::: details url path 기반으로 라우팅 하기
+서브도메인을 사용하는것이 아닌 path 기반으로 conf 파일을 작성하는 방법입니다.
+
+::: code-group
+``` conf [mydomain.com.conf]
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+}
+
+upstream grafana {
+    server grafana:3000; # grafana target ports 를 입력합니다. published 사용 X
+}
+
+server {
+    server_name mydomain.com;
+
+    charset utf-8;
+
+    location /grafana/ {
+        rewrite ^/grafana/(.*)$ /$1 break;
+
+        proxy_set_header Host $host;
+        proxy_pass http://grafana;
+    }
+
+    location /api/live/ {
+        rewrite ^/grafana/(.*)$ /$1 break;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $host;
+        proxy_pass http://grafana;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate     /etc/letsencrypt/live/mydomain.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/mydomain.com/privkey.pem; # managed by Certbot
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+}
+
+server {
+    if ($host = mydomain.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    listen 80;
+    server_name mydomain.com;
     return 404; # managed by Certbot
 }
 ```
