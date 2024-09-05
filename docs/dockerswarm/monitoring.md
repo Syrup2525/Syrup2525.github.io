@@ -30,27 +30,125 @@ services:
     image: portainer/template-swarm-monitoring:grafana-9.5.2
     ports:
       - target: 3000
-        published: 3100 # 필요시 변경
+        published: 3100 // [!code warning]
         protocol: tcp
         mode: ingress
-    
-    # ---
-
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == manager
+          - node.labels.monitoring == true
+    volumes:
+      - type: volume
+        source: grafana-data
+        target: /var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
     networks:
       - net    
-      - nginx_network # overlay network 추가
+      - nginx_network // [!code ++]
 
-# ---
+  prometheus:
+    image: portainer/template-swarm-monitoring:prometheus-v2.44.0
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--log.level=error'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=7d'
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == manager
+          - node.labels.monitoring == true
+    volumes:
+      - type: volume
+        source: prometheus-data
+        target: /prometheus
+    networks:
+      - net
 
-# ---
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    command: -logtostderr -docker_only
+    deploy:
+      mode: global
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+    volumes:
+      - type: bind
+        source: /
+        target: /rootfs
+        read_only: true
+      - type: bind
+        source: /var/run
+        target: /var/run
+        read_only: true
+      - type: bind
+        source: /sys
+        target: /sys
+        read_only: true
+      - type: bind
+        source: /var/lib/docker
+        target: /var/lib/docker
+        read_only: true
+      - type: bind
+        source: /dev/disk
+        target: /dev/disk
+        read_only: true                        
+    networks:
+      - net
+
+  node-exporter:
+    image: prom/node-exporter:v1.5.0
+    command:
+      - '--path.sysfs=/host/sys'
+      - '--path.procfs=/host/proc'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+      - '--no-collector.ipvs'
+    deploy:
+      mode: global
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+    volumes:
+      - type: bind
+        source: /
+        target: /rootfs
+        read_only: true
+      - type: bind
+        source: /proc
+        target: /host/proc
+        read_only: true
+      - type: bind
+        source: /sys
+        target: /host/sys
+        read_only: true
+    networks:
+      - net
+
+volumes:
+  grafana-data:
+  prometheus-data:
 
 networks:
   net:
     driver: overlay
 
-# 아래 두줄을 추가 
-  nginx_network:
-    external: true
+  nginx_network:  // [!code ++]
+    external: true  // [!code ++]
 ```
 
 내용을 수정 후 `Update the stack` 버튼을 눌러 배포합니다.
