@@ -20,7 +20,7 @@
 [Nginx 세팅](./nginx.md)을 완료한 것을 전재로 합니다. `nginx_network` overlay network 가 필요합니다.
 :::
 
-Nginx 가 Reverse Proxy 할수 있도록 portainer WEB 에서 `초기 설정` 에서 생성된 yml 파일을 수정합니다.
+Nginx 가 Reverse Proxy 할수 있도록 portainer WEB 에서 `초기 설정` 에서 생성된 yml 파일을 수정합니다. `(Portainer > Stack details > Editor)`
 
 ``` yml
 version: "3.8"
