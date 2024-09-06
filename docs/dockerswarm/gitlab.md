@@ -104,6 +104,21 @@ nginx['listen_https'] = false // [!code ++]
 ```
 :::
 
+::: tip
+::: details CI/CD 를 위한 외부 `Private Container Registry` 연결
+[Registry](registry.md) 서비스를 배포한것으로 가정
+
+``` txt [gitlab.rb]
+external_url 'https://gitlab.mydomain.com/'
+gitlab_rails['initial_root_password'] = File.read('/run/secrets/gitlab_root_password').gsub("\n", "")
+
+nginx['listen_port'] = 80
+nginx['listen_https'] = false
+
+registry_external_url 'http://registry:5000' // [!code ++]
+```
+:::
+
 ## root_password txt
 ### 파일 생성
 root 비밀번호로 사용될 password 를 정의합니다.
