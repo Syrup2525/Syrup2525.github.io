@@ -243,7 +243,7 @@ server {
         proxy_pass http://grafana;
     }
 
-    location /api/live/ {
+    location /grafana/api/live/ {
         rewrite ^/grafana/(.*)$ /$1 break;
 
         proxy_http_version 1.1;
