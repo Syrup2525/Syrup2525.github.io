@@ -11,11 +11,26 @@
 - [distribution Github](https://github.com/distribution/distribution)
 :::
 
+## Directory Structure
+
+```
+.
+├─ data
+└─ docker-compose.yml
+```
+
+### volumes 생성
+[최종 Directory 구조](#directory-structure) 를 참고하여 `./` 위치에 registry 컨테이너에 연결될 volumes 폴더를 생성합니다
+``` bash
+mkdir data
+```
+
 ### 컨테이너 실행
 
 아래 `yml` 파일을 참조하여 `registry` 서비스를 배포합니다.
 
-``` yml
+::: code-group
+``` yml [docker-compose.yml]
 version: '3.7'
 
 services:
@@ -24,6 +39,8 @@ services:
     restart: always
     ports:
       - 5000:5000
+    volumes:
+      - ./data:/var/lib/registry/docker/registry/v2
     environment:
       - TZ=Asia/Seoul
     networks:
@@ -32,6 +49,11 @@ services:
 networks:
   nginx_network:
     external: true
+```
+:::
+
+``` bash
+sudo docker stack deploy -c docker-compose.yml registry
 ```
 
 ### Nginx Reverse Proxy 설정
@@ -73,9 +95,9 @@ server {
         auth_basic_user_file /etc/nginx/conf.d/registry.mydomain.com.htpasswd;
 
         resolver 127.0.0.11 valid=10s;
-    	set $upstream registry:5000;
+    	  set $upstream registry:5000;
 
-    	proxy_pass http://$upstream;
+    	  proxy_pass http://$upstream;
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
