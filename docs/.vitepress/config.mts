@@ -34,6 +34,7 @@ export default defineConfig({
       {
         text: "Docker",
         items: [
+          { text: "CI/CD", link: "/dockerswarm/cicd" },
           { text: "kafka", link: "/docker/kafka" },
           { text: "MongoDB", link: "/docker/mongo" },
           { text: "MySQL 8", link: "/docker/mysql8" },
@@ -134,6 +135,7 @@ export default defineConfig({
         {
           text: "Docker Swarm",
           items: [
+            { text: "CI/CD", link: "/dockerswarm/cicd" },
             { text: "Gitlab", link: "/dockerswarm/gitlab" },
             { text: "Nginx", link: "/dockerswarm/nginx" },
             { text: "Portainer", link: "/dockerswarm/portainer" },

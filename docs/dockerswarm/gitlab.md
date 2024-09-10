@@ -83,8 +83,7 @@ networks: // [!code ++]
 ```
 :::
 
-## Gitlab
-### gitlab rb
+## gitlab rb
 gitlab 에서 제공하는 기본 Let's Encrypt SSH 를 사용하지 않고 Reverse Proxy 된 Nginx 의 SSH 를 사용할 것이므로 관련 변수를 입력합니다.
 ::: info
 [Configure a reverse proxy or load balancer SSL termination Gitlab 공식 문서](https://docs.gitlab.com/omnibus/settings/ssl/index.html#configure-a-reverse-proxy-or-load-balancer-ssl-termination)
@@ -104,22 +103,7 @@ nginx['listen_https'] = false // [!code ++]
 ```
 :::
 
-::: tip
-::: details CI/CD 를 위한 외부 `Private Container Registry` 연결
-[Registry](registry.md) 서비스를 배포한것으로 가정
-
-``` txt [gitlab.rb]
-external_url 'https://gitlab.mydomain.com/'
-gitlab_rails['initial_root_password'] = File.read('/run/secrets/gitlab_root_password').gsub("\n", "")
-
-nginx['listen_port'] = 80
-nginx['listen_https'] = false
-
-registry_external_url 'http://registry:5000' // [!code ++]
-```
-:::
-
-### root_password txt
+## root_password txt
 root 비밀번호로 사용될 password 를 정의합니다.
 
 ``` bash
@@ -132,101 +116,7 @@ MySuperSecretAndSecurePassw0rd!
 ```
 :::
 
-## Gitlab-runner
-### 초기 설정
-``` bash
-docker exec -it DOCKER_CONTAINER_ID /bin/bash
-```
-
-``` bash
-gitlab-runner register
-```
-
-``` txt
-Enter the GitLab instance URL (for example, https://gitlab.com/):
-> http://gitlab
-
-Enter the registration token:
-> gitlab web root 접근 > admin > CI/CD > Runners > New instance runner > The runner authentication token 에서 확인한 값
-
-Enter a name for the runner. This is stored only in the local config.toml file:
-> 러너 이름 입력
-
-Enter an executor: ssh, parallels, virtualbox, docker, docker-windows, docker+machine, kubernetes, shell, docker-autoscaler, instance, custom:
-> docker
-
-Enter the default Docker image (for example, ruby:2.7):
-> 사용할 docker base image 입력
-```
-
-### 설정 파일 확인 및 수정
-- `volumes` 수정 
-- `privileged` 값이 `true` 인지 확인
-
-vim 설치 
-
-``` bash
-apt update
-```
-
-``` bash
-apt install vim
-```
-
-``` bash
-vi /etc/gitlab-runner/config.toml 
-```
-
-::: code-group
-``` txt [config.toml]
-concurrent = 1
-check_interval = 0
-connection_max_age = "15m0s"
-shutdown_timeout = 0
-
-[session_server]
-  session_timeout = 1800
-
-[[runners]]
-  name = 
-  url = "http://gitlab"
-  id = 4
-  token =
-  token_obtained_at = 2024-09-09T00:36:20Z
-  token_expires_at = 0001-01-01T00:00:00Z
-  executor = "docker"
-  [runners.custom_build_dir]
-  [runners.cache]
-    MaxUploadedArchiveSize = 0
-    [runners.cache.s3]
-    [runners.cache.gcs]
-    [runners.cache.azure]
-  [runners.docker]
-    tls_verify = false
-    image = 
-    privileged = true // [!code warning]
-    disable_entrypoint_overwrite = false
-    oom_kill_disable = false
-    disable_cache = false
-    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"] // [!code warning]
-    shm_size = 0
-    network_mtu = 0
-```
-:::
-
-runner 재시작
-``` bash
-gitlab-runner restart
-```
-
-## gitlab stack 배포
-[docker-compose.yml](#docker-compose-yml) 단계에서 생성한 파일을 이용하여 stack 을 배포합니다.
-``` bash
-docker stack deploy --compose-file docker-compose.yml mystack
-```
-
 ## Nginx 설정
-
 [Nginx 설정](./nginx.md#directory-structure) 을 참고하여 `./conf/nginx/conf.d/` 위치에 `gitlab.mydomain.com.conf` 파일을 생성합니다.
 
 ``` bash
@@ -242,7 +132,7 @@ server {
 
     location / {
         resolver 127.0.0.11 valid=10s;
-    	set $upstream gitlab;
+    	  set $upstream gitlab;
 
         client_max_body_size 0;
         gzip off;
