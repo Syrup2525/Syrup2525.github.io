@@ -121,7 +121,7 @@ apt update
 ```
 
 ``` bash
-apt install vim
+apt install vim -y
 ```
 
 - `volumes` 수정 
