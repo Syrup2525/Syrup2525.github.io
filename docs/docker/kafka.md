@@ -82,6 +82,13 @@ services:
 ::: tip
 ::: details confluentinc/cp-kafka 이미지 사용하기
 
+`/docker/kafka/data/broker` data volume 권한 수정
+
+``` bash
+sudo chown -R 1000:1000 /docker/kafka/data/broker
+sudo chmod -R 755 /docker/kafka/data/broker
+```
+
 ::: code-group
 ``` conf [docker-compose.yml]
 services:
