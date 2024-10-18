@@ -5,7 +5,7 @@
 :::
 
 ::: warning
-GitLab 사설 서버가 필요합니다. [GitLab 세팅](./gitlab.md)을 완료한 것을 전재로 합니다.
+GitLab 사설 서버가 필요합니다. [GitLab 세팅](../dockerswarm/gitlab.md)을 완료한 것을 전재로 합니다.
 :::
 
 ## 바이너리 Download
