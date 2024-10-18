@@ -17,7 +17,7 @@
 :::
 
 ## docker-compose.yml 수정
-[Gitlab](./gitlab) 배포시 사용된 [docker-compose.yml](./gitlab.md#docker-compose-yml) 파일을 수정합니다.
+[Gitlab](./gitlab.md) 배포시 사용된 [docker-compose.yml](./gitlab.md#docker-compose-yml) 파일을 수정합니다.
 
 `Gitlab Runner` 및 `Registry` 사용을 위해 아래를 참고하여 yml 파일을 수정합니다.
 
