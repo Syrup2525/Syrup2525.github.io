@@ -79,6 +79,54 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
 ```
 
+::: tip
+::: details confluentinc/cp-kafka 이미지 사용하기
+
+`/docker/kafka/data/broker` data volume 권한 수정
+
+``` bash
+sudo chown -R 1000:1000 /docker/kafka/data/broker
+sudo chmod -R 755 /docker/kafka/data/broker
+```
+
+::: code-group
+``` conf [docker-compose.yml]
+services:
+  broker:
+    image: confluentinc/cp-kafka:latest
+    hostname: broker
+    ports:
+      - '9092:9092'
+      - '9093:9093'
+    networks:
+      - network
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_ADVERTISED_LISTENERS: 'INTERNAL://localhost:9092,PLAINTEXT://broker:19092,EXTERNAL://broker:9093'
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker:29093'
+      KAFKA_LISTENERS: 'CONTROLLER://:29093,INTERNAL://:9092,PLAINTEXT://:19092,EXTERNAL://:9093'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_KRAFT_MODE: 'true'
+      CLUSTER_ID: '4L6g3nShT-eMCtK--X86sw'
+      TZ: 'Asia/Seoul'
+    volumes:
+      - /docker/kafka/data/broker:/var/lib/kafka/data
+
+networks:
+  network:
+    driver: overlay
+    attachable: true
+```
+:::
+
 ## 기본 명령어
 ::: tip
 bash 접속
