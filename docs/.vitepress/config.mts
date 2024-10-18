@@ -26,9 +26,12 @@ export default defineConfig({
         ],
       },
       {
-        text: "Xcode",
+        text: "MacOS",
         items: [
-          { text: "pod 라이브러리 재설치", link: "/xcode/pod-reinstall" },
+          { text: "CI/CD", link: "/macos/cicd" },
+          { text: "GitLab-Runner 설정", link: "/macos/gitlab-runner" },
+          { text: "fastlane match 설정", link: "/macos/fastlane-match" },
+          { text: "pod 라이브러리 재설치", link: "/macos/pod-reinstall" },
         ],
       },
       {
@@ -111,11 +114,14 @@ export default defineConfig({
           ]
         }
       ],
-      "/xcode/": [
+      "/macos/": [
         {
-          text: "Xcode",
+          text: "MacOS",
           items: [
-            { text: "pod 라이브러리 재설치", link: "/xcode/pod-reinstall" },
+            { text: "CI/CD", link: "/macos/cicd" },
+            { text: "GitLab-Runner 설정", link: "/macos/gitlab-runner" },
+            { text: "fastlane match 설정", link: "/macos/fastlane-match" },
+            { text: "pod 라이브러리 재설치", link: "/macos/pod-reinstall" },
           ]
         }
       ],
