@@ -111,6 +111,10 @@ helm repo add rancher-alpha https://releases.rancher.com/server-charts/alpha
 kubectl create namespace cattle-system
 ```
 
+::: warning
+letsEncrypt 발급시 TCP 80 포트의 방화벽 개방이 필요합니다.
+:::
+
 `Let's Encrypt 인증서` 예시
 ```bash
 helm install rancher rancher-stable/rancher \
