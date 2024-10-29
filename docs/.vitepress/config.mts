@@ -11,6 +11,7 @@ export default defineConfig({
         text: 'k8s',
         items: [
           { text: '쿠버네티스환경 구성', link: '/k8s/install/step1-master.md' },
+          { text: 'Ingress', link: '/k8s/ingress' },
         ],
       },
       {
@@ -68,6 +69,7 @@ export default defineConfig({
             { text: '설치 제거', link: '/k8s/install/step4-uninstall.md' },
           ]
         },
+        { text: 'Ingress', link: '/k8s/ingress' },
       ],
       '/centos/': [
         {
