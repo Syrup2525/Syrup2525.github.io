@@ -32,7 +32,7 @@ metadata:
   namespace: k8s
 spec:
   acme:
-    email: rudghks8786@gmail.com
+    email: example@email.com
     privateKeySecretRef:
       name: letsencrypt-production
     server: https://acme-v02.api.letsencrypt.org/directory
