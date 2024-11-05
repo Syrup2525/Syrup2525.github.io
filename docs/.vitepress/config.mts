@@ -12,6 +12,7 @@ export default defineConfig({
         items: [
           { text: '쿠버네티스환경 구성', link: '/k8s/install/step1-master.md' },
           { text: 'Ingress', link: '/k8s/ingress' },
+          { text: 'EFK', link: '/k8s/efk' },
         ],
       },
       {
@@ -70,6 +71,7 @@ export default defineConfig({
           ]
         },
         { text: 'Ingress', link: '/k8s/ingress' },
+        { text: 'EFK', link: '/k8s/efk' },
       ],
       '/centos/': [
         {
