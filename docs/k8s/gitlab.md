@@ -15,183 +15,209 @@ helm repo add gitlab https://charts.gitlab.io
 helm repo update
 ```
 
-## values.yaml 수정
-``` bash
-helm fetch --untar gitlab/gitlab
-```
-
-### global.edition
+## values.yaml 작성
 ::: code-group
-``` yaml [values.yaml]
-
-## ---
-
-  pod:
-    labels: {}
-
-  ## https://docs.gitlab.com/charts/installation/deployment#deploy-the-community-edition
-  edition: ce // [!code focus]
-
-  ## https://docs.gitlab.com/charts/charts/globals#gitlab-version
-  gitlabVersion: "17.5.1"
-
-## ---
-
-```
-:::
-> * `51 line` ee > ce 수정
-> * enterprise edition > community edition
-
-### global.hosts
-::: code-group
-``` yaml [values.yaml]
-
-## ---
-
+``` yaml:line-numbers [values.yaml] {2,4,6,9,12,15,18,26,124,132,135,140,159}
+global:
+  edition: ce
   hosts:
-    domain: example.com // [!code focus]
-    hostSuffix:
-    https: true
-    externalIP:
-    ssh:
-    gitlab: // [!code focus]
-        name: gitalb.example.com // [!code focus]
-        https: true // [!code focus]
+    domain: example.com
+    gitlab: 
+      name: gitlab.example.com
+      https: true
     minio: 
-        name: minio.example.com // [!code focus]
-        https: true // [!code focus]
-    registry: // [!code focus]
-        name: registry.example.com // [!code focus]
-        https: true // [!code focus]
-    tls: {}
-    smartcard: {}
-    kas: {}
-    pages: {}
-
-## ---
-
-```
-:::
-> * `63-74 line` domain 변경
-> * `gitlab` `minio` `registry` 변경하지 않을시 domain 앞에 각자 이름 (`gitlab`, `minio`, `registry`) 으로 서브 도메인으로 생성됨
-
-### global.ingress
-::: code-group
-``` yaml [values.yaml]
-
-## ---
-
-  ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
+      name: minio.example.com
+      https: true
+    registry:
+      name: registry.example.com
+      https: true
   ingress:
-    apiVersion: ""
-    configureCertmanager: true
-    useNewIngressForCerts: false
-    provider: nginx
-    class: nginx // [!code focus]
-    annotations: {}
-    enabled: true
-    tls: {}
-    #   enabled: true
-    #   secretName:
-    path: /
-    pathType: Prefix
+    class: rke2-ingress-nginx
 
-## ---
-
-```
-:::
-> * `82 line` class `nginx` 로 수정
-
-### certmanager-issuer.email
-::: code-group
-``` yaml [values.yaml]
-
-## ---
-
-## Settings to for the Let's Encrypt ACME Issuer
-certmanager-issuer: // [!code focus]
-#   # The email address to register certificates requested from Let's Encrypt.
-#   # Required if using Let's Encrypt.
-  email: email@example.com // [!code focus]
-
-## ---
-
-```
-:::
-> * `928 line` Let's Encrypt ACME Issuer 설정
-> * `931 line` email 입력
-
-### certmanager
-::: code-group
-``` yaml [values.yaml]
-
-## ---
-
-## Installation & configuration of jetstack/cert-manager
-## See requirements.yaml for current version
 certmanager:
-  installCRDs: true
-  nameOverride: certmanager
-  # Install cert-manager chart. Set to false if you already have cert-manager
-  # installed or if you are not using cert-manager.
-  install: false // [!code focus]
-  # Other cert-manager configurations from upstream
-  # See https://github.com/jetstack/cert-manager/blob/master/deploy/charts/cert-manager/README#configuration
-  rbac:
-    create: true
+  install: false
 
-## ---
-```
-:::
-> * `940 line` true > false 변경 
-> * `cert-manager` 설치 필요시 true
+certmanager-issuer: 
+  email: example@email.com
 
-### gitlab-runner
-::: code-group
-``` yaml [values.yaml]
+gitlab:
+  gitaly:
+    persistence:
+      storageClass: CUSTOM_STORAGE_CLASS_NAME
+      size: 50Gi
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      # limits:
+      #  cpu: 100m
+      #  memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+  gitlab-exporter:
+    resources:
+      # limits:
+      #  cpu: 1
+      #  memory: 2G
+      requests:
+        cpu: 75m
+        memory: 100M
+  gitlab-pages:
+    resources:
+      requests:
+        cpu: 900m
+        memory: 2G
+  gitlab-shell:
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      # limits:
+      #  cpu: 100m
+      #  memory: 128Mi
+      requests:
+        cpu: 0
+        memory: 6M
+    maxUnavailable: 1
+    minReplicas: 2
+    maxReplicas: 10
+  kas:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100M
+  mailroom:
+    resources:
+      # limits:
+      #  cpu: 1
+      #  memory: 2G
+      requests:
+        cpu: 50m
+        memory: 150M
+  migrations:
+    resources:
+      requests:
+        cpu: 250m
+        memory: 200Mi
+  praefect:
+    resources:
+       requests:
+        cpu: 100m
+       memory: 200Mi
+  sidekiq:
+    resources:
+      # limits:
+      #  memory: 5G
+      requests:
+        cpu: 900m
+        memory: 2G
+  spamcheck:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100M
+  toolbox:
+    resources:
+      # limits:
+      #  cpu: 1
+      #  memory: 2G
+      requests:
+        cpu: 50m
+        memory: 350M
+  webservice:
+    resources:
+      # limits:
+      #  cpu: 1.5
+      #  memory: 3G
+      requests:
+        cpu: 300m
+        memory: 2.5G
+    maxUnavailable: 1
+    minReplicas: 2
+    maxReplicas: 10
 
-## ---
+minio:
+  persistence:
+    storageClass: CUSTOM_STORAGE_CLASS_NAME
+    size: 10Gi
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 100m
 
-## Installation & configuration of gitlab/gitlab-runner
-## See requirements.yaml for current version
 gitlab-runner:
-  install: false // [!code focus]
-  rbac:
-    create: true
-  runners:
-    locked: false
-    # Set secret to an arbitrary value because the runner chart renders the gitlab-runner.secret template only if it is not empty.
-    # The parent/GitLab chart overrides the template to render the actual secret name.
-    secret: "nonempty"
-    config: |
-      [[runners]]
-        [runners.kubernetes]
-        image = "ubuntu:22.04"
-        {{- if .Values.global.minio.enabled }}
-        [runners.cache]
-          Type = "s3"
-          Path = "gitlab-runner"
-          Shared = true
-          [runners.cache.s3]
-            ServerAddress = {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
-            BucketName = "runner-cache"
-            BucketLocation = "us-east-1"
-            Insecure = false
-        {{ end }}
-  podAnnotations:
-    gitlab.com/prometheus_scrape: "true"
-    gitlab.com/prometheus_port: 9252
-  podSecurityContext:
-    seccompProfile:
-      type: "RuntimeDefault"
+  install: false
 
-## ---
+prometheus:
+  install: false
 
+postgresql:
+  primary:
+    persistence:
+      storageClass: CUSTOM_STORAGE_CLASS_NAME
+    resources:
+      limits: {}
+      requests:
+        memory: 256Mi
+        cpu: 250m
+  readReplicas:
+    replicaCount: 1
+    persistence:
+      storageClass: CUSTOM_STORAGE_CLASS_NAME
+    resources:
+      limits: {}
+      requests:
+        memory: 256Mi
+        cpu: 250m
+
+redis:
+  master:
+    persistence:
+      storageClass: CUSTOM_STORAGE_CLASS_NAME
+      size: 5Gi
+    resources:
+      limits: {}
+      requests: {}
+  replica:
+    replicaCount: 3
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      limits: {}
+      #   cpu: 250m
+      #   memory: 256Mi
+      requests: {}
+      #   cpu: 250m
+      #   memory: 256Mi
+
+registry:
+  # define some sane resource requests and limitations
+  resources:
+    # limits:
+    #   cpu: 200m
+    #   memory: 1024Mi
+    requests:
+      cpu: 50m
+      memory: 32Mi
 ```
 :::
-> * `1313 line` true > false 변경
+> * `2 line` ee > cc 변경 (enterprise edition > community edition)
+> * `4, 6, 9, 12 line` 사용할 도메인 지정 (미지정시 각 서비스별 서브도메인으로 domain 설정됨)
+> * `15 line` RKE2 로 k8s 환경 구성시 `rke2-ingress-nginx` 로 지정
+> * `18 line` RKE2 로 k8s 설치시 `certmanager` 서비스가 이미 설치되어 있으므로 `false` 설정
+> * `26 line` storageClass 지정 `gitaly`
+> * `124 line` storageClass 지정 `minio`
+> * `132 line` 추후 `gitlab-runner` 설치를 위해 `false` 설정
+> * `135 line` 추후 별도로 `prometheus` 설치 예정이므로 `false` 설정
+> * `140 line` storageClass 지정 `postgresql`
+> * `159 line` storageClass 지정 `redis`
 
-### gitlab, postgresql, minio, redis
+> resources 는 각 chart 에서 제공하는 기본값이며 필요시 튜닝하여 사용하면 됩니다.
 
 ::: details `StorageClass` 및 `PV` 생성
 #### StorageClass
@@ -243,29 +269,6 @@ kubectl apply -f pv-master2.yaml
 ...
 ```
 > 노드 별로 PV 를 생성하여 각각 배포
-:::
-
-::: code-group
-``` yaml [helm_options.yaml]
-gitlab:
-  gitaly:
-    persistence:
-      storageClass: CUSTOM_STORAGE_CLASS_NAME
-      size: 50Gi
-postgresql:
-  persistence:
-    storageClass: CUSTOM_STORAGE_CLASS_NAME
-    size: 8Gi
-minio:
-  persistence:
-    storageClass: CUSTOM_STORAGE_CLASS_NAME
-    size: 10Gi
-redis:
-  master:
-    persistence:
-      storageClass: CUSTOM_STORAGE_CLASS_NAME
-      size: 5Gi
-```
 :::
 
 ``` bash
