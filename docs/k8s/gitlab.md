@@ -15,30 +15,244 @@ helm repo add gitlab https://charts.gitlab.io
 helm repo update
 ```
 
+## StorageClass 및 PV 생성
+::: details Gitaly
+#### StorageClass
+gitaly-storage.yaml
+``` yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: STORAGE_CLASS_NAME
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+```
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) gitaly-storage`
+``` bash
+kubectl apply -f gitaly-storage.yaml
+```
+
+#### PV
+gitaly-pv.yaml
+``` yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: PV_NAME // [!code warning]
+spec:
+  capacity:
+    storage: 256Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: STORAGE_CLASS_NAME
+  local:
+    path: LOCAL_PATH // [!code warning]
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - NODE_NAME // [!code warning]
+```
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) gitaly-storage`
+> * `PV_NAME` PV 의 이름
+> * `LOCAL_PATH` path 경로 `ex) /mnt/path`
+> * `NODE_NAME` NODE 이름 `ex) master1`
+``` bash
+kubectl apply -f gitaly-pv.yaml
+```
+:::
+
+::: details Registry
+#### StorageClass
+registry-storage.yaml
+``` yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: STORAGE_CLASS_NAME
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+```
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) registry-storage`
+``` bash
+kubectl apply -f registry-storage.yaml
+```
+
+#### PV
+registry-pv.yaml
+``` yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: PV_NAME // [!code warning]
+spec:
+  capacity:
+    storage: 256Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: STORAGE_CLASS_NAME
+  local:
+    path: LOCAL_PATH // [!code warning]
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - NODE_NAME // [!code warning]
+```
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) registry-storage`
+> * `PV_NAME` PV 의 이름
+> * `LOCAL_PATH` path 경로 `ex) /mnt/path`
+> * `NODE_NAME` NODE 이름 `ex) master1`
+``` bash
+kubectl apply -f registry-pv.yaml
+```
+:::
+
+::: details MiniO
+#### StorageClass
+minio-storage.yaml
+``` yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: STORAGE_CLASS_NAME
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+```
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) minio-storage`
+``` bash
+kubectl apply -f minio-storage.yaml
+```
+
+#### PV
+minio-pv.yaml
+``` yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: PV_NAME // [!code warning]
+spec:
+  capacity:
+    storage: 256Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: STORAGE_CLASS_NAME
+  local:
+    path: LOCAL_PATH // [!code warning]
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - NODE_NAME // [!code warning]
+```
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) minio-storage`
+> * `PV_NAME` PV 의 이름
+> * `LOCAL_PATH` path 경로 `ex) /mnt/path`
+> * `NODE_NAME` NODE 이름 `ex) master1`
+``` bash
+kubectl apply -f minio-pv.yaml
+```
+:::
+
+::: details Postgresql
+#### StorageClass
+postgresql-storage.yaml
+``` yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: STORAGE_CLASS_NAME
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+```
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) postgresql-storage`
+``` bash
+kubectl apply -f postgresql-storage.yaml
+```
+
+#### PV
+postgresql-pv.yaml
+``` yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: PV_NAME // [!code warning]
+spec:
+  capacity:
+    storage: 256Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: STORAGE_CLASS_NAME
+  local:
+    path: LOCAL_PATH // [!code warning]
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - NODE_NAME // [!code warning]
+```
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) postgresql-storage`
+> * `PV_NAME` PV 의 이름
+> * `LOCAL_PATH` path 경로 `ex) /mnt/path`
+> * `NODE_NAME` NODE 이름 `ex) master1`
+``` bash
+kubectl apply -f postgresql-pv.yaml
+```
+:::
+
+## password 생성
+gitlab root password 로 사용할 초기 비밀번호를 설정합니다
+
+### base64 인코딩
+``` bash
+echo -n "password" | base64
+```
+
+::: code-group
+``` yaml [secret.yaml]
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitlab-root-password
+  namespace: gitlab
+data:
+  password: cGFzc3dvcmQ= # base64 인코딩된 문자열 입력
+```
+:::
+
+### secret 생성
+``` bash
+kubectl apply -f secret.yaml
+```
+
 ## values.yaml 작성
 ::: code-group
-``` yaml:line-numbers [values.yaml] {2,4,6,9,12,15,18,26,124,132,135,140,159}
+``` yaml:line-numbers [values.yaml] {2,4,6,7,13,153,9,10,18,121,129,145,148,153,162,172}
 global:
   edition: ce
   hosts:
     domain: example.com
-    gitlab: 
-      name: gitlab.example.com
-      https: true
-    minio: 
-      name: minio.example.com
-      https: true
-    registry:
-      name: registry.example.com
-      https: true
   ingress:
-    class: rke2-ingress-nginx
+    configureCertmanager: false
+    enabled: false
+  initialRootPassword:
+    secret: gitlab-root-password
+    key: password
 
 certmanager:
   install: false
-
-certmanager-issuer: 
-  email: example@email.com
 
 gitlab:
   gitaly:
@@ -64,11 +278,6 @@ gitlab:
       requests:
         cpu: 75m
         memory: 100M
-  gitlab-pages:
-    resources:
-      requests:
-        cpu: 900m
-        memory: 2G
   gitlab-shell:
     resources:
       # We usually recommend not to specify default resources and to leave this as a conscious
@@ -127,6 +336,11 @@ gitlab:
       requests:
         cpu: 50m
         memory: 350M
+    backups:
+      cron:
+        requests:
+          cpu: 50m
+          memory: 350M
   webservice:
     resources:
       # limits:
@@ -135,6 +349,11 @@ gitlab:
       requests:
         cpu: 300m
         memory: 2.5G
+    workhorse:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 100M
     maxUnavailable: 1
     minReplicas: 2
     maxReplicas: 10
@@ -150,6 +369,22 @@ minio:
 
 gitlab-runner:
   install: false
+
+gitlab-zoekt:
+  resources:
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+nginx-ingress:
+  enabled: false
 
 prometheus:
   install: false
@@ -206,71 +441,210 @@ registry:
       memory: 32Mi
 ```
 :::
+
+::: tip
+* k8s 에서 `IngressClass` 를 1개만 사용하고자 하는 경우 `기존 IngressClass 를 사용하는 방법`을 진행합니다. (IngressClass 를 하나만 사용하지만 기존 IngressClass 를 연결하는 작업이 필요함)
+* 기존에 생성된 `IngressClass` 를 사용하지 않고 자동 생성되는 `gitlab-ingress` 를 사용하고자 하는 경우 `gitlab 에서 제공하는 신규 IngressClass 를 사용하는 방법`을 진행합니다. (IngressClass 가 추가로 생성되지만 기존 IngressClass 를 연결하는 작업이 필요없음)
+:::
+
+::: details 기존 IngressClass 를 사용하는 방법
 > * `2 line` ee > cc 변경 (enterprise edition > community edition)
-> * `4, 6, 9, 12 line` 사용할 도메인 지정 (미지정시 각 서비스별 서브도메인으로 domain 설정됨)
-> * `15 line` RKE2 로 k8s 환경 구성시 `rke2-ingress-nginx` 로 지정
-> * `18 line` RKE2 로 k8s 설치시 `certmanager` 서비스가 이미 설치되어 있으므로 `false` 설정
-> * `26 line` storageClass 지정 `gitaly`
-> * `124 line` storageClass 지정 `minio`
-> * `132 line` 추후 `gitlab-runner` 설치를 위해 `false` 설정
-> * `135 line` 추후 별도로 `prometheus` 설치 예정이므로 `false` 설정
-> * `140 line` storageClass 지정 `postgresql`
-> * `159 line` storageClass 지정 `redis`
+> * `4 line` 현재 도메인 지정 
+> * `6, 7, 13, 145 line` ingress class 를 자동 생성이 아닌 직접 등록을 위해 false 지정
+> * `9, 10 line` 이전 단계에서 생성한 password secret 지정
+> * `18 line` `gitaly` 에 대한 storageClass 지정 
+> * `121 line` `minio` 에 대한 storageClass 지정 
+> * `129 line` 추후 `gitlab-runner` 설치를 위해 `false` 설정
+> * `148 line` 추후 별도로 `prometheus` 설치 예정이므로 `false` 설정
+> * `153, 162 line` `postgresql` 에 대한 storageClass 지정 
+> * `172 line` `redis` 에 대한 storageClass 지정 
+:::
+
+::: details gitlab 에서 제공하는 신규 IngressClass 를 사용하는 방법
+> * `2 line` ee > cc 변경 (enterprise edition > community edition)
+> * `4 line` 현재 도메인 지정 
+> * `6, 7, 145 line` ingress class 자동 생성을 위해 `true` 설정
+> * `13 line` k8s 에 `certmanager` 가 설치되어 있는경우 `false`, 없는 경우 `true`
+> * `9, 10 line` 이전 단계에서 생성한 password secret 지정
+> * `18 line` `gitaly` 에 대한 storageClass 지정 
+> * `121 line` `minio` 에 대한 storageClass 지정 
+> * `129 line` 추후 `gitlab-runner` 설치를 위해 `false` 설정
+> * `148 line` 추후 별도로 `prometheus` 설치 예정이므로 `false` 설정
+> * `153, 162 line` `postgresql` 에 대한 storageClass 지정 
+> * `172 line` `redis` 에 대한 storageClass 지정 
+:::
 
 > resources 는 각 chart 에서 제공하는 기본값이며 필요시 튜닝하여 사용하면 됩니다.
 
-::: details `StorageClass` 및 `PV` 생성
-#### StorageClass
-``` yaml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
+## Ingress 생성
+::: warning
+* `values.yaml 작성` 단계에서 `기존 IngressClass 를 사용하는 방법` 으로 세팅한 경우 진행합니다.
+* `values.yaml 작성` 단계에서 `gitlab 에서 제공하는 신규 IngressClass 를 사용하는 방법` 으로 진행 한 경우 `gitlab` 서비스를 위한 새로운 `IngressClass` 및 `Issuer`, `Ingress` 가 자동 생성되므로 추가적으로 생성할 필요가 없습니다.
+:::
+### Issuer 생성
+::: code-group
+``` yaml [issuer.yaml]
+apiVersion: cert-manager.io/v1
+kind: Issuer
 metadata:
-  name: gitlab-storage
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
-```
-> `local-storage.yaml` `StorageClass` 파일 작성
-``` bash
-kubectl apply -f gitlab-storage.yaml
-```
-> local-storage StorageClass 생성
-#### PV
-``` yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: PV_NAME // [!code warning]
+  name: gitlab
+  namespace: gitlab
 spec:
-  capacity:
-    storage: 256Gi
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: gitlab-storage
-  local:
-    path: LOCAL_PATH // [!code warning]
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - NODE_NAME // [!code warning]
+  acme:
+    email: example@email.com
+    privateKeySecretRef:
+      name: letsencrypt-production
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
 ```
-> `pv-master1.yaml` `PV` 생성
-
-> * `PV_NAME` 예시 local-pv-master1 과 같은 PV 의 이름
-> * `LOCAL_PATH` 예시 /mnt/path 와 같은 path 경로
-> * `NODE_NAME` 예시 master1 과 같은 NODE 이름 입력
-
-``` bash
-kubectl apply -f pv-master1.yaml
-kubectl apply -f pv-master2.yaml
-...
-```
-> 노드 별로 PV 를 생성하여 각각 배포
 :::
 
 ``` bash
-helm install gitlab -f helm_options.yaml --namespace gitlab ./gitlab
+kubectl apply -f issuer.yaml
+```
+
+### GitLab
+::: code-group
+``` yaml [ingress.yaml]
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: gitlab
+    cert-manager.io/issuer-kind: Issuer
+  name: gitlab-webservice-default
+  namespace: gitlab
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: gitlab.example.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: gitlab-webservice-default
+                port:
+                  number: 8181
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - gitlab.example.com
+      secretName: tls-gitlab-ingress
+```
+:::
+``` bash
+kubectl apply -f ingress.yaml
+```
+
+### Registry
+::: code-group
+``` yaml [ingress.yaml]
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: gitlab
+    cert-manager.io/issuer-kind: Issuer
+  name: gitlab-registry
+  namespace: gitlab
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: registry.example.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: gitlab-registry
+                port:
+                  number: 5000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - registry.example.com
+      secretName: tls-gitlab-ingress
+```
+:::
+``` bash
+kubectl apply -f ingress.yaml
+```
+
+### kas
+::: code-group
+``` yaml [ingress.yaml]
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: gitlab
+    cert-manager.io/issuer-kind: Issuer
+  name: gitlab-kas
+  namespace: gitlab
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: kas.example.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: gitlab-kas
+                port:
+                  number: 8154
+            path: /k8s-proxy/
+            pathType: Prefix
+          - backend:
+              service:
+                name: gitlab-kas
+                port:
+                  number: 8150
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - kas.example.com
+      secretName: tls-gitlab-ingress
+```
+:::
+``` bash
+kubectl apply -f ingress.yaml
+```
+
+### MiniO
+::: code-group
+``` yaml [ingress.yaml]
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: gitlab
+    cert-manager.io/issuer-kind: Issuer
+  name: gitlab-minio
+  namespace: gitlab
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: minio.example.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: gitlab-minio-svc
+                port:
+                  number: 9000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - minio.example.com
+      secretName: tls-gitlab-ingress
+```
+:::
+``` bash
+kubectl apply -f ingress.yaml
 ```
