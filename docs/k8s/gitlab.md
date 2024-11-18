@@ -458,6 +458,11 @@ registry:
 > * `148 line` 추후 별도로 `prometheus` 설치 예정이므로 `false` 설정
 > * `153, 162 line` `postgresql` 에 대한 storageClass 지정 
 > * `172 line` `redis` 에 대한 storageClass 지정 
+
+gitlab helm chart 설치
+``` bash
+helm install gitlab -f values.yaml --namespace gitlab gitlab/gitlab
+```
 :::
 
 ::: details gitlab 에서 제공하는 신규 IngressClass 를 사용하는 방법
@@ -472,6 +477,11 @@ registry:
 > * `148 line` 추후 별도로 `prometheus` 설치 예정이므로 `false` 설정
 > * `153, 162 line` `postgresql` 에 대한 storageClass 지정 
 > * `172 line` `redis` 에 대한 storageClass 지정 
+
+gitlab helm chart 설치
+``` bash
+helm install gitlab -f values.yaml --namespace gitlab gitlab/gitlab
+```
 :::
 
 > resources 는 각 chart 에서 제공하는 기본값이며 필요시 튜닝하여 사용하면 됩니다.
@@ -567,7 +577,7 @@ spec:
   tls:
     - hosts:
         - registry.example.com
-      secretName: tls-gitlab-ingress
+      secretName: tls-registry-gitlab-ingress
 ```
 :::
 ``` bash
@@ -608,7 +618,7 @@ spec:
   tls:
     - hosts:
         - kas.example.com
-      secretName: tls-gitlab-ingress
+      secretName: tls-kas-gitlab-ingress
 ```
 :::
 ``` bash
@@ -642,7 +652,7 @@ spec:
   tls:
     - hosts:
         - minio.example.com
-      secretName: tls-gitlab-ingress
+      secretName: tls-minio-gitlab-ingress
 ```
 :::
 ``` bash
