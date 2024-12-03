@@ -14,6 +14,7 @@ export default defineConfig({
           { text: 'Ingress', link: '/k8s/ingress' },
           { text: 'EFK', link: '/k8s/efk' },
           { text: 'GitLab', link: '/k8s/gitlab' },
+          { text: 'CI (gitlab-runner)', link: '/k8s/ci' },
         ],
       },
       {
@@ -74,6 +75,7 @@ export default defineConfig({
         { text: 'Ingress', link: '/k8s/ingress' },
         { text: 'EFK', link: '/k8s/efk' },
         { text: 'GitLab', link: '/k8s/gitlab' },
+        { text: 'CI (gitlab-runner)', link: '/k8s/ci' },
       ],
       '/centos/': [
         {
