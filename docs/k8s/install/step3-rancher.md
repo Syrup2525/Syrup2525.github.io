@@ -111,11 +111,48 @@ helm repo add rancher-alpha https://releases.rancher.com/server-charts/alpha
 kubectl create namespace cattle-system
 ```
 
-::: warning
-letsEncrypt 발급시 TCP 80 포트의 방화벽 개방이 필요합니다.
+
+### Rnacher 설치
+* `공용 또는 개인 CA 서명 인증서` 를 이용하여 설치
+* `Let's Encrypt 인증서` 를 이용하여 설치
+> 위 사항중 원하는 방식을 선택하여 진행합니다. 
+
+::: tip
+`Rancher 생성 TLS 인증서` 를 사용하는 경우 [여기](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster#5-install-rancher-with-helm-and-your-chosen-certificate-option) 참고
 :::
 
-`Let's Encrypt 인증서` 예시
+::: warning
+`Let's Encrypt 인증서` 를 이용하여 설치 하는 경우 TCP 80 포트의 방화벽 개방이 필요합니다.
+:::
+
+::: details `공용 또는 개인 CA 서명 인증서` 를 이용하여 설치
+crt, key 파일을 이용하여 secret 생성
+``` bash
+kubectl -n cattle-system create secret tls tls-rancher-ingress \
+  --cert=tls.crt \
+  --key=tls.key
+```
+rancher 설치 (`공용 CA 서명 인증서`)
+``` bash
+helm install rancher rancher-stable/rancher \
+  --namespace cattle-system \
+  --set hostname=rancher.my.org \
+  --set bootstrapPassword=admin \
+  --set ingress.tls.source=secret
+```
+::: tip
+rancher 설치 (`개인 CA 서명 인증서`)
+``` bash
+helm install rancher rancher-stable/rancher \
+  --namespace cattle-system \
+  --set hostname=rancher.my.org \
+  --set bootstrapPassword=admin \
+  --set ingress.tls.source=secret \
+  --set privateCA=true
+```
+:::
+
+::: details `Let's Encrypt 인증서` 를 이용하여 설치
 ```bash
 helm install rancher rancher-stable/rancher \
   --namespace cattle-system \
@@ -125,9 +162,6 @@ helm install rancher rancher-stable/rancher \
   --set letsEncrypt.email=me@example.org \
   --set letsEncrypt.ingress.class=nginx
 ```
-
-::: tip
-`Rancher 생성 TLS 인증서` 또는 `공용 또는 개인 CA 서명 인증서` 를 사용하는 경우 [여기](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/install-upgrade-on-a-kubernetes-cluster#5-install-rancher-with-helm-and-your-chosen-certificate-option) 참고
 :::
 
 ### 실행결과

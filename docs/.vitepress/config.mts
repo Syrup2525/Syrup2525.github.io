@@ -15,6 +15,7 @@ export default defineConfig({
           { text: 'EFK', link: '/k8s/efk' },
           { text: 'GitLab', link: '/k8s/gitlab' },
           { text: 'CI (gitlab-runner)', link: '/k8s/ci' },
+          { text: 'CD (Argo CD)', link: '/k8s/cd' },
         ],
       },
       {
@@ -76,6 +77,7 @@ export default defineConfig({
         { text: 'EFK', link: '/k8s/efk' },
         { text: 'GitLab', link: '/k8s/gitlab' },
         { text: 'CI (gitlab-runner)', link: '/k8s/ci' },
+        { text: 'CD (Argo CD)', link: '/k8s/cd' },
       ],
       '/centos/': [
         {
