@@ -65,9 +65,9 @@ kubectl apply -f gitaly-pv.yaml
 ```
 :::
 
-::: details Registry
+::: details Redis
 #### StorageClass
-registry-storage.yaml
+redis-storage.yaml
 ``` yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -76,13 +76,13 @@ metadata:
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ```
-> * `STORAGE_CLASS_NAME` storage class 이름 `ex) registry-storage`
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) redis-storage`
 ``` bash
-kubectl apply -f registry-storage.yaml
+kubectl apply -f redis-storage.yaml
 ```
 
 #### PV
-registry-pv.yaml
+redis-pv.yaml
 ``` yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -105,12 +105,12 @@ spec:
               values:
                 - NODE_NAME // [!code warning]
 ```
-> * `STORAGE_CLASS_NAME` storage class 이름 `ex) registry-storage`
+> * `STORAGE_CLASS_NAME` storage class 이름 `ex) redis-storage`
 > * `PV_NAME` PV 의 이름
 > * `LOCAL_PATH` path 경로 `ex) /mnt/path`
 > * `NODE_NAME` NODE 이름 `ex) master1`
 ``` bash
-kubectl apply -f registry-pv.yaml
+kubectl apply -f redis-pv.yaml
 ```
 :::
 
