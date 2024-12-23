@@ -448,7 +448,7 @@ registry:
 :::
 
 ::: details 기존 IngressClass 를 사용하는 방법
-> * `2 line` ee > cc 변경 (enterprise edition > community edition)
+> * `2 line` ee > ce 변경 (enterprise edition > community edition)
 > * `4 line` 현재 도메인 지정 
 > * `6, 7, 13, 145 line` ingress class 를 자동 생성이 아닌 직접 등록을 위해 false 지정
 > * `9, 10 line` 이전 단계에서 생성한 password secret 지정
