@@ -45,63 +45,98 @@ helm install argocd argo/argo-cd -n argocd -f values.yaml
 ```
 
 ## Ingress 생성
-### Issuer 생성
-::: code-group
-``` yaml [issuer.yaml]
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: argocd
-  namespace: argocd
-spec:
-  acme:
-    email: example@email.com
-    privateKeySecretRef:
-      name: letsencrypt-production
-    server: https://acme-v02.api.letsencrypt.org/directory
-    solvers:
-      - http01:
-          ingress:
-            class: nginx
-```
-:::
-``` bash
-kubectl apply -f issuer.yaml
-```
+::: details Let's Encrypt 사용시
 
-### Ingress 생성
-::: code-group
-``` yaml [ingress.yaml]
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    cert-manager.io/issuer: argocd
-    cert-manager.io/issuer-kind: Issuer
-  name: argocd-server
-  namespace: argocd
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: argocd.example.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: argocd-server
-                port:
-                  number: 8080
-            path: /
-            pathType: Prefix
-  tls:
-    - hosts:
-        - argocd.example.com
-      secretName: tls-argocd-ingress
-```
+#### Issuer 생성
+> ::: code-group
+> ``` yaml [issuer.yaml]
+> apiVersion: cert-manager.io/v1
+> kind: Issuer
+> metadata:
+>  name: argocd
+>  namespace: argocd
+> spec:
+>  acme:
+>    email: example@email.com
+>    privateKeySecretRef:
+>      name: letsencrypt-production
+>    server: https://acme-v02.api.letsencrypt.org/directory
+>    solvers:
+>      - http01:
+>          ingress:
+>            class: nginx
+> ```
+> :::
+> ``` bash
+> kubectl apply -f issuer.yaml
+> ```
+
+#### Ingress 생성
+> ::: code-group
+> ``` yaml [ingress.yaml]
+> apiVersion: networking.k8s.io/v1
+> kind: Ingress
+> metadata:
+>    annotations:
+>      cert-manager.io/issuer: argocd
+>      cert-manager.io/issuer-kind: Issuer
+>    name: argocd-server
+>    namespace: argocd
+> spec:
+>   ingressClassName: nginx
+>   rules:
+>     - host: argocd.example.com
+>       http:
+>         paths:
+>           - backend:
+>               service:
+>                 name: argocd-server
+>                 port:
+>                   number: 8080
+>             path: /
+>             pathType: Prefix
+>   tls:
+>     - hosts:
+>         - argocd.example.com
+>       secretName: tls-argocd-ingress
+> ```
+> :::
+> ``` bash
+> kubectl apply -f ingress.yaml
+> ```
 :::
-``` bash
-kubectl apply -f ingress.yaml
-```
+
+::: details 공용 CA 인증서 사용시
+> ::: code-group
+> ``` yaml [ingress.yaml]
+> apiVersion: networking.k8s.io/v1
+> kind: Ingress
+> metadata:
+>   name: argocd
+>   namespace: argocd
+> spec:
+>   ingressClassName: nginx
+> rules:
+>     - host: argocd.example.com
+>       http:
+>         paths:
+>           - backend:
+>               service:
+>                 name: argocd-server
+>                 port:
+>                   number: 8080
+>             path: /
+>             pathType: Prefix
+>   tls:
+>     - hosts:
+>         - argocd.example.com
+>       secretName: example-com-tls
+> ```
+> :::
+> ``` bash
+> kubectl apply -f ingress.yaml
+> ```
+:::
 
 ## GitLab Repository 설정
 ### deployment.yaml 설정
