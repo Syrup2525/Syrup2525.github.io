@@ -25,6 +25,7 @@ Gitlab Web 에서 root 계정으로 로그인 후 `admin > CI/CD > Runners > New
 ## values.yaml 작성
 ::: code-group
 ``` yaml [values.yaml]
+replicas: 1
 gitlabUrl: https://gitlab.example.com
 runnerRegistrationToken: "Gitlab 에서 Runner 생성 단계에서 확인한 Token 정보"
 
