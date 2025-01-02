@@ -122,7 +122,7 @@ NAME      STATUS   ROLES                       AGE    VERSION
 master1   Ready    control-plane,etcd,master   111s   v1.28.9+rke2r1
 ```
 
-## Woker 노드 등록에 필요한 token 확인
+## Worker 노드 등록에 필요한 token 확인
 ```bash 
 cat /var/lib/rancher/rke2/server/node-token
 ```

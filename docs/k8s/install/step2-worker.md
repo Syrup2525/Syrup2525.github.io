@@ -1,4 +1,4 @@
-# Woker 구성
+# Worker 구성
 ## 사전 작업
 ### 메모리 swap off
 메모리 swap off
@@ -67,11 +67,11 @@ vi /etc/rancher/rke2/config.yaml
 ```yaml title="config.yaml"
 server: https://<server>:9345
 token: <token from server node> # 마스터 노드 토큰
-node-name: woker1 # agent 이름
+node-name: worker1 # agent 이름
 ```
 
 ::: tip
-token 값은 [Woker 노드 등록에 필요한 token 확인](/k8s/install/step1-master.html#woker-노드-등록에-필요한-token-확인) 에서 확인
+token 값은 [Worker 노드 등록에 필요한 token 확인](/k8s/install/step1-master.html#worker-노드-등록에-필요한-token-확인) 에서 확인
 :::
 
 ### 서비스 시작 및 등록
@@ -109,5 +109,5 @@ kubectl get nodes
 ```bash
 NAME      STATUS   ROLES                       AGE     VERSION
 master1   Ready    control-plane,etcd,master   9m46s   v1.28.9+rke2r1
-woker1    Ready    <none>                      46s     v1.28.9+rke2r1
+worker1    Ready    <none>                      46s     v1.28.9+rke2r1
 ```
