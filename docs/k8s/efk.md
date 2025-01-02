@@ -105,7 +105,7 @@ volumeClaimTemplate:
 > values.yaml 파일을 현재 시스템 상황에 맞게 적절히 수정합니다.
 
 ``` bash
-helm install elasticsearch -f values.yaml elastic/elasticsearch --namespace efk --version 8.5.1
+helm install elasticsearch -f values.yaml elastic/elasticsearch -n efk --version 8.5.1
 ```
 > elasticsearch 설치
 
@@ -208,7 +208,7 @@ config:
 * helm install fluent-bit
 
 ``` bash
-helm install fluent-bit -f values.yaml fluent/fluent-bit --namespace efk --version 0.47.10
+helm install fluent-bit fluent/fluent-bit -f values.yaml -n efk --version 0.47.10
 ```
 > chart version `0.47.10` Application version `3.1.9`
 
@@ -236,7 +236,7 @@ resources:
 > values.yaml 파일을 현재 시스템 상황에 맞게 적절히 수정합니다.
 
 ``` bash
-helm install kibana -f values.yaml elastic/kibana --namespace efk --version 8.5.1
+helm install kibana elastic/kibana -f values.yaml -n efk --version 8.5.1
 ```
 > elasticsearch 설치
 

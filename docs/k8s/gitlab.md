@@ -461,7 +461,7 @@ registry:
 
 gitlab helm chart 설치
 ``` bash
-helm install gitlab -f values.yaml --namespace gitlab gitlab/gitlab
+helm install gitlab gitlab/gitlab -f values.yaml -n gitlab
 ```
 :::
 
@@ -480,7 +480,7 @@ helm install gitlab -f values.yaml --namespace gitlab gitlab/gitlab
 
 gitlab helm chart 설치
 ``` bash
-helm install gitlab -f values.yaml --namespace gitlab gitlab/gitlab
+helm install gitlab gitlab/gitlab -f values.yaml -n gitlab
 ```
 :::
 
