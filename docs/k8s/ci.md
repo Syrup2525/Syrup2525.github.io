@@ -39,7 +39,7 @@ runners:
       tags = ["dind"]
       [runners.kubernetes]
         image = "docker:24.0.6"
-        namespace = "gitlab-runner"
+        namespace = "gitlab-runners"
         privileged = true
 
 rbac:
