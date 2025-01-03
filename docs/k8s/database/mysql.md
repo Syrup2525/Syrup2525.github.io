@@ -154,3 +154,10 @@ primary:
 ``` bash
 helm install mysql bitnami/mysql -n mysql -f values.yaml
 ```
+
+::: tip
+클러스터 내부에서 접근시
+``` txt
+mysql.mysql.svc.cluster.local:3306
+```
+:::

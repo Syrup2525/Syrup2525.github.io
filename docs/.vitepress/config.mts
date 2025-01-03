@@ -10,13 +10,12 @@ export default defineConfig({
       {
         text: 'k8s',
         items: [
-          { text: '쿠버네티스환경 구성', link: '/k8s/install/step1-master.md' },
+          { text: '쿠버네티스 설치', link: '/k8s/install/step1-master' },
+          { text: '쿠버네티스 설정', link: '/k8s/setting/ingress' },
+          { text: 'GitOps, CI/CD', link: '/k8s/gitops/gitlab' },
+          { text: 'Database', link: '/k8s/database/mysql' },
           { text: 'Ingress', link: '/k8s/ingress' },
           { text: 'EFK', link: '/k8s/efk' },
-          { text: 'GitLab', link: '/k8s/gitlab' },
-          { text: 'CI (gitlab-runner)', link: '/k8s/ci' },
-          { text: 'CD (Argo CD)', link: '/k8s/cd' },
-          { text: 'MySQL', link: '/k8s/mysql' },
         ],
       },
       {
@@ -66,20 +65,37 @@ export default defineConfig({
     sidebar: {
       '/k8s/': [
         {
-          text: '쿠버네티스 환경 구성',
+          text: '쿠버네티스 설치',
           items: [
             { text: 'Master 구성', link: '/k8s/install/step1-master.md' },
             { text: 'Worker 구성', link: '/k8s/install/step2-worker.md' },
             { text: 'Rancher 설치', link: '/k8s/install/step3-rancher.md' },
             { text: '설치 제거', link: '/k8s/install/step4-uninstall.md' },
-          ]
+          ],
         },
-        { text: 'Ingress', link: '/k8s/ingress' },
+        {
+          text: '쿠버네티스 설정',
+          items: [
+            { text: 'Ingress', link: '/k8s/ingress' },
+          ],
+        },
+        {
+          text: 'GitOps, CI/CD',
+          items: [
+            { text: 'GitLab', link: '/k8s/gitops/gitlab' },
+            { text: 'CI (gitlab-runner)', link: '/k8s/gitops/ci' },
+            { text: 'CD (Argo CD)', link: '/k8s/gitops/cd' },
+          ],
+        },
+        {
+          text: 'Database',
+          items: [
+            { text: 'MySQL', link: '/k8s/database/mysql' },
+            { text: 'MongoDB', link: 'k8s/database/mongodb' },
+            { text: 'Redis', link: '/k8s/database/redis' },
+          ],
+        },
         { text: 'EFK', link: '/k8s/efk' },
-        { text: 'GitLab', link: '/k8s/gitlab' },
-        { text: 'CI (gitlab-runner)', link: '/k8s/ci' },
-        { text: 'CD (Argo CD)', link: '/k8s/cd' },
-        { text: 'MySQL', link: '/k8s/mysql' },
       ],
       '/centos/': [
         {
