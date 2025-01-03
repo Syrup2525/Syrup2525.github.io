@@ -16,6 +16,7 @@ export default defineConfig({
           { text: 'GitLab', link: '/k8s/gitlab' },
           { text: 'CI (gitlab-runner)', link: '/k8s/ci' },
           { text: 'CD (Argo CD)', link: '/k8s/cd' },
+          { text: 'MySQL', link: '/k8s/mysql' },
         ],
       },
       {
@@ -78,6 +79,7 @@ export default defineConfig({
         { text: 'GitLab', link: '/k8s/gitlab' },
         { text: 'CI (gitlab-runner)', link: '/k8s/ci' },
         { text: 'CD (Argo CD)', link: '/k8s/cd' },
+        { text: 'MySQL', link: '/k8s/mysql' },
       ],
       '/centos/': [
         {
