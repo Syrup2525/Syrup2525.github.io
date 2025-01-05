@@ -525,6 +525,8 @@ metadata:
   annotations:
     cert-manager.io/issuer: gitlab
     cert-manager.io/issuer-kind: Issuer
+    nginx.ingress.kubernetes.io/client-max-body-size: 1024m
+    nginx.ingress.kubernetes.io/proxy-body-size: 1024m
   name: gitlab-webservice-default
   namespace: gitlab
 spec:
