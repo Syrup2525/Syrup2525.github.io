@@ -67,7 +67,7 @@ kubectl apply -f pv.yaml
 
 ## values.yaml 작성
 ::: code-group
-``` yaml:line-numbers [values.yaml] {2,4-5,7,10,11,31-33,44-45,50,64,67,69}
+``` yaml:line-numbers [values.yaml] {2,4-5,7,10,11,31-33,44-45,50,59,67,70,72}
 global:
   defaultStorageClass: "STORAGE_CLASS_NAME"
 
@@ -124,6 +124,9 @@ primary:
     port={{ .Values.primary.containerPorts.mysql }}
     socket=/opt/bitnami/mysql/tmp/mysql.sock
     pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+
+  nodeSelector: 
+    kubernetes.io/hostname: "master1"
     
   resources:
     requests:
@@ -146,9 +149,10 @@ primary:
 > * `10 line` root 게정 비밀번호 지정
 > * `11 line` 기본 데이터 베이스 생성 안함 (기본값 `true`)
 > * `31, 32, 33, 44, 45, 50 line` character-set 및 time-zone 지정
-> * `64 line` 외부 접근을 위해 `NodePort` 지정 (기본값 `ClusterIP`)
-> * `67 line` mysqlx 사용 안함 (기본값 `33060`)
-> * `69 line` 외부 접근을 위한 port 지정
+> * `59 line` Pod 가 실행될 node 지정 (지정 필요없는 경우 해당 라인 삭제)
+> * `67 line` 외부 접근을 위해 `NodePort` 지정 (기본값 `ClusterIP`)
+> * `70 line` mysqlx 사용 안함 (기본값 `33060`)
+> * `72 line` 외부 접근을 위한 port 지정
 
 ## 설치
 ``` bash

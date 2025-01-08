@@ -14,8 +14,8 @@ export default defineConfig({
           { text: '쿠버네티스 설정', link: '/k8s/setting/ingress' },
           { text: 'GitOps, CI/CD', link: '/k8s/gitops/gitlab' },
           { text: 'Database', link: '/k8s/database/mysql' },
-          { text: 'Ingress', link: '/k8s/ingress' },
           { text: 'EFK', link: '/k8s/efk' },
+          { text: 'Apache Kafka', link: '/k8s/kafka' },
         ],
       },
       {
@@ -76,7 +76,7 @@ export default defineConfig({
         {
           text: '쿠버네티스 설정',
           items: [
-            { text: 'Ingress', link: '/k8s/ingress' },
+            { text: 'Ingress', link: '/k8s/setting/ingress' },
           ],
         },
         {
@@ -96,6 +96,7 @@ export default defineConfig({
           ],
         },
         { text: 'EFK', link: '/k8s/efk' },
+        { text: 'Apache Kafka', link: '/k8s/kafka' },
       ],
       '/centos/': [
         {
