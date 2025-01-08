@@ -1,6 +1,6 @@
 # Ingress
 ::: warning
-먼저 `RKE2` 를 통한 `쿠버네티스` 설치 및 `Rancher` 세팅이 완료되어 있어야 합니다. [RKE2 를 통한 쿠버네티스 설치](./install/step1-master.md) 및 [Rancher 설치](./install/step3-rancher.md)
+먼저 `RKE2` 를 통한 `쿠버네티스` 설치 및 `Rancher` 세팅이 완료되어 있어야 합니다. [RKE2 를 통한 쿠버네티스 설치](/k8s/install/step1-master.md) 및 [Rancher 설치](/k8s/install/step3-rancher.md)
 :::
 
 ## Namespace 생성
