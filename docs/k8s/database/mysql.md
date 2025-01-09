@@ -165,3 +165,32 @@ helm install mysql bitnami/mysql -n mysql -f values.yaml
 mysql.mysql.svc.cluster.local:3306
 ```
 :::
+
+## ETC
+### dump & restore
+
+::: tip
+*  procedure, function 같이 dump & restore 시 `--routines` 옵션 추가
+*  trigger 같이 dump & restore 사용시 `--trigger` 옵션 추가
+:::
+
+* dump
+``` bash
+kubectl exec -it {pod_name} -- /opt/bitnami/mysql/bin/mysqldump -u {username} --password={password} {database} > {filename}.sql
+```
+
+::: tip
+::: details mysqldump 옵션
+```bash
+kubectl exec -it {pod_name} -- /opt/bitnami/mysql/bin/mysqldump --no-data --routines -u {username} --password={password} | sed 's/AUTO_INCREMENT=[0-9]*//' > {filename}.sql 
+```
+
+* `--no-data` 데이터 없이 스키마만
+* `--routines` procedure, function 포함
+* `sed 's/AUTO_INCREMENT=[0-9]*//'` AUTO_INCREMENT 0 부터 시작하도록 구문 제거
+:::
+
+* restore
+``` bash
+cat {filename}.sql | kubectl exec -i {pod_name} --namespace=mysql -- /opt/bitnami/mysql/bin/mysql -u {username} --password={password} {database_name} --verbose
+```
