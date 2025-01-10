@@ -14,8 +14,8 @@ export default defineConfig({
           { text: '쿠버네티스 설정', link: '/k8s/setting/ingress' },
           { text: 'GitOps, CI/CD', link: '/k8s/gitops/gitlab' },
           { text: 'Database', link: '/k8s/database/mysql' },
+          { text: 'Apache Kafka', link: '/k8s/kafka/install' },
           { text: 'EFK', link: '/k8s/efk' },
-          { text: 'Apache Kafka', link: '/k8s/kafka' },
         ],
       },
       {
@@ -95,8 +95,14 @@ export default defineConfig({
             { text: 'Redis', link: '/k8s/database/redis' },
           ],
         },
+        {
+          text: 'Apache Kafka',
+          items: [
+            { text: 'Install', link: '/k8s/kafka/install' },
+            { text: 'UI', link: '/k8s/kafka/ui' },
+          ],
+        },
         { text: 'EFK', link: '/k8s/efk' },
-        { text: 'Apache Kafka', link: '/k8s/kafka' },
       ],
       '/centos/': [
         {

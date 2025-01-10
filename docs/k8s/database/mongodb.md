@@ -65,6 +65,7 @@ spec:
 kubectl apply -f pv.yaml
 ```
 
+## values.yaml 작성
 ::: code-group
 ``` yaml:line-numbers [values.yaml] {2,4,8-9,13,14,17}
 global:
