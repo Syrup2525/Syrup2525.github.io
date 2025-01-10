@@ -182,7 +182,7 @@ kubectl exec -it {pod_name} -- /opt/bitnami/mysql/bin/mysqldump -u {username} --
 ::: tip
 ::: details mysqldump 옵션
 ```bash
-kubectl exec -it {pod_name} -- /opt/bitnami/mysql/bin/mysqldump --no-data --routines -u {username} --password={password} | sed 's/AUTO_INCREMENT=[0-9]*//' > {filename}.sql 
+kubectl exec -it {pod_name} -- /opt/bitnami/mysql/bin/mysqldump --no-data --routines -u {username} --password={password} {database} | sed 's/AUTO_INCREMENT=[0-9]*//' > {filename}.sql 
 ```
 
 * `--no-data` 데이터 없이 스키마만
