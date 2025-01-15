@@ -85,6 +85,7 @@ export default defineConfig({
             { text: 'GitLab', link: '/k8s/gitops/gitlab' },
             { text: 'CI (gitlab-runner)', link: '/k8s/gitops/ci' },
             { text: 'CD (Argo CD)', link: '/k8s/gitops/cd' },
+            { text: 'Troubleshooting', link: '/k8s/gitops/troubleshooting' },
           ],
         },
         {
