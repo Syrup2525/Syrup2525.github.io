@@ -69,6 +69,11 @@ UPDATE projects SET runners_token_encrypted = NULL;
 DELETE FROM ci_runners;
 ```
 
+10. group ci variable 정보 제거
+``` bash
+DELETE FROM ci_group_variables;
+```
+
 ### token 초기화
 1. `gitlab-toolbox` pod 이름 확인
 ``` bash
