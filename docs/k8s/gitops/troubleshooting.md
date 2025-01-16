@@ -49,6 +49,21 @@ ALTER USER postgres WITH PASSWORD '1. 에서 확인한 비밀번호';
 ALTER USER gitlab WITH PASSWORD '2. 에서 확인한 비밀번호';
 ```
 
+6. DB 선택
+``` bash
+\c gitlabhq_production
+```
+
+7. token 정보 제거
+``` bash
+UPDATE application_settings SET encrypted_customers_dot_jwt_signing_key = null, encrypted_customers_dot_jwt_signing_key_iv = null, error_tracking_access_token_encrypted = null;
+```
+
+8. runner 정보 제거
+``` bash
+DELETE FROM ci_runners;
+```
+
 ### token 초기화
 1. `gitlab-toolbox` pod 이름 확인
 ``` bash
