@@ -59,7 +59,12 @@ ALTER USER gitlab WITH PASSWORD '2. 에서 확인한 비밀번호';
 UPDATE application_settings SET encrypted_customers_dot_jwt_signing_key = null, encrypted_customers_dot_jwt_signing_key_iv = null, error_tracking_access_token_encrypted = null;
 ```
 
-8. runner 정보 제거
+8. project runner 토큰 정보 제거
+``` bash
+UPDATE projects SET runners_token_encrypted = NULL;
+```
+
+9. runner 정보 제거
 ``` bash
 DELETE FROM ci_runners;
 ```
