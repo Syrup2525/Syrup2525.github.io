@@ -248,7 +248,7 @@ kubectl apply -f pv.yaml
 >   client:
 >     users:
 >       - user1
->    passwords: "USER_PASSWORD"
+>     passwords: "USER_PASSWORD"
 > 
 > service:
 >   type: ClusterIP
