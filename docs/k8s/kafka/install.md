@@ -203,8 +203,8 @@ kubectl apply -f pv.yaml
 >                 - worker3
 > 
 > extraConfig: |
->   offsets.topic.replication.factor=1
->   default.replication.factor=1
+>   offsets.topic.replication.factor=3
+>   default.replication.factor=3
 > 
 > broker:
 >   replicaCount: 0
