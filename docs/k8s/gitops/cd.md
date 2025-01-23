@@ -407,15 +407,15 @@ https://argocd.example.com
 >> 
 >> 이 설정을 통해 발견된 모든 태그를 고려하되, `latest`와 `master` 태그는 제외할 수 있습니다. 태그 필터링에 대한 자세한 내용은 [여기](https://argocd-image-updater.readthedocs.io/en/stable/configuration/images/#filtering-tags)를 참고하세요.
 > * #### `digest` - 특정 태그의 가장 최근에 푸시된 버전으로 업데이트
-> 단일 태그를 검사하여 변경 사항을 확인하고 이전 상태에 대한 변경 사항이 있을 경우 이미지를 업데이트합니다. 
-> 일반적으로 사용되는 태그와 같이 변경 가능한 태그를 따르려는 `latest` 경우나 CI 시스템에서 의도한 환경으로 명명된 태그를 생성하는 경우 이 업데이트 전략을 사용합니다. (예: `dev`, `stage`, `prod`).
-> 예를 들어, `latest` 태그가 있는 `some/image` 이미지를 새로 푸시할 때마다 애플리케이션의 이미지를 항상 업데이트합니다.
-> ``` txt
-> argocd-image-updater.argoproj.io/image-list: myimage=some/image:latest
-> argocd-image-updater.argoproj.io/myimage.update-strategy: digest
-> ```
+>> 단일 태그를 검사하여 변경 사항을 확인하고 이전 상태에 대한 변경 사항이 있을 경우 이미지를 업데이트합니다. 
+>> 일반적으로 사용되는 태그와 같이 변경 가능한 태그를 따르려는 `latest` 경우나 CI 시스템에서 의도한 환경으로 명명된 태그를 생성하는 경우 이 업데이트 전략을 사용합니다. (예: `dev`, `stage`, `prod`).
+>> 예를 들어, `latest` 태그가 있는 `some/image` 이미지를 새로 푸시할 때마다 애플리케이션의 이미지를 항상 업데이트합니다.
+>> ``` txt
+>> argocd-image-updater.argoproj.io/image-list: myimage=some/image:latest
+>> argocd-image-updater.argoproj.io/myimage.update-strategy: digest
+>> ```
 > 
-> #### `alphabetical` - 사전식(어휘) 정렬에 따른 업데이트
+> * #### `alphabetical` - 사전식(어휘) 정렬에 따른 업데이트
 >> 이 업데이트 전략은 레지스트리에서 반환된 태그를 사전식 정렬(내림차순) 방식으로 정렬하고, 목록에서 마지막 태그를 업데이트 대상으로 선택합니다. 이 방식은 추적하려는 이미지가 `YYYY-MM-DD` 형식이나 이와 유사한 사전식으로 정렬 가능한 문자열을 사용하는 `Calver` 버전 관리 방식일 경우 유용할 수 있습니다.
 >>
 >> 기본적으로 이 업데이트 전략은 이미지 저장소에서 발견된 모든 태그를 검사합니다. 특정 태그만 업데이트 대상으로 고려하고 싶다면 추가 설정이 필요합니다. 예를 들어, 
@@ -426,6 +426,19 @@ https://argocd.example.com
 >> ```
 >> 
 >> 업데이트 시 특정 정규식을 만족하는 태그만 고려하도록 설정할 수 있습니다. 이 경우 `YYYY-MM-DD` 형식의 날짜를 나타내는 태그만 업데이트 대상으로 고려됩니다.
+>> 
+> ::: tip
+> x.y.z 형태만 배포하는 방법
+> | Key | Value |
+> | --- | ----- |
+> | argocd-image-updater.argoproj.io/myimage.allow-tags | regexp:^([0-9]{1,3}\.){2}[0-9]{1,3}$ |
+> 
+> *-dev 형태만 배포하는 방법
+> | Key | Value |
+> | --- | ----- |
+> | argocd-image-updater.argoproj.io/myimage.allow-tags | regexp:.*-dev$ |
 > :::
+
+
 
 * 우측 상단 `SAVE` 를 선택하고 저장합니다.
