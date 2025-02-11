@@ -16,6 +16,7 @@ export default defineConfig({
           { text: 'Database', link: '/k8s/database/mysql' },
           { text: 'Apache Kafka', link: '/k8s/kafka/install' },
           { text: 'EFK', link: '/k8s/efk' },
+          { text: 'Prometheus', link: '/k8s/prometheus' },
         ],
       },
       {
@@ -104,6 +105,7 @@ export default defineConfig({
           ],
         },
         { text: 'EFK', link: '/k8s/efk' },
+        { text: 'Prometheus', link: '/k8s/prometheus' },
       ],
       '/centos/': [
         {
