@@ -33,23 +33,14 @@ chmod 700 get_helm.sh
 helm repo add jetstack https://charts.jetstack.io --force-update
 ```
 
-저장소 업데이트
-```bash
-helm repo update
-```
-
-kubectl 을 이용하여 CRDs 설치
-```bash
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.crds.yaml
-```
-
 cert-manager 설치
 ```bash
 helm install \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
   --create-namespace \
-  --version v1.14.5
+  --version v1.17.0 \
+  --set crds.enabled=true
 ```
 
 실행 결과

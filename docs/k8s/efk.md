@@ -292,7 +292,7 @@ spec:
             pathType: ImplementationSpecific
   tls:
     - hosts:
-        - kibana.skyraker.net
+        - kibana.yourdomain.com
       secretName: tls-kibana-ingress
 ```
 :::

@@ -11,7 +11,7 @@ export default defineConfig({
         text: 'k8s',
         items: [
           { text: '쿠버네티스 설치', link: '/k8s/install/step1-master' },
-          { text: '쿠버네티스 설정', link: '/k8s/setting/ingress' },
+          { text: '쿠버네티스 설정', link: '/k8s/setting/coredns' },
           { text: 'GitOps, CI/CD', link: '/k8s/gitops/gitlab' },
           { text: 'Database', link: '/k8s/database/mysql' },
           { text: 'Apache Kafka', link: '/k8s/kafka/install' },
@@ -77,6 +77,7 @@ export default defineConfig({
         {
           text: '쿠버네티스 설정',
           items: [
+            { text: 'Core DNS', link: '/k8s/setting/coredns' },
             { text: 'Ingress', link: '/k8s/setting/ingress' },
           ],
         },

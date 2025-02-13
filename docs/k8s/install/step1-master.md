@@ -47,6 +47,12 @@ curl 명령어 실행
 curl -sfL https://get.rke2.io | sh -
 ```
 
+::: details 특정 버전 설치시
+``` bash
+curl -sfL https://get.rke2.io | INSTALL_RKE2_VERSION="v1.31.4+rke2r1" sh -
+```
+:::
+
 실행 결과
 ```bash
 [INFO]  finding release for channel stable
