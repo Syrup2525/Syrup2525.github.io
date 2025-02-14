@@ -50,3 +50,30 @@ data:
 ``` bash
 kubectl delete pod -n kube-system -l k8s-app=kube-dns
 ```
+
+### Core DNS Pod 상태 확인
+``` bash
+kubectl get pod -n kube-system -l k8s-app=kube-dns
+```
+
+### 테스트
+``` bash
+kubectl run busybox --image=busybox --restart=Never -- sleep 3600
+kubectl exec -it busybox -- nslookup test.example.com
+```
+
+* 정상 결과
+``` txt
+Server:		10.43.0.10
+Address:	10.43.0.10:53
+
+
+Name:	test.example.com
+Address: 192.168.1.2
+
+```
+
+* 삭제
+``` bash
+kubectl delete pods busybox
+```
