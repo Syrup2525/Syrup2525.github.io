@@ -208,6 +208,114 @@ resources:
 ```
 :::
 
+::: tip
+::: details 개발, 운영 별로 다른 Kustomize 적용하기
+path 의 에시입니다.
+
+``` txt {3-14}
+sample/
+├── README.md
+├── manifests/
+│   ├── base/                       # 공통으로 적용될 파일
+│   │   ├── deployment.yaml
+│   │   ├── kustomization.yaml
+│   │   └── service.yaml
+│   └── overlays/                   # 환경에 따른 각 설정 파일
+│       ├── development/            # 개발 환경
+│       │   ├── deployment.yaml
+│       │   └── kustomization.yaml
+│       └── release/                # 운영 환경
+│           ├── deployment.yaml
+│           └── kustomization.yaml
+├── scripts/
+│   ├── build.sh
+│   └── deploy.sh
+└── docs/
+    └── architecture.md
+
+```
+
+#### manifests/base
+`manifests/base` 는 공통으로 사용되는 yaml 설정 값을 입력합니다.
+> * `manifests/base/deployment.yaml` 예시
+> ::: code-group 
+> ``` yaml [deployment.yaml]
+> apiVersion: apps/v1
+> kind: Deployment
+> metadata:
+>   name: client-api
+> spec:
+>   replicas: 1
+>   selector:
+>     matchLabels:
+>       app: client-api
+>   template:
+>     metadata:
+>       labels:
+>         app: client-api
+>     spec:
+>       imagePullSecrets:
+>       - name: gitlab-registry
+>       containers:
+>       - name: client-api
+>         image: registry.example.com/project/client-api:lastest
+>         imagePullPolicy: Always
+>         resources:
+>           limits:
+>             memory: "300Mi"
+>         ports:
+>         - containerPort: 3000
+>         env:
+>         - name: MODE
+>           valueFrom:
+>             configMapKeyRef:
+>               name: deployment
+>               key: MODE
+> ```
+> :::
+> * `manifests/base/kustomization.yaml` 예시
+> ::: code-group
+> ``` yaml [kustomization.yaml]
+> resources:
+>  - deployment.yaml
+>  - service.yaml
+> ```
+> :::
+
+#### manifests/overlays
+`manifests/overlays` 는 `manifests/base` 를 상속받은 이후 덮어쓸 설정을 입력합니다.
+> * `manifests/overlays/development/deployment.yaml` 예시
+> ::: code-group
+> ``` yaml [deployment.yaml] {11-14}
+> apiVersion: apps/v1
+> kind: Deployment
+> metadata:
+>   name: client-api
+> spec:
+>   replicas: 1
+>   template:
+>     spec:
+>       containers:
+>       - name: client-api
+>         image: registry.example.com/project/client-api:0.5.4-dev
+>         resources:
+>           limits:
+>             memory: "300Mi"
+> ```
+> :::
+> * `manifests/overlays/development/kustomization.yaml` 예시
+> ::: code-group
+> ``` yaml [kustomization.yaml]
+> resources:
+>   - ../../base            # base path 의 모든 항목을 상속받음
+> 
+> patches:
+>   - path: deployment.yaml # deploment 재정의
+> ```
+> :::
+
+:::
+
 ## ArgoCD Image Updater
 ### Image Updater 설치 
 ``` bash
@@ -314,7 +422,9 @@ https://argocd.example.com
 > | -------------- | --------------------------------------------- |
 > | Repository URL | https://gitlab.example.com/project/sample.git |
 > | Path           | manifests                                     |
-> 
+> ::: tip
+> `개발, 운영 별로 다른 Kustomize 적용하기` 를 적용한 경우 `Path` 를 환경별로 kustomization.yaml 파일이 존재하는 적절한 (예 `manifests/overlays/development`) 경로를 입력합니다. 
+> :::
 > DESTINATION
 > | Key         | Value                          |
 > | ----------- | ------------------------------ |

@@ -20,7 +20,7 @@
     ```bash [example.com.conf]
     server {
         listen 80;
-        server_name test.blossom.bumblebeecrew.com;
+        server_name example.com;
 
         charset utf-8;
 
