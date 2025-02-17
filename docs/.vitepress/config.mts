@@ -28,7 +28,7 @@ export default defineConfig({
           { text: 'php (7.4)', link: '/centos/php/step1-phpfpm' },
           { text: 'Docker', link: '/centos/docker' },
           { text: "MongoDB", link: "/centos/mongodb" },
-          { text: "mysql", link: "/centos/mysql8" },
+          { text: "MySQL 8", link: "/centos/mysql8" },
         ],
       },
       {
@@ -44,7 +44,7 @@ export default defineConfig({
         text: "Docker",
         items: [
           { text: "kafka", link: "/docker/kafka" },
-          { text: "MongoDB", link: "/docker/mongo" },
+          { text: "MongoDB", link: "/docker/mongodb" },
           { text: "MySQL 8", link: "/docker/mysql8" },
           { text: "Portainer", link: "/docker/portainer" },
           { text: "redis", link: "/docker/redis" },
@@ -94,7 +94,7 @@ export default defineConfig({
           text: 'Database',
           items: [
             { text: 'MySQL', link: '/k8s/database/mysql' },
-            { text: 'MongoDB', link: 'k8s/database/mongodb' },
+            { text: 'MongoDB', link: '/k8s/database/mongodb' },
             { text: 'Redis', link: '/k8s/database/redis' },
           ],
         },
@@ -149,7 +149,7 @@ export default defineConfig({
             },
             { text: 'Docker', link: '/centos/docker' },
             { text: "MongoDB", link: "/centos/mongodb" },
-            { text: "mysql", link: "/centos/mysql" },
+            { text: "mysql", link: "/centos/mysql8" },
           ]
         }
       ],
@@ -169,7 +169,7 @@ export default defineConfig({
           text: "Docker",
           items: [
             { text: "kafka", link: "/docker/kafka" },
-            { text: "MongoDB", link: "/docker/mongo" },
+            { text: "MongoDB", link: "/docker/mongodb" },
             { text: "MySQL 8", link: "/docker/mysql8" },
             { text: "Portainer", link: "/docker/portainer" },
             { text: "redis", link: "/docker/redis" },
