@@ -243,22 +243,23 @@ sample/
 > apiVersion: apps/v1
 > kind: Deployment
 > metadata:
->   name: client-api
+>   name: api-server
+>   namespace: example-namespace
 > spec:
 >   replicas: 1
 >   selector:
 >     matchLabels:
->       app: client-api
+>       app: api-server
 >   template:
 >     metadata:
 >       labels:
->         app: client-api
+>         app: api-server
 >     spec:
 >       imagePullSecrets:
 >       - name: gitlab-registry
 >       containers:
->       - name: client-api
->         image: registry.example.com/project/client-api:lastest
+>       - name: api-server
+>         image: registry.example.com/project/api-server:latest
 >         imagePullPolicy: Always
 >         resources:
 >           limits:
@@ -286,22 +287,28 @@ sample/
 `manifests/overlays` 는 `manifests/base` 를 상속받은 이후 덮어쓸 설정을 입력합니다.
 > * `manifests/overlays/development/deployment.yaml` 예시
 > ::: code-group
-> ``` yaml [deployment.yaml] {11-14}
+> ``` yaml [deployment.yaml] {7,18-21}
 > apiVersion: apps/v1
 > kind: Deployment
 > metadata:
->   name: client-api
+>   name: api-server
+>   namespace: example-namespace
 > spec:
 >   replicas: 1
+>   selector:
+>     matchLabels:
+>       app: api-server
 >   template:
+>     metadata:
+>       labels:
+>         app: api-server
 >     spec:
 >       containers:
->       - name: client-api
->         image: registry.example.com/project/client-api:0.5.4-dev
+>       - name: api-server
+>         image: registry.example.com/project/api-server:1.5.5
 >         resources:
 >           limits:
 >             memory: "300Mi"
-> ```
 > :::
 > * `manifests/overlays/development/kustomization.yaml` 예시
 > ::: code-group
@@ -310,7 +317,10 @@ sample/
 >   - ../../base            # base path 의 모든 항목을 상속받음
 > 
 > patches:
->   - path: deployment.yaml # deploment 재정의
+>   - target:
+>       kind: Deployment
+>       name: api-server
+>     path: deployment.yaml
 > ```
 > :::
 
