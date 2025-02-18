@@ -237,7 +237,8 @@ sample/
 
 #### manifests/base
 `manifests/base` 는 공통으로 사용되는 yaml 설정 값을 입력합니다.
-> * `manifests/base/deployment.yaml` 예시
+
+* `manifests/base/deployment.yaml` 예시
 > ::: code-group 
 > ``` yaml [deployment.yaml]
 > apiVersion: apps/v1
@@ -274,7 +275,26 @@ sample/
 >               key: MODE
 > ```
 > :::
-> * `manifests/base/kustomization.yaml` 예시
+
+* `manifests/base/service.yaml` 예시
+> ::: code-group
+> ``` yaml [kustomization.yaml]
+> apiVersion: v1
+> kind: Service
+> metadata:
+>   name: api-server
+>   namespace: example-namespace
+> spec:
+>   ports:
+>     - port: 80
+>       protocol: TCP
+>       targetPort: 3000
+>   selector:
+>     app: api-server
+>   type: ClusterIP
+> :::
+
+* `manifests/base/kustomization.yaml` 예시
 > ::: code-group
 > ``` yaml [kustomization.yaml]
 > resources:
@@ -283,9 +303,11 @@ sample/
 > ```
 > :::
 
+
 #### manifests/overlays
 `manifests/overlays` 는 `manifests/base` 를 상속받은 이후 덮어쓸 설정을 입력합니다.
-> * `manifests/overlays/development/deployment.yaml` 예시
+
+* `manifests/overlays/development/deployment.yaml` 예시
 > ::: code-group
 > ``` yaml [deployment.yaml] {7,18-21}
 > apiVersion: apps/v1
@@ -310,7 +332,8 @@ sample/
 >           limits:
 >             memory: "300Mi"
 > :::
-> * `manifests/overlays/development/kustomization.yaml` 예시
+
+* `manifests/overlays/development/kustomization.yaml` 예시
 > ::: code-group
 > ``` yaml [kustomization.yaml]
 > resources:
