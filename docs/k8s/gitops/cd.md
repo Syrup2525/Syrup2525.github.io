@@ -247,7 +247,7 @@ sample/
 >   name: api-server
 >   namespace: example-namespace
 > spec:
->   replicas: 1
+>   replicas: 2
 >   selector:
 >     matchLabels:
 >       app: api-server
@@ -256,23 +256,28 @@ sample/
 >       labels:
 >         app: api-server
 >     spec:
+>       affinity:
+>         nodeAffinity:
+>           requiredDuringSchedulingIgnoredDuringExecution:
+>             nodeSelectorTerms:
+>               - matchExpressions:
+>                 - key: kubernetes.io/hostname
+>                   operator: In
+>                   values:
+>                     - worker1
+>                     - worker2
 >       imagePullSecrets:
->       - name: gitlab-registry
+>         - name: gitlab-registry
 >       containers:
->       - name: api-server
->         image: registry.example.com/project/api-server:latest
->         imagePullPolicy: Always
->         resources:
->           limits:
->             memory: "300Mi"
->         ports:
->         - containerPort: 3000
->         env:
->         - name: MODE
->           valueFrom:
->             configMapKeyRef:
->               name: deployment
->               key: MODE
+>         - name: api-server
+>           image: registry.example.com/project/api-server:latest
+>           imagePullPolicy: Always
+>           env:
+>             - name: MODE
+>               valueFrom:
+>                 configMapKeyRef:
+>                   name: deployment
+>                   key: MODE
 > ```
 > :::
 
@@ -314,23 +319,16 @@ sample/
 > kind: Deployment
 > metadata:
 >   name: api-server
->   namespace: example-namespace
 > spec:
->   replicas: 1
->   selector:
->     matchLabels:
->       app: api-server
+>   replicas: 2
 >   template:
->     metadata:
->       labels:
->         app: api-server
 >     spec:
 >       containers:
->       - name: api-server
->         image: registry.example.com/project/api-server:1.5.5
->         resources:
->           limits:
->             memory: "300Mi"
+>         - name: api-server
+>           image: registry.example.com/project/api-server:1.7.2-dev
+>           resources:
+>             limits:
+>               memory: "300Mi"
 > :::
 
 * `manifests/overlays/development/kustomization.yaml` 예시
