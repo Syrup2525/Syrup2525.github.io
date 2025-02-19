@@ -256,16 +256,6 @@ sample/
 >       labels:
 >         app: api-server
 >     spec:
->       affinity:
->         nodeAffinity:
->           requiredDuringSchedulingIgnoredDuringExecution:
->             nodeSelectorTerms:
->               - matchExpressions:
->                 - key: kubernetes.io/hostname
->                   operator: In
->                   values:
->                     - worker1
->                     - worker2
 >       imagePullSecrets:
 >         - name: gitlab-registry
 >       containers:
@@ -323,6 +313,16 @@ sample/
 >   replicas: 2
 >   template:
 >     spec:
+>       affinity:
+>         nodeAffinity:
+>           requiredDuringSchedulingIgnoredDuringExecution:
+>             nodeSelectorTerms:
+>               - matchExpressions:
+>                 - key: kubernetes.io/hostname
+>                   operator: In
+>                   values:
+>                     - worker1
+>                     - worker2
 >       containers:
 >         - name: api-server
 >           image: registry.example.com/project/api-server:1.7.2-dev
