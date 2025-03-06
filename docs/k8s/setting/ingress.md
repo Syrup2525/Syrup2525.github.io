@@ -132,6 +132,36 @@ done
 ```
 :::
 
+::: tip
+* Project 에 포함되지 않은 namespace 에만 배포
+* 이미 키가 존재하는 경우 삭제 후 재생성
+::: code-group
+``` sh [auto-secret-create-only-not-in-a-project.sh]
+SECRET_NAME="example-kr-tls"
+
+for ns in $(kubectl get namespaces -o jsonpath="{.items[*].metadata.name}"); do
+  project_id=$(kubectl get namespace $ns -o jsonpath="{.metadata.labels['field\.cattle\.io/projectId']}" 2>/dev/null)
+
+  if [ -z "$project_id" ]; then
+    secret_exists=$(kubectl get secret $SECRET_NAME -n $ns --ignore-not-found)
+    
+    if [ -n "$secret_exists" ]; then
+      echo "Existing secret found in namespace: $ns. Deleting existing secret..."
+      kubectl delete secret $SECRET_NAME -n $ns
+    fi
+    
+    echo "Applying new configuration to namespace: $ns"
+    kubectl get secret $SECRET_NAME -n default -o yaml | \
+    sed "s/namespace: default/namespace: $ns/" | \
+    kubectl apply -n $ns -f -
+    
+  else
+    echo "Skipping namespace: $ns (field.cattle.io/projectId exists)"
+  fi
+done
+```
+:::
+
 #### Ingress 생성
 ::: code-group
 ``` yaml [ingress.yaml]
