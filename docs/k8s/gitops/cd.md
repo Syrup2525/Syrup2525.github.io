@@ -116,7 +116,7 @@ helm install argocd argo/argo-cd -n argocd -f values.yaml
 >   namespace: argocd
 > spec:
 >   ingressClassName: nginx
-> rules:
+>   rules:
 >     - host: argocd.example.com
 >       http:
 >         paths:
