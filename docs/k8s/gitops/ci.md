@@ -50,6 +50,60 @@ serviceAccount:
 ```
 :::
 
+::: tip
+::: details gitlab runner 에 nodeAffinity 적용하기
+> ::: code-group
+> 
+> ``` yaml:line-numbers [values.yaml] {24-26,43-45}
+> replicas: 3
+> gitlabUrl: https://gitlab.example.com
+> runnerRegistrationToken: "Gitlab 에서 Runner 생성 단계에서 확인한 Token 정보"
+>
+> runners:
+>   config: |
+>     [[runners]]
+>       name = "dind-gitlab-runner"
+>       url = "https://gitlab.example.com"
+>       token = "Gitlab 에서 Runner 생성 단계에서 확인한 Token 정보"
+>       executor = "kubernetes"
+>       tags = ["dind"]
+>       [runners.kubernetes]
+>         image = "docker:24.0.6"
+>         namespace = "gitlab-runners"
+>         privileged = true
+>         [runners.kubernetes.affinity]
+>           [runners.kubernetes.affinity.node_affinity.required_during_scheduling_ignored_during_execution]
+>             [[runners.kubernetes.affinity.node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms]]
+>               [[runners.kubernetes.affinity.node_affinity.required_during_scheduling_ignored_during_execution.node_selector_terms.match_expressions]]
+>                 key = "kubernetes.io/hostname"
+>                 operator = "In"
+>                 values = [
+>                   "master1",
+>                   "master2",
+>                   "master3"
+>                 ]
+> 
+> rbac:
+>   create: true
+> 
+> serviceAccount:
+>   create: true
+> 
+> affinity:
+>   nodeAffinity:
+>     requiredDuringSchedulingIgnoredDuringExecution:
+>       nodeSelectorTerms:
+>         - matchExpressions:
+>           - key: kubernetes.io/hostname
+>             operator: In
+>             values:
+>               - master1
+>               - master2
+>               - master3
+> ```
+> :::
+:::
+
 gitlab helm chart 설치
 ``` bash
 helm install gitlab-runner gitlab/gitlab-runner -n gitlab-runners -f values.yaml 
