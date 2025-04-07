@@ -79,17 +79,17 @@ export default defineConfig({
       '/kubernetes/': [
         { text: 'k3s 설치', link: '/kubernetes/k3s/install'},
         {
-          text: 'k8s 설정',
-          items: [
-            { text: 'Core DNS', link: '/kubernetes/k8s/setting/coredns' },
-          ],
-        },
-        {
           text: 'k8s 설치',
           items: [
             { text: 'Master 구성', link: '/kubernetes/k8s/install/step1-master.md' },
             { text: 'Worker 구성', link: '/kubernetes/k8s/install/step2-worker.md' },
             { text: '설치 제거', link: '/kubernetes/k8s/install/step3-uninstall.md' },
+          ],
+        },
+        {
+          text: 'k8s 설정',
+          items: [
+            { text: 'Core DNS', link: '/kubernetes/k8s/setting/coredns' },
           ],
         },
         {
