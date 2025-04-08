@@ -4,12 +4,9 @@
 아래에서 실행하는 명령어는 Master Node 에서 실행해야 됩니다.
 :::
 
-## Helm 설치
-```bash
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-```
+::: warning
+먼저 `Helm` 세팅이 완료되어 있어야 합니다. [Helm 설치](/kubernetes/01-install/03-base/helm.md)
+:::
 
 ## cert-manager 설치 (선택 사항)
 ::: tip

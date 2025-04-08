@@ -77,7 +77,7 @@ node-name: worker1 # agent 이름
 ```
 
 ::: tip
-token 값은 [Worker 노드 등록에 필요한 token 확인](/kubernetes/k8s/install/step1-master.html#worker-노드-등록에-필요한-token-확인) 에서 확인
+token 값은 [Worker 노드 등록에 필요한 token 확인](/kubernetes/01-install/02-k8s/install/step1-master.html#worker-노드-등록에-필요한-token-확인) 에서 확인
 :::
 
 ### 서비스 시작 및 등록

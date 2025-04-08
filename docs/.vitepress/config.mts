@@ -10,26 +10,12 @@ export default defineConfig({
       {
         text: 'kubernetes',
         items: [
-          {
-            text: 'k3s',
-            items: [
-              { text: 'k3s 설치', link: '/kubernetes/k3s/install' },
-            ],
-          },
-          {
-            text: 'k8s',
-            items: [
-              { text: 'k8s 설치', link: '/kubernetes/k8s/install/step1-master' },
-              { text: 'k8s 설정', link: '/kubernetes/k8s/setting/coredns' },
-            ],
-          },
-          { text: '쿠버네티스 설정', link: '/kubernetes/setting/ingress' },
-          { text: 'Rancher', link: '/kubernetes/rancher'},
-          { text: 'GitOps, CI/CD', link: '/kubernetes/gitops/gitlab' },
-          { text: 'Database', link: '/kubernetes/database/mysql' },
-          { text: 'Apache Kafka', link: '/kubernetes/kafka/install' },
-          { text: 'EFK', link: '/kubernetes/efk' },
-          { text: 'Prometheus', link: '/kubernetes/prometheus' },
+          { text: 'README.md', link: '/kubernetes/01-install/README.md' },
+          { text: '쿠버네티스 설정', link: '/kubernetes/03-setting/ingress' },
+          { text: '모니터링 및 로그수집', link: '/kubernetes/04-monitoringandlog/prometheus' },
+          { text: 'GitOps, CI/CD', link: '/kubernetes/05-gitops/gitlab' },
+          { text: 'Database', link: '/kubernetes/06-database/mysql' },
+          { text: 'Apache Kafka', link: '/kubernetes/07-kafka/install' },
         ]
       },
       {
@@ -77,54 +63,76 @@ export default defineConfig({
     ],
     sidebar: {
       '/kubernetes/': [
-        { text: 'k3s 설치', link: '/kubernetes/k3s/install'},
         {
-          text: 'k8s 설치',
+          text: 'kubernetes 설치',
           items: [
-            { text: 'Master 구성', link: '/kubernetes/k8s/install/step1-master.md' },
-            { text: 'Worker 구성', link: '/kubernetes/k8s/install/step2-worker.md' },
-            { text: '설치 제거', link: '/kubernetes/k8s/install/step3-uninstall.md' },
-          ],
-        },
-        {
-          text: 'k8s 설정',
-          items: [
-            { text: 'Core DNS', link: '/kubernetes/k8s/setting/coredns' },
+            { text: 'README.md', link: '/kubernetes/01-install/README.md'},
+            {
+              text: 'k3s 설치', 
+              items: [
+                { text: 'k3s 설치', link: '/kubernetes/01-install/01-k3s/install'},
+              ]
+            },
+            {
+              text: 'k8s 설치',
+              items: [
+                { text: 'Master 구성', link: '/kubernetes/01-install/02-k8s/install/step1-master.md' },
+                { text: 'Worker 구성', link: '/kubernetes/01-install/02-k8s/install/step2-worker.md' },
+                { text: '설치 제거', link: '/kubernetes/01-install/02-k8s/install/step3-uninstall.md' },
+                {
+                  text: 'k8s 설정',
+                  items: [
+                    { text: 'Core DNS', link: '/kubernetes/01-install/02-k8s/setting/coredns' },
+                  ],
+                },
+              ],
+            },
+            {
+              text: "기초 공사",
+              items: [
+                { text: 'Helm', link: '/kubernetes/01-install/03-base/helm.md' },
+                { text: 'Rancher', link: '/kubernetes/01-install/03-base/rancher.md' },
+              ]
+            },
           ],
         },
         {
           text: '쿠버네티스 설정',
           items: [
-            { text: 'Ingress', link: '/kubernetes/setting/ingress' },
+            { text: 'Ingress', link: '/kubernetes/03-setting/ingress' },
           ],
+        },
+        {
+          text: "모니터링 및 로그수집",
+          items: [
+            { text: 'Prometheus', link: '/kubernetes/04-monitoringandlog/prometheus' },
+            { text: 'EFK', link: '/kubernetes/04-monitoringandlog/efk' },
+          ]
         },
         {
           text: 'GitOps, CI/CD',
           items: [
-            { text: 'GitLab', link: '/kubernetes/gitops/gitlab' },
-            { text: 'CI (gitlab-runner)', link: '/kubernetes/gitops/ci' },
-            { text: 'CD (Argo CD)', link: '/kubernetes/gitops/cd' },
-            { text: 'Troubleshooting', link: '/kubernetes/gitops/troubleshooting' },
+            { text: 'GitLab', link: '/kubernetes/05-gitops/gitlab' },
+            { text: 'CI (gitlab-runner)', link: '/kubernetes/05-gitops/ci' },
+            { text: 'CD (Argo CD)', link: '/kubernetes/05-gitops/cd' },
+            { text: 'Troubleshooting', link: '/kubernetes/05-gitops/troubleshooting' },
           ],
         },
         {
           text: 'Database',
           items: [
-            { text: 'MySQL', link: '/kubernetes/database/mysql' },
-            { text: 'MongoDB', link: '/kubernetes/database/mongodb' },
-            { text: 'Redis', link: '/kubernetes/database/redis' },
+            { text: 'MySQL', link: '/kubernetes/06-database/mysql' },
+            { text: 'MongoDB', link: '/kubernetes/06-database/mongodb' },
+            { text: 'Redis', link: '/kubernetes/06-database/redis' },
           ],
         },
         {
           text: 'Apache Kafka',
           items: [
-            { text: 'Install', link: '/kubernetes/kafka/install' },
-            { text: 'UI', link: '/kubernetes/kafka/ui' },
+            { text: 'Install', link: '/kubernetes/07-kafka/install' },
+            { text: 'UI', link: '/kubernetes/07-kafka/ui' },
           ],
         },
-        { text: 'Rancher', link: '/kubernetes/rancher.md' },
-        { text: 'EFK', link: '/kubernetes/efk' },
-        { text: 'Prometheus', link: '/kubernetes/prometheus' },
       ],
       '/centos/': [
         {

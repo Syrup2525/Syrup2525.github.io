@@ -90,13 +90,24 @@ systemctl status k3s
 ```
 
 
-## 환경변수 설정
-### k3s 환경변수 설정
+## 환경변수 설정 (선택)
+### `/usr/local/bin` 환경변수 설정
+
+::: details `.bash_profile` 을 사용하는 경우
+``` bash
+export PATH=$PATH:/usr/local/bin
+echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bash_profile
+source ~/.bash_profile
+```
+:::
+
+::: details `.bashrc` 를 사용하는 경우
 ``` bash
 export PATH=$PATH:/usr/local/bin
 echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
 source ~/.bashrc
 ```
+:::
 
 #### 설정 확인
 ``` bash
