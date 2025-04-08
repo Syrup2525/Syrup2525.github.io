@@ -5,7 +5,7 @@
 
 > 쿠버네티스를 [RKE2 를 통한 k8s](/kubernetes/01-install/02-k8s/install/step1-master.md) 로 설치
 
-> [Rancher](/kubernetes/rancher.md) 설치 
+> [Rancher](/kubernetes/01-install/03-base/rancher.md) 설치 
 :::
 
 ## Namespace 생성
