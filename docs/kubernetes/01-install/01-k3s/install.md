@@ -58,6 +58,12 @@ curl -sfL https://get.k3s.io | K3S_NODE_NAME=YOUR_NODE_NAME sh -
 ```
 :::
 
+::: details 특정 버전을 설치
+``` bash
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.31.7+k3s1 sh -
+```
+:::
+
 실행 결과
 ``` bash
 Complete!
@@ -90,9 +96,14 @@ systemctl status k3s
 ```
 
 
-## 환경변수 설정 (선택)
-### `/usr/local/bin` 환경변수 설정
+## 환경변수 설정 
+### kubectl 환경변수 등록
+root 계정 접속한 상태에서 실행
+```bash
+cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+```
 
+### `/usr/local/bin` 환경변수 설정 (선택)
 ::: details `.bash_profile` 을 사용하는 경우
 ``` bash
 export PATH=$PATH:/usr/local/bin

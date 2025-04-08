@@ -130,7 +130,7 @@ helm install rancher rancher-stable/rancher \
 ```
 ::: tip
 rancher 설치 (`개인 CA 서명 인증서`)
-``` bash
+``` bash {6}
 helm install rancher rancher-stable/rancher \
   --namespace cattle-system \
   --set hostname=rancher.my.org \
