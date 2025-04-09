@@ -1,4 +1,4 @@
-# 기타 명령어
+# 설치 삭제
 ## RKE2 삭제
 ```bash
 /usr/bin/rke2-uninstall.sh

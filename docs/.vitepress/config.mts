@@ -71,6 +71,7 @@ export default defineConfig({
               text: 'k3s 설치', 
               items: [
                 { text: 'k3s 설치', link: '/kubernetes/01-install/01-k3s/install'},
+                { text: '설치 제거 ', link: '/kubernetes/01-install/01-k3s/uninstall'},
               ]
             },
             {
