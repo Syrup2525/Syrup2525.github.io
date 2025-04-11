@@ -1,4 +1,4 @@
-# Kafka 설치
+# Nexus Repository 설치
 
 ## Namespace
 ``` bash
