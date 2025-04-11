@@ -16,6 +16,7 @@ export default defineConfig({
           { text: 'GitOps, CI/CD', link: '/kubernetes/05-gitops/gitlab' },
           { text: 'Database', link: '/kubernetes/06-database/mysql' },
           { text: 'Apache Kafka', link: '/kubernetes/07-kafka/install' },
+          { text: 'Nexus Repository', link: '/kubernetes/08-nexus/install' },
         ]
       },
       {
@@ -132,6 +133,12 @@ export default defineConfig({
           items: [
             { text: 'Install', link: '/kubernetes/07-kafka/install' },
             { text: 'UI', link: '/kubernetes/07-kafka/ui' },
+          ],
+        },
+        {
+          text: 'Nexus Repository',
+          items: [
+            { text: 'Install', link: '/kubernetes/08-nexus/install' },
           ],
         },
       ],

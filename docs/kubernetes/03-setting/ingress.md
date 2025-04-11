@@ -63,7 +63,7 @@ metadata:
   name: k8s
   namespace: k8s
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx # k3s 클러스터의 경우 traefik 사용
   rules:
     - host: k8s.example.com
       http:
@@ -141,7 +141,7 @@ done
 * Project 에 포함되지 않은 namespace 에만 배포
 * 이미 키가 존재하는 경우 삭제 후 재생성
 ::: code-group
-``` sh [auto-secret-create-only-not-in-a-project.sh]
+``` sh [auto-secret-create-only-not-in-a-project-exists-delete.sh]
 SECRET_NAME="example-kr-tls"
 
 for ns in $(kubectl get namespaces -o jsonpath="{.items[*].metadata.name}"); do
@@ -167,6 +167,35 @@ done
 ```
 :::
 
+::: tip
+* Project 에 포함되지 않은 namespace 에만 배포
+* 이미 키가 존재하는 경우 건너뛰기
+::: code-group
+``` sh [auto-secret-create-only-not-in-a-project-exists-skeep.sh]
+SECRET_NAME="example-kr-tls"
+
+for ns in $(kubectl get namespaces -o jsonpath="{.items[*].metadata.name}"); do
+  project_id=$(kubectl get namespace $ns -o jsonpath="{.metadata.labels['field\.cattle\.io/projectId']}" 2>/dev/null)
+
+  if [ -z "$project_id" ]; then
+    secret_exists=$(kubectl get secret $SECRET_NAME -n $ns --ignore-not-found)
+    
+    if [ -n "$secret_exists" ]; then
+      echo "Existing secret found in namespace: $ns. Skipping secret..."
+    else
+      echo "Applying new configuration to namespace: $ns"
+      kubectl get secret $SECRET_NAME -n default -o yaml | \
+      sed "s/namespace: default/namespace: $ns/" | \
+      kubectl apply -n $ns -f -
+    fi
+    
+  else
+    echo "Skipping namespace: $ns (field.cattle.io/projectId exists)"
+  fi
+done
+```
+:::
+
 #### Ingress 생성
 ::: code-group
 ``` yaml [ingress.yaml]
@@ -176,7 +205,7 @@ metadata:
   name: k8s
   namespace: k8s
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx # k3s 클러스터의 경우 traefik 사용
   rules:
     - host: k8s.example.com
       http:
