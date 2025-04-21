@@ -1,7 +1,7 @@
 # REAMD.md
 
 ## 들어가며
-> kubernetes (쿠버네티스) 클러스터 운영을 위해서는 [`k3s`](/kubernetes/01-install/01-k3s/install.md) 혹은 [`k8s (RKE2 사용)`](/kubernetes/01-install/02-k8s/install/step1-master.md) 중 하나를 택하여 환경을 구축하는 방법을 제공합니다. 해당 `GithubPage` 에서는 `k3s` 또는 `k8s` 로 설치된 쿠버네티스 환경을 `kubernetes` 혹은 `쿠버네티스` 라고 지칭합니다. `k3s` 로 구축된 쿠버네티스의 경우 `k3s`, `k8s` 로 구축된 경우는 `k8s` 로 표기합니다.
+> kubernetes (쿠버네티스) 클러스터 운영을 위해서는 [`k3s`](/kubernetes/01-install/01-k3s/install/install.md) 혹은 [`k8s (RKE2 사용)`](/kubernetes/01-install/02-k8s/install/step1-master.md) 중 하나를 택하여 환경을 구축하는 방법을 제공합니다. 해당 `GithubPage` 에서는 `k3s` 또는 `k8s` 로 설치된 쿠버네티스 환경을 `kubernetes` 혹은 `쿠버네티스` 라고 지칭합니다. `k3s` 로 구축된 쿠버네티스의 경우 `k3s`, `k8s` 로 구축된 경우는 `k8s` 로 표기합니다.
 >
 > * `k3s` k3s 환경으로 구축된 쿠버네티스
 > * `k8s` RKE2 를 사용하여 구축된 쿠버네티스
@@ -9,7 +9,7 @@
 
 ## 구성 가이드
 구성 순서는 다음과 같습니다
-1. [`k3s`](/kubernetes/01-install/01-k3s/install.md) 혹은 [`k8s`](/kubernetes/01-install/02-k8s/install/step1-master.md) 로 쿠버네티스 환경 구축
+1. [`k3s`](/kubernetes/01-install/01-k3s/install/install.md) 혹은 [`k8s`](/kubernetes/01-install/02-k8s/install/step1-master.md) 로 쿠버네티스 환경 구축
 2. `쿠버네티스` 패키지 관리 도구 [`helm`](/kubernetes/01-install/03-base/helm.md) 설치
 3. `쿠버네티스` 관리 웹 UI 도구 [`rancher`](/kubernetes/01-install/03-base/rancher.md) 설치
 4. 하드웨어 리소스 모니터링 도구 [`prometheus & grafana`](/kubernetes/04-monitoringandlog/prometheus.md) 설치
