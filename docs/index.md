@@ -21,7 +21,7 @@ features:
       src: https://github.com/Syrup2525/Syrup2525.github.io/blob/main/docs/images/kubernetes_logo.png?raw=true
     title: 쿠버네티스 환경 구성
     details: RKE2를 활용한 k8s, Helm, Rancher 통합 설치 방법을 설명합니다.
-    link: /kubernetes/k8s/install/step1-master
+    link: /kubernetes/01-install/README
   - icon:
       src: https://github.com/Syrup2525/Syrup2525.github.io/blob/main/docs/images/dockerswarm_logo.png?raw=true
     title: Docker Swarm 환경 구성
