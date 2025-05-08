@@ -145,6 +145,7 @@ export default defineConfig({
           text: 'Nexus Repository',
           items: [
             { text: 'Install', link: '/kubernetes/08-nexus/install' },
+            { text: 'Setting', link: '/kubernetes/08-nexus/setting' },
           ],
         },
       ],
