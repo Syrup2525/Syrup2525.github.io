@@ -150,6 +150,9 @@ helm install rancher rancher-stable/rancher \
   --set letsEncrypt.email=me@example.org \
   --set letsEncrypt.ingress.class=nginx
 ```
+
+::: danger 주의
+k3s cluster 인 경우 별도 지정 없이 설치시 `letsEncrypt.ingress.class` 가 `traefik` 임으로 `--set letsEncrypt.ingress.class=traefik` 으로 진행
 :::
 
 ### 실행결과
