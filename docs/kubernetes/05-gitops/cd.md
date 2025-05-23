@@ -45,6 +45,13 @@ helm install argocd argo/argo-cd -n argocd -f values.yaml
 ```
 
 ## Ingress 생성
+::: tip 
+argocd-server PORT 확인
+``` bash
+kubectl get svc -n argocd
+```
+:::
+
 ::: details Let's Encrypt 사용시
 
 #### Issuer 생성
@@ -92,7 +99,7 @@ helm install argocd argo/argo-cd -n argocd -f values.yaml
 >               service:
 >                 name: argocd-server
 >                 port:
->                   number: 80
+>                   number: 80 # tip 에서 확인된 argocd-server PORT
 >             path: /
 >             pathType: Prefix
 >   tls:
@@ -124,7 +131,7 @@ helm install argocd argo/argo-cd -n argocd -f values.yaml
 >               service:
 >                 name: argocd-server
 >                 port:
->                   number: 80
+>                   number: 80 # tip 에서 확인된 argocd-server PORT
 >             path: /
 >             pathType: Prefix
 >   tls:
