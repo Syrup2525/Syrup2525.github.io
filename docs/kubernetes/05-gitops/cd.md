@@ -92,7 +92,7 @@ helm install argocd argo/argo-cd -n argocd -f values.yaml
 >               service:
 >                 name: argocd-server
 >                 port:
->                   number: 8080
+>                   number: 80
 >             path: /
 >             pathType: Prefix
 >   tls:
@@ -124,7 +124,7 @@ helm install argocd argo/argo-cd -n argocd -f values.yaml
 >               service:
 >                 name: argocd-server
 >                 port:
->                   number: 8080
+>                   number: 80
 >             path: /
 >             pathType: Prefix
 >   tls:
