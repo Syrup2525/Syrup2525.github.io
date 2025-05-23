@@ -60,6 +60,7 @@ metadata:
   annotations:
     cert-manager.io/issuer: k8s
     cert-manager.io/issuer-kind: Issuer
+    acme.cert-manager.io/http01-ingress-class: nginx # k3s 클러스터의 경우 traefik 사용
   name: k8s
   namespace: k8s
 spec:
