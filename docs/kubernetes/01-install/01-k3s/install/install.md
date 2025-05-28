@@ -5,6 +5,33 @@
 :::
 
 ## 사전 작업
+::: details 사용자 생성하기 (선택)
+::: tip
+root 권한 전환
+``` bash
+sudo -i
+```
+
+user 계정 추가
+``` bash
+useradd -m user
+```
+
+user 계정에 SSH 디렉토리 생성 및 권한 설정
+``` bash
+mkdir -p /home/user/.ssh
+chmod 700 /home/user/.ssh
+cp /home/rocky/.ssh/authorized_keys /home/user/.ssh/
+chmod 600 /home/user/.ssh/authorized_keys
+chown -R user:user /home/user/.ssh
+```
+
+sudo 권한 부여
+``` bash
+usermod -aG wheel user
+```
+:::
+
 ### 메모리 swap off
 메모리 swapp off
 ```bash
@@ -35,7 +62,19 @@ Mem:           15Gi       255Mi        13Gi       773Mi       1.4Gi        13Gi
 Swap:            0B          0B          0B
 ```
 
+### 방화벽 작업
+방화벽을 끄는 것이 좋습니다
+``` bash
+systemctl disable firewalld --now
+```
 
+방화벽을 계속 활성화하려면 기본적으로 다음 규칙이 필요합니다.
+``` bash
+firewall-cmd --permanent --add-port=6443/tcp #apiserver
+firewall-cmd --permanent --zone=trusted --add-source=10.42.0.0/16 #pods
+firewall-cmd --permanent --zone=trusted --add-source=10.43.0.0/16 #services
+firewall-cmd --reload
+```
 
 ## K3s 설치
 ::: tip
@@ -61,6 +100,19 @@ curl -sfL https://get.k3s.io | K3S_NODE_NAME=YOUR_NODE_NAME sh -
 ::: details 특정 버전을 설치
 ``` bash
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.31.7+k3s1 sh -
+```
+:::
+
+::: details 다른 노드에서 Agent (Worker)로 조인
+* `K3S_URL` server 의 host 를 입력합니다.
+* `K3S_TOKEN` server 에서 다음 명령어로 확인
+> ``` bash
+> sudo cat /var/lib/rancher/k3s/server/node-token
+> ```
+
+에를들어, server 의 host 가 `192.168.10.100` 이고, token 값이 `K10b3...52bd37::server:e09...833ab1` 인 경우
+``` bash
+curl -sfL https://get.k3s.io | K3S_URL=https://192.168.10.100:6443 K3S_TOKEN=K10b3...52bd37::server:e09...833ab1 sh -
 ```
 :::
 
@@ -94,7 +146,6 @@ systemctl status k3s
   Process: 38050 ExecStartPre=/bin/sh -xc ! /usr/bin/systemctl is-enabled --quiet nm-cloud-setup.service 2>/dev/null (code=e>
  Main PID: 38064 (k3s-server)
 ```
-
 
 ## 환경변수 설정 
 ### kubectl 환경변수 등록

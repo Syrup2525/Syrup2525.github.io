@@ -4,6 +4,11 @@
 /usr/local/bin/k3s-uninstall.sh
 ```
 
+### agent 삭제
+``` bash
+/usr/local/bin/k3s-agent-uninstall.sh
+```
+
 ## kubectl 환경변수 삭제
 ``` bash
 rm -rf ~/.kube/

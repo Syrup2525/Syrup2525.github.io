@@ -1,5 +1,32 @@
 # Worker 구성
 ## 사전 작업
+::: details 사용자 생성하기 (선택)
+::: tip
+root 권한 전환
+``` bash
+sudo -i
+```
+
+user 계정 추가
+``` bash
+useradd -m user
+```
+
+user 계정에 SSH 디렉토리 생성 및 권한 설정
+``` bash
+mkdir -p /home/user/.ssh
+chmod 700 /home/user/.ssh
+cp /home/rocky/.ssh/authorized_keys /home/user/.ssh/
+chmod 600 /home/user/.ssh/authorized_keys
+chown -R user:user /home/user/.ssh
+```
+
+sudo 권한 부여
+``` bash
+usermod -aG wheel user
+```
+:::
+
 ### 메모리 swap off
 메모리 swap off
 ```bash
