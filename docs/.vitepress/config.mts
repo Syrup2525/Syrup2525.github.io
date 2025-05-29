@@ -32,6 +32,13 @@ export default defineConfig({
         ],
       },
       {
+        text: 'Rocky Linux',
+        items: [
+          { text: '도커', link: '/rocky/docker/base/01-install.html'},
+          { text: '설정', link: '/rocky/setting.html' },
+        ],
+      },
+      {
         text: "MacOS",
         items: [
           { text: "CI/CD", link: "/macos/cicd" },
@@ -194,6 +201,28 @@ export default defineConfig({
             { text: "mysql", link: "/centos/mysql8" },
           ]
         }
+      ],
+      "/rocky/": [
+        {
+          text: 'Rocky Linux',
+          items: [
+            {
+              text: '도커',
+              items: [
+                {
+                  text: '기초 작업',
+                  items: [
+                    { text: '01. 설치', link: '/rocky/docker/base/01-install.html' },
+                    { text: '02. Traefik', link: '/rocky/docker/base/02-traefik.html' },
+                    { text: '03. Portainer', link: '/rocky/docker/base/03-portainer.html' },
+                  ]
+                },
+                { text: '제거', link: '/rocky/docker/uninstall.html' },
+              ]
+            },
+            { text: '설정', link: '/rocky/setting.html' },
+          ],
+        },
       ],
       "/macos/": [
         {
