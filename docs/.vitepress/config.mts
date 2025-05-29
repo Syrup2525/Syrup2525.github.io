@@ -77,6 +77,7 @@ export default defineConfig({
                   text: 'k3s 설정',
                   items: [
                     { text: 'Core DNS', link: '/kubernetes/01-install/01-k3s/setting/coredns' },
+                    { text: 'Traefik', link: '/kubernetes/01-install/01-k3s/setting/traefik' },
                   ],
                 },
               ]

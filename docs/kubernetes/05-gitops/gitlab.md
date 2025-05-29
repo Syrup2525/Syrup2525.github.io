@@ -548,6 +548,11 @@ spec:
       secretName: tls-gitlab-ingress
 ```
 :::
+
+::: tip
+`k3s` 를 통한 Ingress Class 를 `Traefik` 을 사용하는 경우 `nginx.ingress.kubernetes.io/client-max-body-size: 1024m`, `nginx.ingress.kubernetes.io/proxy-body-size: 1024m` 옵션 사용 대신 [timeout 시간 수정](/kubernetes/01-install/01-k3s/setting/traefik.html#timeout-시간-수정) 적용이 필요합니다
+:::
+
 ``` bash
 kubectl apply -f ingress.yaml
 ```
