@@ -11,7 +11,7 @@ export default defineConfig({
         text: 'kubernetes',
         items: [
           { text: 'README.md', link: '/kubernetes/01-install/README.md' },
-          { text: '쿠버네티스 설정', link: '/kubernetes/03-setting/ingress' },
+          { text: '쿠버네티스 설정 및 튜닝', link: '/kubernetes/03-setting/ingress' },
           { text: '모니터링 및 로그수집', link: '/kubernetes/04-monitoringandlog/prometheus' },
           { text: 'GitOps, CI/CD', link: '/kubernetes/05-gitops/gitlab' },
           { text: 'Database', link: '/kubernetes/06-database/mysql' },
@@ -34,8 +34,9 @@ export default defineConfig({
       {
         text: 'Rocky Linux',
         items: [
+          { text: '기본설정', link: '/rocky/base-setting.html' },
           { text: '도커', link: '/rocky/docker/base/01-install.html'},
-          { text: '설정', link: '/rocky/setting.html' },
+          { text: 'MySQL 8', link: '/rocky/mysql.html'},
         ],
       },
       {
@@ -113,9 +114,10 @@ export default defineConfig({
           ],
         },
         {
-          text: '쿠버네티스 설정',
+          text: '쿠버네티스 설정 및 튜닝',
           items: [
             { text: 'Ingress', link: '/kubernetes/03-setting/ingress' },
+            { text: 'Tuning', link: '/kubernetes/03-setting/tuning' },
           ],
         },
         {
@@ -206,6 +208,7 @@ export default defineConfig({
         {
           text: 'Rocky Linux',
           items: [
+            { text: '기본설정', link: '/rocky/base-setting.html' },
             {
               text: '도커',
               items: [
@@ -220,7 +223,7 @@ export default defineConfig({
                 { text: '제거', link: '/rocky/docker/uninstall.html' },
               ]
             },
-            { text: '설정', link: '/rocky/setting.html' },
+            { text: 'MySQL 8', link: '/rocky/mysql.html'},
           ],
         },
       ],
