@@ -69,6 +69,19 @@ export default defineConfig({
           { text: "Registry", link: "/dockerswarm/registry" },
         ],
       },
+      {
+        text: "Util",
+        items: [
+          {
+            text: "MySQL 8",
+            items: [
+              { text: "모든 프로시저 복제", link: "/util/mysql/proc-clone-init" },
+              { text: "특정 프로시저 복제", link: "/util/mysql/proc-clone" },
+              { text: "특정 프로시저 복제 (이관)", link: "/util/mysql/proc-replica" },
+            ]
+          }
+        ]
+      },
     ],
     sidebar: {
       '/kubernetes/': [
@@ -260,6 +273,21 @@ export default defineConfig({
             { text: "Portainer", link: "/dockerswarm/portainer" },
             { text: "Monitoring", link: "/dockerswarm/monitoring" },
             { text: "Registry", link: "/dockerswarm/registry" },
+          ]
+        }
+      ],
+      "/util/": [
+        {
+          text: "Util",
+          items: [
+            {
+              text: "MySQL 8",
+              items: [
+                { text: "모든 프로시저 복제", link: "/util/mysql/proc-clone-init" },
+                { text: "특정 프로시저 복제", link: "/util/mysql/proc-clone" },
+                { text: "특정 프로시저 복제 (이관)", link: "/util/mysql/proc-replica" },
+              ]
+            }
           ]
         }
       ],
