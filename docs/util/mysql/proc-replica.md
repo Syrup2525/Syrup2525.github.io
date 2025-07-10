@@ -1,7 +1,7 @@
 # Procedure Clone
 
 ::: tip
-[GitHub](https://github.com/Syrup2525/mysql-proc-clone-init)
+[GitHub](https://github.com/Syrup2525/mysql-proc-replica)
 :::
 
 ::: warning
