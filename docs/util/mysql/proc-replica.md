@@ -11,7 +11,7 @@
 [[toc]]
 
 ## Motivation
-`SOURCE` DB 에 존재하는 `FILTER_KEYWORD` 를 포함한 `Stored Procedure` 를 `TARGET` DB 로 복제(복사) 하는 `Container` 기반 도구 입니다.
+`SOURCE` DB 에 존재하는 `FILTER_KEYWORD` 를 포함한 `Stored Procedure` 를 `TARGET` DB 로 복제(이관) 하는 `Container` 기반 도구 입니다.
 
 예를들어 `FILTER_KEYWORD`=`v0_13_2` 로 지정했을 다음처럼 동작합니다.
 
