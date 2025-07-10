@@ -50,9 +50,9 @@ docker run --rm \
 version: '3'
 
 services:
-  proc-clone-init:
-    image: syrup2525/proc-clone-init:latest
-    container_name: proc-clone-init
+  proc-clone:
+    image: syrup2525/proc-clone:latest
+    container_name: proc-clone
     environment:
       MYSQL_HOST: 'MYSQL_HOST'
       MYSQL_PORT: 3306

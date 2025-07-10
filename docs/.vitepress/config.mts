@@ -78,6 +78,7 @@ export default defineConfig({
               { text: "모든 프로시저 복제", link: "/util/mysql/proc-clone-init" },
               { text: "특정 프로시저 복제", link: "/util/mysql/proc-clone" },
               { text: "특정 프로시저 복제 (이관)", link: "/util/mysql/proc-replica" },
+              { text: "특정 프로시저 삭제", link: "/util/mysql/proc-delete" },
             ]
           }
         ]
@@ -286,6 +287,7 @@ export default defineConfig({
                 { text: "모든 프로시저 복제", link: "/util/mysql/proc-clone-init" },
                 { text: "특정 프로시저 복제", link: "/util/mysql/proc-clone" },
                 { text: "특정 프로시저 복제 (이관)", link: "/util/mysql/proc-replica" },
+                { text: "특정 프로시저 삭제", link: "/util/mysql/proc-delete" },
               ]
             }
           ]
