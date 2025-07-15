@@ -205,6 +205,17 @@ config:
 > * <b>`43,59 line`</b> <b>`Suppress_Type_Name`</b> `illegal_argument_exception` 오류 해결을 위해 `On` 으로 설정합니다. [stackoverflow](https://stackoverflow.com/questions/69617608/elasticsearch-8-errors-with-action-metadata-line-1-contains-an-unknown-paramet)
 > * <b>`44,60 line`</b> <b>`Replace_Dots`</b> `mapper_parsing_exception` 오류 해결을 위해 `On` 으로 설정합니다. [stackoverflow](https://stackoverflow.com/questions/62975255/fluent-bit-cannot-parse-kubernetes-logs)
 
+::: tip
+`read error, check permissions: /var/log/containers/*.log` 에러가 발생하는 경우 `values.yaml` 에 다음을 추가합니다
+
+``` yaml
+securityContext:
+  runAsUser: 0
+  runAsGroup: 0
+  privileged: true
+```
+:::
+
 * helm install fluent-bit
 
 ``` bash
