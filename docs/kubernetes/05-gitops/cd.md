@@ -693,12 +693,12 @@ https://argocd.example.com
 
 ### Argo Notification 연동 (선택)
 * 상단 `DETAILS` > `SUMMARY` > `EDIT` 으로 진행합니다.
-* `ANNOTATIONS` 필드의 No itmes 하단의 `+` 를 선택합니다.
+* `NOTIFICATION SUBSCRIPTIONS` 필드의 No itmes 하단의 `+` 를 선택합니다.
 * 다음을 차례로 입력합니다
-> | Name | Value (예시) |
-> | ------------------------------------------------------------ | ---------- | 
-> | notifications.argoproj.io/subscribe.on-sync-succeeded.slack  | my_channel |
-> | notifications.argoproj.io/subscribe.on-sync-failed.slack | my_channel |
+> | Name | Name | Name | Value (예시) |
+> | ------------------------------------|-------------------| ---- | ---------- | 
+> | notifications.argoproj.io/subscribe | on-sync-succeeded | slack | my_channel |
+> | notifications.argoproj.io/subscribe | on-sync-failed | slack | my_channel |
 >
 > [공식문서 바로가기](https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/slack/)
 >
