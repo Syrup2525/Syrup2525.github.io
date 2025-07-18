@@ -417,8 +417,110 @@ Secret 적용
 kubectl rollout restart deployment argocd-image-updater -n argocd
 ```
 
-### Argo CD 애플리케이션 생성
-#### Argo CD 접속
+## ArgoCD notifications (선택)
+::: tip
+Slack 으로 상태를 메시지로 전송하는 방법을 설명합니다.
+:::
+
+::: tip 
+- [slack notification 공식문서](https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/slack/)
+- [triggers 설정 공식문서](https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/triggers)
+:::
+
+### secret 생성
+::: code-group
+``` yaml [argocd-notifications-secret.yaml]
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-notifications-secret
+  namespace: argocd
+stringData:
+  slack-token: <Oauth-access-token>
+```
+:::
+
+::: tip
+#### Oauth-access-token 확인 방법
+https://api.slack.com/apps/ 접속하여 `앱 선택 (또는 생성)` > `Features` > `OAuth & Permissions` > `OAuth Tokens` > `Bot User OAuth Token`
+:::
+::: danger
+`Scopes` > `Bot Token Scopes` 에서 `chat:write` OAuth Scope 가 반드시 필요합니다.
+:::
+``` bash
+kubectl apply -f argocd-notifications-secret.yaml
+```
+
+### notifications-cm 설정
+::: code-group
+``` yaml [argocd-notifications-cm.yaml]
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+  namespace: argocd
+data:
+  service.slack: |
+    token: $slack-token
+
+  trigger.on-sync-succeeded: |
+    - when: app.status.operationState.phase in ['Succeeded'] and app.status.sync.status == 'Synced'
+      send: [app-sync-succeeded]
+
+  trigger.on-sync-failed: |
+    - when: app.status.operationState.phase in ['Error', 'Failed']
+      send: [app-sync-failed]
+
+  template.app-sync-succeeded: |
+    message: |
+      🎉 Application {{.app.metadata.name}} 동기화 성공했어요!
+    slack:
+      attachments: |
+        [{
+          "title": "{{.app.metadata.name}}",
+          "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+          "color": "#18be52",
+          "fields": [{
+            "title": "동기화 상태",
+            "value": "{{.app.status.sync.status}}",
+            "short": true
+          }, {
+            "title": "저장소",
+            "value": "🔗 {{.app.spec.source.repoURL}}/{{.app.spec.source.path}}",
+            "short": true
+          }]
+        }]
+
+  template.app-sync-failed: |
+    message: |
+      ❌ Application {{.app.metadata.name}} 동기화 실패했어요...
+    slack:
+      attachments: |
+        [{
+          "title": "{{.app.metadata.name}}",
+          "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+          "color": "#e53935",
+          "fields": [{
+            "title": "동기화 상태",
+            "value": "{{.app.status.sync.status}}",
+            "short": true
+          }, {
+            "title": "에러 메시지",
+            "value": "{{with .app.status.operationState.message}}{{.}}{{else}}(에러 메시지 없음){{end}}",
+            "short": false
+          }]
+        }]
+```
+:::
+``` bash
+kubectl apply -f argocd-notifications-cm.yaml
+```
+``` bash
+kubectl rollout restart deployment argocd-notifications-controller -n argocd
+```
+
+## Argo CD 애플리케이션 생성
+### Argo CD 접속
 ``` txt
 https://argocd.example.com
 ```
@@ -429,7 +531,7 @@ https://argocd.example.com
 > kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 > ```
 
-#### Repositories 추가
+### Repositories 추가
 * `Settings` > `Repositories` > `Connect Repo`
 
 * 값 입력
@@ -444,7 +546,7 @@ https://argocd.example.com
 
 * 상단 `CONNET` 선택
 
-#### Application 생성
+### Application 생성
 * `Applications` > `NEW APP`
 
 * 값 입력
@@ -587,6 +689,17 @@ https://argocd.example.com
 > | argocd-image-updater.argoproj.io/myimage.allow-tags | regexp:.*-dev$ |
 > :::
 
+* 우측 상단 `SAVE` 를 선택하고 저장합니다.
 
-
+### Argo Notification 연동 (선택)
+* 상단 `DETAILS` > `SUMMARY` > `EDIT` 으로 진행합니다.
+* `ANNOTATIONS` 필드의 No itmes 하단의 `+` 를 선택합니다.
+* 다음을 차례로 입력합니다
+> | Name | Value (예시) |
+> | ------------------------------------------------------------ | ---------- | 
+> | notifications.argoproj.io/subscribe.on-sync-succeeded.slack  | my_channel |
+> | notifications.argoproj.io/subscribe.on-sync-failed.slack | my_channel |
+>
+> [공식문서 바로가기](https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/slack/)
+>
 * 우측 상단 `SAVE` 를 선택하고 저장합니다.
