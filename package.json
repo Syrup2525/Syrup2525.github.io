@@ -1,6 +1,6 @@
 {
   "name": "syrup-github-page",
-  "version": "1.11.11",
+  "version": "1.11.12",
   "main": "index.js",
   "scripts": {
     "docs:dev": "vitepress dev docs",

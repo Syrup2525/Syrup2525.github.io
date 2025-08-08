@@ -471,6 +471,11 @@ data:
     - when: app.status.operationState.phase in ['Error', 'Failed']
       send: [app-sync-failed]
 
+  trigger.on-deployed: |
+    - when: app.status.operationState.phase in ['Succeeded'] && app.status.health.status == 'Healthy'
+      oncePer: app.status.operationState.syncResult.revision
+      send: [app-sync-succeeded]
+
   template.app-sync-succeeded: |
     message: |
       🎉 Application {{.app.metadata.name}} 동기화 성공했어요!
@@ -694,11 +699,15 @@ https://argocd.example.com
 ### Argo Notification 연동 (선택)
 * 상단 `DETAILS` > `SUMMARY` > `EDIT` 으로 진행합니다.
 * `NOTIFICATION SUBSCRIPTIONS` 필드의 No itmes 하단의 `+` 를 선택합니다.
-* 다음을 차례로 입력합니다
+* 다음중 원하는 항목을 선택하여 입력합니다
+  - `on-sync-succeeded` 새로운 컨테이너 배포를 포함한 자동 Sync 에 성공한 경우
+  - `on-sync-failed` 새로운 컨테이너 배포를 포함한 자동 Sync 에 실패한 경우
+  - `on-deployed` 새로운 컨테이너 배포에 성공한 경우
 > | Name | Name | Name | Value (예시) |
 > | ------------------------------------|-------------------| ---- | ---------- | 
 > | notifications.argoproj.io/subscribe | on-sync-succeeded | slack | my_channel |
 > | notifications.argoproj.io/subscribe | on-sync-failed | slack | my_channel |
+> | notifications.argoproj.io/subscribe | on-deployed | slack | my_channel |
 >
 > [공식문서 바로가기](https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/slack/)
 >
