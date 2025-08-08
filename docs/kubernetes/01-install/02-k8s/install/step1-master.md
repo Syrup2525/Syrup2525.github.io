@@ -112,6 +112,8 @@ node-name 변경
 ::: code-group
 ```yaml [config.yaml]
 node-name: master1 # agent 이름
+node-ip: 192.168.1.100 # ip 가 2개 이상인 경우
+advertise-address: 192.168.1.100 # ip 가 2개 이상인 경우
 ```
 :::
 
