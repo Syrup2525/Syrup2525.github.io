@@ -1,7 +1,7 @@
 # Technitium DNS
 
 ::: tip
-[공식문서 바로가기](https://raw.githubusercontent.com/TechnitiumSoftware/DnsServer/master/APIDOCS.mㅓ)
+[공식문서 바로가기](https://raw.githubusercontent.com/TechnitiumSoftware/DnsServer/master/APIDOCS.md)
 :::
 
 ::: tip
@@ -113,13 +113,23 @@ curl -k \
 &listZone=true"
 ```
 
-<!-- ### 삭제
+### 삭제
+#### A 레코드 삭제
 ``` bash
 curl -k -X POST \
   "https://Primary_IP:8443/api/zones/records/delete\
 ?token=Primary_Token\
 &domain=example.com\
-&zone=example.com\
 &type=A\
-&value=127.0.0.1"
-``` -->
+&ipAddress=127.0.0.1"
+```
+
+#### TXT 레코드 삭제
+``` bash
+curl -k -X POST \
+  "https://Primary_IP:8443/api/zones/records/delete\
+?token=Primary_Token\
+&domain=txt.example.com\
+&type=TXT\
+&text=example_txt_value"
+```
