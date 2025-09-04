@@ -22,7 +22,7 @@ export default defineConfig({
       {
         text: 'CentOS',
         items: [
-          { text: 'Kafka',  link: '/centos/kafka/kraft.html'},
+          { text: 'Kafka', link: '/centos/kafka/kraft.html' },
           { text: 'Nginx', link: '/centos/nginx/install.html' },
           { text: 'Node.js', link: '/centos/nodejs/step1-nodejs' },
           { text: 'php (7.4)', link: '/centos/php/step1-phpfpm' },
@@ -35,8 +35,10 @@ export default defineConfig({
         text: 'Rocky Linux',
         items: [
           { text: '기본설정', link: '/rocky/base-setting.html' },
-          { text: '도커', link: '/rocky/docker/base/01-install.html'},
-          { text: 'MySQL 8', link: '/rocky/mysql.html'},
+          { text: '도커', link: '/rocky/docker/base/01-install.html' },
+          { text: 'Technitium DNS', link: '/rocky/technitium/api.html' },
+          { text: 'MySQL 8', link: '/rocky/mysql.html' },
+          { text: 'Nginx Reverse Proxy', link: '/rocky/nginx-reverse-proxy.html' },
         ],
       },
       {
@@ -89,12 +91,12 @@ export default defineConfig({
         {
           text: 'kubernetes 설치',
           items: [
-            { text: 'README.md', link: '/kubernetes/01-install/README.md'},
+            { text: 'README.md', link: '/kubernetes/01-install/README.md' },
             {
-              text: 'k3s 설치', 
+              text: 'k3s 설치',
               items: [
-                { text: 'k3s 설치', link: '/kubernetes/01-install/01-k3s/install/install'},
-                { text: '설치 제거 ', link: '/kubernetes/01-install/01-k3s/install/uninstall'},
+                { text: 'k3s 설치', link: '/kubernetes/01-install/01-k3s/install/install' },
+                { text: '설치 제거 ', link: '/kubernetes/01-install/01-k3s/install/uninstall' },
                 {
                   text: 'k3s 설정',
                   items: [
@@ -180,15 +182,15 @@ export default defineConfig({
             {
               text: 'Kafka',
               items: [
-                { text: "kraft 사용", link: '/centos/kafka/kraft'},
-                { text: "zookeeper 사용", link: '/centos/kafka/zookeeper'},
+                { text: "kraft 사용", link: '/centos/kafka/kraft' },
+                { text: "zookeeper 사용", link: '/centos/kafka/zookeeper' },
               ],
             },
             {
               text: 'Nginx',
               items: [
                 { text: "설치", link: '/centos/nginx/install' },
-                { 
+                {
                   text: 'SSL 적용',
                   items: [
                     { text: 'Lets encrypt 인증서 발급 (certbot 활용)', link: '/centos/nginx/ssl/certbot' },
@@ -237,7 +239,14 @@ export default defineConfig({
                 { text: '제거', link: '/rocky/docker/uninstall.html' },
               ]
             },
-            { text: 'MySQL 8', link: '/rocky/mysql.html'},
+            {
+              text: 'Technitium DNS',
+              items: [
+                { text: 'API', link: '/rocky/technitium/api.html' },
+              ]
+            },
+            { text: 'MySQL 8', link: '/rocky/mysql.html' },
+            { text: 'Nginx Reverse Proxy', link: '/rocky/nginx-reverse-proxy.html' },
           ],
         },
       ],
