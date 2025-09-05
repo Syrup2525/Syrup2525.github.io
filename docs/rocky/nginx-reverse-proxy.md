@@ -222,6 +222,17 @@ sudo chmod +x /usr/local/bin/sync-nginx-certs.sh
 ```
 
 ::: tip
+Secondary 가 여러개인 경우
+``` bash
+~/.acme.sh/acme.sh \
+  --install-cert -d example.com \
+  --key-file       /etc/nginx/ssl/example.com/key.pem \
+  --fullchain-file /etc/nginx/ssl/example.com/cert.pem \
+  --reloadcmd     "/usr/local/bin/sync-nginx-certs.sh example.com root@세컨더리_IP1 root@세컨더리_IP2 root@세컨더리_IP3"
+```
+:::
+
+::: tip
 acme 등록된 도메인 제거
 ``` bash
 ~/.acme.sh/acme.sh --remove -d example.com
