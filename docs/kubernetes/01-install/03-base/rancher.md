@@ -183,3 +183,14 @@ kubectl get secret --namespace cattle-system bootstrap-secret -o go-template='{{
 
 Happy Containering!
 ```
+
+## 다른 K8s Cluster 를 Import 하는 방법
+### Rancher UI 설정
+1. Rancher Web UI 좌측 하단 Global Setting 선택
+2. agent-tls-mode 항목의 값을 `Strict` 에서 `System Store` 로 변경
+
+### Cluster 추가
+1. 홈 화면에서 `Import Existing` 선택
+2. `Import any Kubernetes cluster` 항목에서 `Generic` 선택
+3. `Cluster Name` 항목 입력 후 우측 하단 `Create`
+4. `Run the kubectl command below on an existing Kubernetes cluster running a supported Kubernetes version to import it into Rancher:` 항목에 표시된 명령줄을 추가하고자 하는 Cluster 의 Node 에서 실행
