@@ -39,6 +39,7 @@ export default defineConfig({
           { text: 'Technitium DNS', link: '/rocky/technitium/api.html' },
           { text: 'MySQL 8', link: '/rocky/mysql.html' },
           { text: 'Nginx Reverse Proxy', link: '/rocky/nginx-reverse-proxy.html' },
+          { text: 'Gitlab', link: '/rocky/gitlab.html' },
         ],
       },
       {
@@ -247,6 +248,7 @@ export default defineConfig({
             },
             { text: 'MySQL 8', link: '/rocky/mysql.html' },
             { text: 'Nginx Reverse Proxy', link: '/rocky/nginx-reverse-proxy.html' },
+            { text: 'Gitlab', link: '/rocky/gitlab.html' },
           ],
         },
       ],

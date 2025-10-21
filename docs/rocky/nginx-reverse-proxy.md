@@ -13,7 +13,7 @@ SSL/TLS 인증을 받을 주체 서버를 `Primary`, 그 이외 서버를 `Secon
 ## `Primary` `Secondary` 공통
 1. 필요 패키지 설치 
 ``` bash
-yum install -y curl rsync nginx
+dnf install -y curl rsync nginx
 ```
 
 2. nginx 실행 및 enable 처리
