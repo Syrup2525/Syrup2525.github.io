@@ -113,10 +113,12 @@ sudo gitlab-ctl restart
 ```
 
 ### Reverse Proxy 설정
+#### gitlab.example.com
 ``` bash
-vi /etc/nginx/conf.d/example.com.conf
+vi /etc/nginx/conf.d/gitlab.example.com.conf
 ```
-``` txt
+::: code-group
+``` txt [gitlab.example.com.conf]
 # /etc/nginx/conf.d/gitlab.example.com.conf
 server {
     listen 443 ssl http2;
@@ -141,6 +143,42 @@ server {
     return 301 https://$host$request_uri;
 }
 ```
+:::
+
+#### registry.example.com
+``` bash
+vi /etc/nginx/conf.d/registry.example.com.conf
+```
+::: code-group
+``` txt [registry.example.com.conf]
+# /etc/nginx/conf.d/registry.example.com.conf
+server {
+    listen 443 ssl http2;
+    server_name registry.example.com;
+
+    ssl_certificate     /etc/nginx/ssl/registry.example.com/cert.pem;
+    ssl_certificate_key /etc/nginx/ssl/registry.example.com/key.pem;
+
+    client_max_body_size 0;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# HTTP → HTTPS 리다이렉트
+server {
+    listen 80;
+    server_name gitlab.example.com;
+    return 301 https://$host$request_uri;
+}
+```
+:::
+
 ::: tip
 더 자세한 설정은 [Nginx Reverse Proxy](/rocky/nginx-reverse-proxy) 참고
 :::
