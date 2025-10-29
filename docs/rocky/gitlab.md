@@ -230,8 +230,6 @@ sudo dnf install -y gitlab-runner
 sudo gitlab-runner register
 ```
 
-::: tip
-::: details DinD (docker in docker) 방식으로 설치할때
 Docker 환경 준비
 ``` bash
 sudo dnf install -y dnf-plugins-core
@@ -294,10 +292,37 @@ sudo vi /etc/gitlab-runner/config.toml
 >     shm_size = 0
 >     network_mtu = 0
 > ```
-> :::
 
 설정 적용
 ``` bash
 sudo systemctl restart gitlab-runner
+```
+
+### .gitlab-ci.yml 예시
+::: code-group
+``` yml [.gitlab-ci.yml]
+image: docker:24.0.6
+
+variables:
+  REGISTRY: registry.example.com
+  IMAGE_NAME: sample/sample
+
+stages:
+  - push
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $REGISTRY
+  - apk update
+  - apk add --no-cache docker-cli jq curl
+
+push:
+  stage: push
+  tags: 
+    - dind
+  script:
+    - export VERSION=$(jq -r .version package.json)
+    - docker build -t $REGISTRY/$IMAGE_NAME:$VERSION -t $REGISTRY/$IMAGE_NAME:latest .
+    - docker push $REGISTRY/$IMAGE_NAME:$VERSION
+    - docker push $REGISTRY/$IMAGE_NAME:latest
 ```
 :::
