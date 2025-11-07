@@ -12,7 +12,7 @@ docker run --rm -it -v "$(pwd)":/work -w /work alpine:3.16 sh
 
 개인키 추출
 ``` bash
-openssl pkcs12 -in WILD.gobikebank.com.pfx -nocerts -out tls.key.encrypted
+openssl pkcs12 -in WILD.example.com.pfx -nocerts -out tls.key.encrypted
 ```
 
 비밀번호 제거
@@ -22,7 +22,7 @@ openssl rsa -in tls.key.encrypted -out tls.key
 
 서버 인증서 추출
 ``` bash
-openssl pkcs12 -in WILD.gobikebank.com.pfx -clcerts -nokeys -out server.crt
+openssl pkcs12 -in WILD.example.com.pfx -clcerts -nokeys -out server.crt
 ```
 
 p7b (CA 체인) 파일을 PEM 형식으로 변환
