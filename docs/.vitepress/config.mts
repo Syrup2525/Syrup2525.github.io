@@ -83,7 +83,13 @@ export default defineConfig({
               { text: "특정 프로시저 복제 (이관)", link: "/util/mysql/proc-replica" },
               { text: "특정 프로시저 삭제", link: "/util/mysql/proc-delete" },
             ]
-          }
+          },
+          {
+            text: "OpenSSL",
+            items: [
+              { text: "IIS 인증서 Linux 변경", link: "/util/openssl/key-change" },
+            ]
+          },
         ]
       },
     ],
@@ -300,7 +306,13 @@ export default defineConfig({
                 { text: "특정 프로시저 복제 (이관)", link: "/util/mysql/proc-replica" },
                 { text: "특정 프로시저 삭제", link: "/util/mysql/proc-delete" },
               ]
-            }
+            },
+            {
+              text: "OpenSSL",
+              items: [
+                { text: "IIS 인증서 Linux 변경", link: "/util/openssl/key-change" },
+              ]
+            },
           ]
         }
       ],
