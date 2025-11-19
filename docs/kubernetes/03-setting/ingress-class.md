@@ -64,30 +64,3 @@ kubectl get pods -n traefik-8443
 ``` bash
 netstat -tnlp | grep 8443
 ```
-
-## IngressClass 사용
-아래는 예시입니다.
-``` yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: example
-  namespace: example
-spec:
-  ingressClassName: traefik-8443 # 신규 ingressClass 적용 // [!code warning]
-  rules:
-    - host: example.com
-      http:
-        paths:
-          - backend:
-              service:
-                name: someservice
-                port:
-                  number: 80
-            path: /someservice
-            pathType: ImplementationSpecific
-  tls:
-    - hosts:
-        - example.com
-      secretName: example.com-tls
-```
