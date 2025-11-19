@@ -140,6 +140,7 @@ export default defineConfig({
           text: '쿠버네티스 설정 및 튜닝',
           items: [
             { text: 'Ingress', link: '/kubernetes/03-setting/ingress' },
+            { text: 'IngressClass', link: '/kubernetes/03-setting/ingress-class' },
             { text: 'Tuning', link: '/kubernetes/03-setting/tuning' },
           ],
         },
