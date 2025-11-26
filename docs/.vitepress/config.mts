@@ -35,11 +35,12 @@ export default defineConfig({
         text: 'Rocky Linux',
         items: [
           { text: '기본설정', link: '/rocky/base-setting.html' },
-          { text: '도커', link: '/rocky/docker/base/01-install.html' },
+          { text: 'Docker', link: '/rocky/docker/base/01-install.html' },
           { text: 'Technitium DNS', link: '/rocky/technitium/api.html' },
           { text: 'MySQL 8', link: '/rocky/mysql.html' },
           { text: 'Nginx Reverse Proxy', link: '/rocky/nginx-reverse-proxy.html' },
           { text: 'Gitlab', link: '/rocky/gitlab.html' },
+          { text: 'Nexus Repository', link: '/rocky/nexus.html' },
         ],
       },
       {
@@ -234,7 +235,7 @@ export default defineConfig({
           items: [
             { text: '기본설정', link: '/rocky/base-setting.html' },
             {
-              text: '도커',
+              text: 'Docker',
               items: [
                 {
                   text: '기초 작업',
@@ -256,6 +257,7 @@ export default defineConfig({
             { text: 'MySQL 8', link: '/rocky/mysql.html' },
             { text: 'Nginx Reverse Proxy', link: '/rocky/nginx-reverse-proxy.html' },
             { text: 'Gitlab', link: '/rocky/gitlab.html' },
+            { text: 'Nexus Repository', link: '/rocky/nexus.html' },
           ],
         },
       ],
