@@ -32,6 +32,12 @@ ports:
     expose:
       default: true
     protocol: TCP
+  metrics:
+    port: 9101          # 별도 prometheus 구성을 위해 metrics 기본 포트 변경
+    expose:
+      default: false
+    exposedPort: 9101
+    protocol: TCP
 
 additionalArguments:
   - "--entryPoints.websecure.address=:8443"
