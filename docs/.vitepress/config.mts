@@ -27,7 +27,7 @@ export default defineConfig({
           { text: 'Node.js', link: '/centos/nodejs/step1-nodejs' },
           { text: 'php (7.4)', link: '/centos/php/step1-phpfpm' },
           { text: 'Docker', link: '/centos/docker' },
-          // { text: "MongoDB", link: "/centos/mongodb" },
+          { text: "MongoDB", link: "/centos/mongodb" },
           { text: "MySQL 8", link: "/centos/mysql8" },
         ],
       },
@@ -224,7 +224,7 @@ export default defineConfig({
               ]
             },
             { text: 'Docker', link: '/centos/docker' },
-            // { text: "MongoDB", link: "/centos/mongodb" },
+            { text: "MongoDB", link: "/centos/mongodb" },
             { text: "mysql", link: "/centos/mysql8" },
           ]
         }
