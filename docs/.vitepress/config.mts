@@ -75,21 +75,27 @@ export default defineConfig({
         ],
       },
       {
-        text: "Util",
+        text: "Etc",
         items: [
           {
             text: "MySQL 8",
             items: [
-              { text: "모든 프로시저 복제", link: "/util/mysql/proc-clone-init" },
-              { text: "특정 프로시저 복제", link: "/util/mysql/proc-clone" },
-              { text: "특정 프로시저 복제 (이관)", link: "/util/mysql/proc-replica" },
-              { text: "특정 프로시저 삭제", link: "/util/mysql/proc-delete" },
+              { text: "모든 프로시저 복제", link: "/etc/mysql/proc-clone-init" },
+              { text: "특정 프로시저 복제", link: "/etc/mysql/proc-clone" },
+              { text: "특정 프로시저 복제 (이관)", link: "/etc/mysql/proc-replica" },
+              { text: "특정 프로시저 삭제", link: "/etc/mysql/proc-delete" },
             ]
           },
           {
             text: "OpenSSL",
             items: [
-              { text: "IIS 인증서 Linux 변경", link: "/util/openssl/key-change" },
+              { text: "IIS 인증서 Linux 변경", link: "/etc/openssl/key-change" },
+            ]
+          },
+          {
+            text: "GCP (VM)",
+            items: [
+              { text: "기본 설정", link: "/etc/gcp" },
             ]
           },
         ]
@@ -300,23 +306,29 @@ export default defineConfig({
           ]
         }
       ],
-      "/util/": [
+      "/etc/": [
         {
-          text: "Util",
+          text: "Etc",
           items: [
             {
               text: "MySQL 8",
               items: [
-                { text: "모든 프로시저 복제", link: "/util/mysql/proc-clone-init" },
-                { text: "특정 프로시저 복제", link: "/util/mysql/proc-clone" },
-                { text: "특정 프로시저 복제 (이관)", link: "/util/mysql/proc-replica" },
-                { text: "특정 프로시저 삭제", link: "/util/mysql/proc-delete" },
+                { text: "모든 프로시저 복제", link: "/etc/mysql/proc-clone-init" },
+                { text: "특정 프로시저 복제", link: "/etc/mysql/proc-clone" },
+                { text: "특정 프로시저 복제 (이관)", link: "/etc/mysql/proc-replica" },
+                { text: "특정 프로시저 삭제", link: "/etc/mysql/proc-delete" },
               ]
             },
             {
               text: "OpenSSL",
               items: [
-                { text: "IIS 인증서 Linux 변경", link: "/util/openssl/key-change" },
+                { text: "IIS 인증서 Linux 변경", link: "/etc/openssl/key-change" },
+              ]
+            },
+            {
+              text: "GCP (VM)",
+              items: [
+                { text: "기본 설정", link: "/etc/gcp" },
               ]
             },
           ]
