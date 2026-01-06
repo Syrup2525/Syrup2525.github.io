@@ -243,6 +243,7 @@ export default defineConfig({
                     { text: '01. 설치', link: '/rocky/docker/base/01-install.html' },
                     { text: '02. Traefik', link: '/rocky/docker/base/02-traefik.html' },
                     { text: '03. Portainer', link: '/rocky/docker/base/03-portainer.html' },
+                    { text: '04. App', link: '/rocky/docker/base/04-app.html' },
                   ]
                 },
                 { text: '제거', link: '/rocky/docker/uninstall.html' },
