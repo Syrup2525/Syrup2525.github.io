@@ -33,6 +33,8 @@ services:
       - "--entrypoints.websecure.address=:443"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure" # http > https 자동 리다이렉트
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https" # http > https 자동 리다이렉트
       - "--certificatesresolvers.le.acme.httpchallenge=true"
       - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
       - "--certificatesresolvers.le.acme.email=example@email.com"

@@ -60,6 +60,29 @@ networks:
 ```
 :::
 
+::: details 서브 도메인 또는 최상위 도메인이 아닌 하위 경로로 라우팅 하는 경우
+::: code-group
+``` yml [docker-compose.yml] {8}
+services:
+  node-app:
+    image: ghcr.io/NAMESPACE/IMAGE_NAME:2.5 # 컨테이너 이미지 주소
+    container_name: example-container
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.example-container.rule=Host(`example.com`) && (Path(`/example`) || PathPrefix(`/example/`))"
+      - "traefik.http.routers.example-container.entrypoints=websecure"
+      - "traefik.http.routers.example-container.tls.certresolver=le"
+      - "traefik.http.services.example-container.loadbalancer.server.port=3000"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
+```
+:::
+
 ### GitHub 업로드
 작성한 소스코드를 GitHub 에 업로드 합니다.
 ``` bash
@@ -71,11 +94,22 @@ git push -u origin main
 ```
 
 ## Portainer 배포
+### Registry 설정
+좌측 메뉴 `registries` > `Custom Registry`
+| 항목                     | 상세 항목            | 예시  |
+| ----------------------- | ------------------ | --- |
+| Custom registry details | Name               | ghcr.io |
+|                         | Registry URL       | ghcr.io |
+|                         | Authentication 토글 | On |
+|                         | Username | GitHub Id (username) 입력 |
+|                         | Password | GitHub token 입력 ([GitHub tokens](https://github.com/settings/tokens)) |
+
+### Stack 배포
 `Stacks` > `Add stack` > `Repository`
 
 | 항목            | 상세 항목                   | 설명 (또는 예시) |
 | -------------- | ------------------------- | ------------ |
-| Git repository | `Authentication` 토글 `On` |              | 
+| Git repository | Authentication 토글        | On           | 
 |                | Username                  | GitHub Id (username) 입력 |
 |                | Personal Access Token     | GitHub token 입력 ([GitHub tokens](https://github.com/settings/tokens)) |
 |                | Repository URL            | https://github.com/NAMESPACE/example.git |

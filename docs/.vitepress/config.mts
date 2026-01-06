@@ -41,6 +41,7 @@ export default defineConfig({
           { text: 'Nginx Reverse Proxy', link: '/rocky/nginx-reverse-proxy.html' },
           { text: 'Gitlab', link: '/rocky/gitlab.html' },
           { text: 'Nexus Repository', link: '/rocky/nexus.html' },
+          { text: 'Redis', link: '/rocky/redis.html' },
         ],
       },
       {
@@ -259,6 +260,7 @@ export default defineConfig({
             { text: 'Nginx Reverse Proxy', link: '/rocky/nginx-reverse-proxy.html' },
             { text: 'Gitlab', link: '/rocky/gitlab.html' },
             { text: 'Nexus Repository', link: '/rocky/nexus.html' },
+            { text: 'Redis', link: '/rocky/redis.html' },
           ],
         },
       ],
